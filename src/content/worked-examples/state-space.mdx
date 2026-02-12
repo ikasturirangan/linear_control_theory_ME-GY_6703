@@ -1,0 +1,88 @@
+---
+title: State-Space Worked Example
+description: Compute controllability and observability matrices step by step.
+---
+
+# State-Space Worked Example
+
+## Problem
+
+Given:
+
+$$
+A=\begin{bmatrix}0&1\\-2&-3\end{bmatrix},\quad
+B=\begin{bmatrix}0\\1\end{bmatrix},\quad
+C=\begin{bmatrix}1&0\end{bmatrix}
+$$
+
+Check controllability and observability.
+
+## Solution
+
+### Step 1: Controllability matrix
+
+$$
+\mathcal{C}=[B\ AB]
+$$
+
+Compute $AB$:
+
+$$
+AB=
+\begin{bmatrix}0&1\\-2&-3\end{bmatrix}
+\begin{bmatrix}0\\1\end{bmatrix}
+=
+\begin{bmatrix}1\\-3\end{bmatrix}
+$$
+
+So:
+
+$$
+\mathcal{C}=
+\begin{bmatrix}
+0 & 1 \\
+1 & -3
+\end{bmatrix}
+$$
+
+$$
+\det(\mathcal{C})=(0)(-3)-(1)(1)=-1\neq0
+$$
+
+Rank is 2, so system is controllable.
+
+### Step 2: Observability matrix
+
+$$
+\mathcal{O}=
+\begin{bmatrix}
+C \\
+CA
+\end{bmatrix}
+$$
+
+Compute $CA$:
+
+$$
+CA=
+\begin{bmatrix}1&0\end{bmatrix}
+\begin{bmatrix}0&1\\-2&-3\end{bmatrix}
+=
+\begin{bmatrix}0&1\end{bmatrix}
+$$
+
+Thus:
+
+$$
+\mathcal{O}=
+\begin{bmatrix}
+1&0\\
+0&1
+\end{bmatrix}
+$$
+
+Rank is 2, so system is observable.
+
+## Final answer
+
+The given realization is both controllable and observable.

@@ -1,0 +1,88 @@
+---
+title: 3.13 LQR and MPC
+description: Introduce optimization-based control for multi-objective and constrained systems.
+---
+
+# 3.13 LQR and MPC
+
+## Learning goals
+
+1. Understand LQR objective and optimal state feedback structure.
+2. Understand MPC receding-horizon optimization idea.
+3. Compare LQR vs MPC usage contexts.
+
+## LQR essentials
+
+Continuous-time LQR minimizes:
+
+$$
+J=\int_0^{\infty}(x^TQx+u^TRu)dt
+$$
+
+Resulting optimal control:
+
+$$
+u=-Kx
+$$
+
+$Q$ and $R$ tune state penalty vs control effort penalty.
+
+## MPC essentials
+
+MPC solves a finite-horizon optimization repeatedly:
+
+1. Predict future behavior with model.
+2. Optimize control sequence under constraints.
+3. Apply first control action.
+4. Shift horizon and repeat.
+
+MPC is powerful when constraints are central (input, state, output limits).
+
+## LQR vs MPC (quick compare)
+
+| Aspect | LQR | MPC |
+| --- | --- | --- |
+| Optimization timing | Offline (gain computed once) | Online at each sample |
+| Constraint handling | Indirect/limited | Direct, explicit |
+| Computation | Low | Higher |
+| Typical use | Fast embedded linear systems | Multivariable constrained systems |
+
+## Beginner guidance
+
+Start with LQR for intuition about optimal weighting.
+Move to MPC when constraints and prediction window logic are needed.
+
+## How to tune LQR weights (quick intuition)
+
+- Increase entries in $Q$ for states you want tightly regulated.
+- Increase entries in $R$ to penalize aggressive control effort.
+
+High $Q$/low $R$ usually gives faster response but larger actuator demand.
+Low $Q$/high $R$ gives gentler control but slower regulation.
+
+## Why MPC is often chosen in industry
+
+MPC handles constraints explicitly at design time:
+
+- actuator saturation,
+- rate limits,
+- safety bounds on states/outputs.
+
+This is critical in chemical process, energy, automotive, and robotics applications.
+
+## Common beginner mistakes
+
+- Treating LQR/MPC as \"automatic best\" without model validation.
+- Ignoring state-estimation quality when implementing MPC/LQR on real systems.
+- Choosing horizon/weights arbitrarily without checking closed-loop behavior.
+
+## Try it now
+
+1. Change $Q$ and $R$ weights in an LQR example and observe tradeoffs.
+2. Add actuator limits and explain why MPC becomes attractive.
+
+## Citations
+
+- [R2](/syllabus/references#r2)
+- [R10](/syllabus/references#r10)
+- [R11](/syllabus/references#r11)

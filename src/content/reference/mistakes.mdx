@@ -1,0 +1,45 @@
+---
+title: Common Mistakes
+description: High-frequency errors students make in linear control courses.
+---
+
+# Common Mistakes
+
+## 1. Wrong feedback sign
+
+Using $e=y-r$ instead of $e=r-y$ without checking diagram sign.
+This can invert controller action.
+
+## 2. Confusing controller and actuator
+
+Controller computes command; actuator applies physical effort.
+Mixing these breaks block-diagram interpretation.
+
+## 3. Ignoring units
+
+You can subtract $r$ and $y$ only if they share units.
+Also, $u$ can have different units from output.
+
+## 4. Assuming linearity everywhere
+
+A linear model is usually local.
+Saturation, friction, and dead zones can dominate away from operating point.
+
+## 5. Misreading pole locations
+
+For continuous time, stability depends on pole real parts, not magnitudes.
+Right-half plane poles imply instability.
+
+## 6. Forgetting initial-condition assumptions
+
+Transfer-function derivation typically assumes zero initial conditions.
+If initial conditions are nonzero, response includes extra terms.
+
+## 7. Rank check errors in state-space
+
+Students often compute $AB$ or $CA$ incorrectly and then conclude wrong controllability/observability.
+Show matrix multiplication explicitly.
+
+## 8. Tuning for speed only
+
+Pushing bandwidth without damping/robustness checks can cause oscillation and poor disturbance tolerance.

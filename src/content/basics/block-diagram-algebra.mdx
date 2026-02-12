@@ -1,0 +1,97 @@
+---
+title: Block Diagram Algebra
+description: Reduce control block diagrams into one equivalent transfer function.
+---
+
+# Block Diagram Algebra
+
+Block-diagram algebra is how you convert a control wiring picture into equations you can analyze.
+
+## Why this matters
+
+If you can reduce a diagram to one equivalent transfer function, you can immediately study:
+
+- poles and zeros
+- stability
+- step response
+- steady-state error
+
+## Block Diagram A: Series Connection
+
+```text
+r ---> [ G1(s) ] ---> [ G2(s) ] ---> y
+```
+
+Equivalent transfer function:
+
+$$
+G_{eq}(s) = G_1(s)G_2(s)
+$$
+
+Interpretation: signals pass through both blocks one after another, so effects multiply.
+
+## Block Diagram B: Parallel Connection
+
+```text
+                 +--> [ G1(s) ] --+
+r ---> (split) --|                 +--> (sum) ---> y
+                 +--> [ G2(s) ] --+
+```
+
+Equivalent transfer function (if summed with same sign):
+
+$$
+G_{eq}(s) = G_1(s) + G_2(s)
+$$
+
+Interpretation: both paths see the same input and outputs are added.
+
+## Block Diagram C: Single Negative-Feedback Loop
+
+```text
+                 +------------ [ H(s) ] ------------+
+                 |                                   |
+r ---> ( + ) ---> [ G(s) ] ------------------------> y
+       ( - ) ^                                       
+             +---------------------------------------+
+```
+
+Equivalent closed-loop transfer function:
+
+$$
+T(s) = \frac{Y(s)}{R(s)} = \frac{G(s)}{1 + G(s)H(s)}
+$$
+
+For positive feedback, denominator changes to $1 - G(s)H(s)$.
+
+## One quick reduction example
+
+Suppose:
+
+- $G_1(s)=\frac{5}{s+1}$
+- $G_2(s)=\frac{2}{s+4}$
+- Unity feedback, so $H(s)=1$
+
+1. Combine series forward path:
+   $$
+   G(s)=G_1G_2=\frac{10}{(s+1)(s+4)}
+   $$
+2. Apply feedback formula:
+   $$
+   T(s)=\frac{G}{1+G}=\frac{10}{(s+1)(s+4)+10}
+   $$
+
+Now the whole system is one transfer function ready for analysis.
+
+## Beginner checklist
+
+When reducing diagrams:
+
+1. Identify series chunks first.
+2. Identify parallel chunks next.
+3. Apply feedback formula last.
+4. Re-check feedback sign at the summing node.
+
+## Next step
+
+Use this skill with [Worked Fundamentals Example](/worked-examples/fundamentals).

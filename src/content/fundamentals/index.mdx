@@ -1,0 +1,63 @@
+---
+title: Modeling and Transfer Functions
+description: Build linear models from physical laws, then convert them into transfer functions.
+---
+
+# Modeling and Transfer Functions
+
+This chapter turns physical intuition into math you can compute with.
+
+If you are completely new, read [Transfer Functions for Absolute Beginners](/fundamentals/transfer-functions-beginner) first.
+
+## Core workflow
+
+1. Write a differential equation from physics.
+2. Choose input $u(t)$ and output $y(t)$ clearly.
+3. Apply Laplace transform under zero initial conditions.
+4. Form the transfer function $G(s)=Y(s)/U(s)$.
+
+## Canonical model form
+
+For a linear time-invariant differential equation:
+
+<EquationHelp hint="This equation says output derivatives are weighted and summed, then related to weighted input derivatives. It is the most general LTI differential-equation template.">
+
+$$
+a_n y^{(n)}(t) + a_{n-1} y^{(n-1)}(t) + \cdots + a_0 y(t)
+=
+b_m u^{(m)}(t) + \cdots + b_0 u(t)
+$$
+
+</EquationHelp>
+
+Laplace transform gives:
+
+<EquationHelp hint="This is the transfer function definition in practice: output over input in the Laplace domain with zero initial conditions. Numerator sets zeros; denominator sets poles.">
+
+$$
+G(s)=\frac{Y(s)}{U(s)}=\frac{b_m s^m + \cdots + b_0}{a_n s^n + \cdots + a_0}
+$$
+
+</EquationHelp>
+
+## What to read from $G(s)$ quickly
+
+- Poles: natural modes, stability tendency, dominant speed.
+- Zeros: shape transient behavior and can create undershoot/overshoot changes.
+- DC gain: low-frequency scaling between input and output.
+- Relative degree: hints about high-frequency roll-off and physical realizability.
+
+## Common modeling traps
+
+- Mixing force and acceleration units.
+- Forgetting zero initial condition assumption when defining transfer function.
+- Choosing output that is not what the sensor actually measures.
+
+## Where to go next
+
+- Start here if brand new: [Transfer Functions for Absolute Beginners](/fundamentals/transfer-functions-beginner)
+- For response-shape intuition: [First vs Second Order Behavior](/fundamentals/first-second-order)
+- For frequency-domain design intuition: [Frequency Response and Bode Plots](/fundamentals/frequency-response-bode)
+- For a full solved calculation: [Worked Fundamentals Example](/worked-examples/fundamentals)
+- For drills: [Fundamentals Practice Set](/practice/fundamentals)
+- For syllabus-aligned deep notes: [Module 3.1](/syllabus/3-1-modeling-ode-transfer-functions) and [Module 3.2](/syllabus/3-2-steady-state-error-closed-loop-performance)

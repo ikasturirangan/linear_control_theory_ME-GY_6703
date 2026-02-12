@@ -1,0 +1,99 @@
+---
+title: Open Loop vs. Closed Loop
+description: Why feedback is the most important idea in this course.
+---
+
+# Open Loop vs. Closed Loop
+
+Feedback is the most important word in control theory.
+It separates "send a command and hope" from "measure and correct."
+Use the two block diagrams below as your visual anchor.
+
+```text
+Block Diagram 2: Open Loop
+
+r(t) ---> [ Controller ] ---> [ Actuator ] ---> [ Plant ] ---> y(t)
+
+No measured output is sent back to the controller.
+```
+
+```text
+Block Diagram 3: Closed Loop (Feedback)
+
+                      +---------------- [ Sensor ] ----------------+
+                      |                                            |
+r(t) ---> ( + ) ---> [ Controller ] ---> [ Actuator ] ---> [ Plant ] ---> y(t)
+           ( - ) ^                                           
+                 +----------------------------------------------+
+```
+
+## Open Loop
+
+You give a command and do not check whether the result was right.
+This is Block Diagram 2.
+
+Example: a toaster.
+You set a time and wait.
+It does not know whether the bread is pale or burnt.
+
+### Why engineers still use it
+
+- Simple
+- Cheap
+- Easy to implement
+
+### Core weakness
+
+It cannot correct disturbances or model mismatch.
+
+If line voltage changes, bread thickness changes, or room temperature changes, the controller does nothing about it.
+
+## Closed Loop (Feedback)
+
+You measure output, compute error, and adjust in real time.
+This is Block Diagram 3, where measured output returns to the input summing node.
+
+Example: a thermostat.
+It checks room temperature and keeps heating until target temperature is reached.
+
+### Why it is powerful
+
+- Rejects disturbances
+- Corrects mismatch between model and reality
+- Usually more accurate
+
+### Tradeoff
+
+More sensors, design effort, and tuning are required.
+
+## Side-by-side comparison
+
+| Question | Open Loop | Closed Loop |
+| --- | --- | --- |
+| Uses measured output? | No | Yes |
+| Handles disturbances well? | Poorly | Much better |
+| Implementation complexity | Lower | Higher |
+| Typical accuracy | Lower | Higher |
+
+## Important nuance
+
+Feedback is not "always better" automatically.
+Badly tuned feedback can oscillate or even become unstable.
+So closed-loop control gives more power, but also more responsibility in design.
+Block Diagram 3 adds capability, but tuning determines whether that capability is used well.
+
+## Rule of thumb for beginners
+
+If performance matters and disturbances exist, you almost always want feedback.
+
+## Check yourself
+
+Classify each as open or closed loop:
+
+1. Sprinkler on a fixed timer.
+2. Robot arm using encoder feedback.
+3. Oven heater with only a countdown knob.
+
+## Continue
+
+If this is clear, move to [The Language of Signals](/basics/signals) and [Block Diagram Algebra](/basics/block-diagram-algebra).

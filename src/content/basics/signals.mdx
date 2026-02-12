@@ -1,0 +1,82 @@
+---
+title: The Language of Signals
+description: The standard symbols used on almost every control diagram.
+---
+
+# The Language of Signals
+
+Control diagrams are arrows carrying signals.
+The symbols below appear in almost every textbook and lecture.
+
+| Symbol | Name | Easy English |
+| --- | --- | --- |
+| `r(t)` | Reference | Your goal (for example, 70 degrees). |
+| `y(t)` | Output | The reality (for example, 68 degrees). |
+| `e(t)` | Error | The gap: goal minus reality, `r(t) - y(t)`. |
+| `u(t)` | Control Signal | The effort sent to the actuator. |
+
+`(t)` means the quantity changes over time.
+
+## How they connect
+
+In a basic feedback loop:
+
+- Error is computed as `e(t) = r(t) - y(t)`
+- The controller uses `e(t)` to generate `u(t)`
+- The plant responds and produces `y(t)`
+
+```text
+Block Diagram 4: Signal Labels in a Negative-Feedback Loop
+
+                        +-------------------- y(t) --------------------+
+                        |                                               |
+r(t) ---> ( + ) ---> e(t) ---> [ Controller ] ---> u(t) ---> [ Plant ] ---> y(t)
+           ( - ) ^                                           
+                 +---------------------- [ Sensor ] --------------------+
+```
+
+Use Block Diagram 4 to map every symbol to a physical meaning.
+
+## One concrete number example
+
+Suppose a room temperature controller has:
+
+- `r(t) = 22` degC (target)
+- `y(t) = 20` degC (measured)
+
+Then:
+
+- `e(t) = 22 - 20 = 2` degC
+
+A positive error tells the controller to increase heating effort, so `u(t)` goes up.
+In Block Diagram 4, this means the signal leaving `[ Controller ]` increases.
+
+## Sign convention note
+
+Most beginner diagrams use negative feedback:
+
+`e(t) = r(t) - y(t)`
+
+If you accidentally flip it to `y(t) - r(t)`, the system may push in the wrong direction.
+That sign choice is the `(+/-)` node in Block Diagram 4.
+
+## Common mistakes
+
+- Mixing up `u(t)` and `y(t)`:
+  `u(t)` is what you command, `y(t)` is what nature gives back.
+- Ignoring units:
+  `e(t)` has same unit as `r(t)` and `y(t)`, but `u(t)` can be different (volts, torque, valve %).
+
+When these four symbols are clear, block diagrams and equations become much easier to read.
+
+## Check yourself
+
+If target speed is `30 m/s` and measured speed is `27 m/s`, what are:
+
+- `r(t)`
+- `y(t)`
+- `e(t)`
+
+## Continue
+
+Use these labels while practicing [Block Diagram Algebra](/basics/block-diagram-algebra).

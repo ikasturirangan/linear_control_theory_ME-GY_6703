@@ -1,0 +1,65 @@
+---
+title: 3.11 Controllability, Observability, Ackermann's Formula
+description: Verify structural design conditions and compute state-feedback gain for desired poles.
+---
+
+# 3.11 Controllability, Observability, Ackermann's Formula
+
+## Learning goals
+
+1. Test controllability and observability with rank checks.
+2. Understand why these are prerequisites for state-space design.
+3. Apply Ackermann's formula for pole placement in SISO systems.
+
+## Controllability and observability tests
+
+$$
+\mathcal{C}=[B\ AB\ A^2B\ \dots\ A^{n-1}B]
+$$
+
+$$
+\mathcal{O}=\begin{bmatrix}C\\CA\\CA^2\\\vdots\\CA^{n-1}\end{bmatrix}
+$$
+
+Need full rank $n$ for each property.
+
+## Why this is non-negotiable
+
+- Not controllable -> some modes cannot be moved by input.
+- Not observable -> some modes cannot be reconstructed from output.
+
+Any pole-placement/observer design without these checks is invalid.
+
+## Physical intuition
+
+- Controllability asks: can actuators move every dynamic mode?
+- Observability asks: can sensors reveal every dynamic mode?
+
+If answer is no for either, some desired behaviors are mathematically unreachable regardless of tuning effort.
+
+## Ackermann formula (SISO)
+
+For controllable pair $(A,B)$:
+
+$$
+K = e_n^T\mathcal{C}^{-1}\phi(A)
+$$
+
+where $\phi(A)$ is desired characteristic polynomial evaluated at $A$.
+
+## Common pitfalls
+
+- Applying Ackermann to non-controllable systems.
+- Numerical issues from directly inverting ill-conditioned controllability matrix.
+- Choosing unrealistic desired poles (too fast for actuator/sensor limits).
+
+## Try it now
+
+For a 2-state system, compute $\mathcal{C}$ rank before applying Ackermann.
+Then place poles at chosen stable locations.
+
+## Citations
+
+- [R1](/syllabus/references#r1)
+- [R2](/syllabus/references#r2)
+- [R4](/syllabus/references#r4)

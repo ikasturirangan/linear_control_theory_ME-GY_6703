@@ -1,0 +1,60 @@
+---
+title: Fundamentals Worked Example
+description: Derive transfer function and key dynamic properties from a mass-spring-damper model.
+---
+
+# Fundamentals Worked Example
+
+## Problem
+
+For a mass-spring-damper system:
+
+$$
+m\ddot{x}+c\dot{x}+kx=f(t)
+$$
+
+with $m=1$, $c=4$, $k=5$:
+
+1. Derive transfer function $G(s)=X(s)/F(s)$.
+2. Find poles.
+3. State whether the plant is stable.
+
+## Solution
+
+### Step 1: Laplace transform
+
+Assume zero initial conditions:
+
+$$
+(ms^2+cs+k)X(s)=F(s)
+$$
+
+Hence:
+
+$$
+G(s)=\frac{X(s)}{F(s)}=\frac{1}{ms^2+cs+k}=\frac{1}{s^2+4s+5}
+$$
+
+### Step 2: Pole calculation
+
+Solve denominator:
+
+$$
+s^2+4s+5=0
+$$
+
+$$
+s=\frac{-4\pm\sqrt{16-20}}{2}=-2\pm j
+$$
+
+### Step 3: Stability
+
+Both poles have real part $-2<0$.
+Therefore the open-loop plant is asymptotically stable.
+
+## Extra interpretation
+
+- Natural frequency: $\omega_n=\sqrt{5}$
+- Damping ratio: $\zeta=\frac{4}{2\sqrt{5}}=\frac{2}{\sqrt{5}}\approx0.894$
+
+This is a fairly well-damped second-order system.

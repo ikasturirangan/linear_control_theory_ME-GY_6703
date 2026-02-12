@@ -1,0 +1,72 @@
+---
+title: Stability Worked Example
+description: Determine stable gain range and response trend for a unity-feedback loop.
+---
+
+# Stability Worked Example
+
+## Problem
+
+Unity-feedback system with open-loop plant:
+
+$$
+G(s)=\frac{K}{s(s+2)}
+$$
+
+Tasks:
+
+1. Find characteristic equation.
+2. Find gain range for asymptotic stability.
+3. Describe overshoot trend as $K$ increases in stable range.
+
+## Solution
+
+### Step 1: Characteristic equation
+
+Closed-loop denominator for unity feedback:
+
+$$
+1+G(s)=0 \Rightarrow 1+\frac{K}{s(s+2)}=0
+$$
+
+Multiply through:
+
+$$
+s(s+2)+K=0 \Rightarrow s^2+2s+K=0
+$$
+
+### Step 2: Stability range
+
+For second-order polynomial $s^2+a_1s+a_0$, stability requires $a_1>0$ and $a_0>0$.
+
+Here:
+
+- $a_1=2>0$
+- $a_0=K$
+
+So stable if:
+
+$$
+K>0
+$$
+
+### Step 3: Overshoot trend
+
+Match with standard form:
+
+$$
+s^2+2\zeta\omega_n s+\omega_n^2
+$$
+
+Hence:
+
+- $\omega_n^2=K \Rightarrow \omega_n=\sqrt{K}$
+- $2\zeta\omega_n=2 \Rightarrow \zeta=\frac{1}{\sqrt{K}}$
+
+As $K$ increases, $\zeta$ decreases.
+Lower damping ratio means larger oscillation/overshoot.
+
+## Final answer
+
+- Stable gain range: $K>0$
+- Increasing $K$ tends to increase overshoot (while response becomes faster in natural-frequency sense).

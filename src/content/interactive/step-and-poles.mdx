@@ -1,0 +1,37 @@
+---
+title: Step Response and Pole Sliders
+description: Interactive exploration of damping, natural frequency, and pole migration.
+---
+
+# Step Response and Pole Sliders
+
+This page gives two linked intuition tools:
+
+- Time-domain behavior from second-order parameters.
+- Pole movement in the complex plane as loop gain changes.
+
+## Demo 1: Second-Order Step Response
+
+<StepResponseDemo />
+
+Interpretation focus:
+
+- Lower $\zeta$ usually increases overshoot.
+- Larger $\omega_n$ usually speeds up response.
+- Settling-time and overshoot trade off through parameter choice.
+
+## Demo 2: Pole Movement with Gain
+
+<PoleMovementDemo />
+
+Interpretation focus:
+
+- Pole location drives response shape.
+- Complex-conjugate poles imply oscillatory modes.
+- Negative real part means decay; positive real part would imply divergence.
+
+## Connect this back to theory
+
+- [First vs Second Order Behavior](/fundamentals/first-second-order)
+- [Stability and Performance](/stability)
+- [Bode Plot Lab](/interactive/bode-plot-lab)

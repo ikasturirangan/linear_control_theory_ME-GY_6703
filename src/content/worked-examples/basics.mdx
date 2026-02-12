@@ -1,0 +1,55 @@
+---
+title: Basics Worked Example
+description: Identify loop anatomy and classify open vs closed loop correctly.
+---
+
+# Basics Worked Example
+
+## Problem
+
+A room-heating system has:
+
+- Desired temperature set by user.
+- Temperature sensor in room.
+- Controller that computes heater command from temperature error.
+- Electric heater that injects heat.
+
+Tasks:
+
+1. Identify plant, sensor, controller, actuator.
+2. State whether it is open-loop or closed-loop.
+3. If target is 22 degC and measured temperature is 19.5 degC, compute error.
+
+## Solution
+
+### Step 1: Identify blocks
+
+- Plant: room thermal dynamics.
+- Sensor: room temperature sensor.
+- Controller: thermostat logic/software.
+- Actuator: electric heater power stage.
+
+### Step 2: Classify loop type
+
+Measured output (temperature) is fed back into decision logic.
+Therefore this is **closed-loop control**.
+
+### Step 3: Compute error
+
+Using negative feedback sign convention:
+
+$$
+e(t)=r(t)-y(t)
+$$
+
+Given $r=22$, $y=19.5$:
+
+$$
+e=22-19.5=2.5\text{ degC}
+$$
+
+A positive error means controller should increase heating effort.
+
+## Takeaway
+
+In basics problems, full marks come from clean identification of loop anatomy and correct sign convention.

@@ -1,0 +1,96 @@
+---
+title: Linear vs. Non-Linear
+description: Why linear models are used even when the real world is not perfectly linear.
+---
+
+# Linear vs. Non-Linear
+
+This course is called linear control systems for a reason.
+Linear models are predictable and give us tools that are fast and powerful.
+
+## What "linear" means
+
+For a system operator $G[\cdot]$, linearity means two rules:
+
+1. Scaling:
+   <EquationHelp hint="Scaling means proportional response: multiply input by alpha, output should multiply by the same alpha.">
+
+   $$
+   G[\alpha u(t)] = \alpha G[u(t)]
+   $$
+
+   </EquationHelp>
+2. Additivity:
+   <EquationHelp hint="Additivity means responses superpose: response to sum of inputs equals sum of individual responses.">
+
+   $$
+   G[u_1(t) + u_2(t)] = G[u_1(t)] + G[u_2(t)]
+   $$
+
+   </EquationHelp>
+
+Together, this is called superposition.
+It is why we can use transfer functions, poles/zeros, and frequency response cleanly.
+
+## Reality check
+
+Real systems are rarely perfectly linear.
+
+Common non-linear effects:
+
+- Saturation (actuator limits)
+- Friction and dead zones
+- Backlash and hysteresis
+
+```text
+Block Diagram 5: Nonlinear Plant vs Local Linear Model
+
+u(t) ---> [ Nonlinear Plant ] ---> y(t)
+            |
+            | choose operating point (u0, x0, y0)
+            v
+        [ Local Linear Model ΔG(s) ]
+
+Small-signal relation near operating point:
+Δy(t) ≈ ΔG(s) Δu(t)
+```
+
+Block Diagram 5 is the core idea behind linearization: model the local behavior, not the entire nonlinear world.
+
+## Simple intuition example
+
+- Ideal spring: force is proportional to displacement -> approximately linear in a range.
+- Real actuator: command may hit a max limit -> saturation -> non-linear behavior.
+
+## The practical trick: linearization
+
+Engineers often pick an operating point and approximate the system locally as linear.
+That approximation is usually good enough in a small range around that point.
+Block Diagram 5 shows this "global nonlinear, local linear" strategy.
+
+Mathematically, this comes from first-order Taylor expansion near an equilibrium.
+You keep the first-order terms and ignore higher-order terms.
+
+## Why this is useful
+
+This is why linear control works so well in practice:
+
+- solve a simpler local model fast
+- design a controller with strong tools
+- validate and retune on the real non-linear system
+
+## Key warning
+
+Linear models are local approximations, not universal truth.
+If the state moves far from the operating point, predictions can degrade quickly.
+
+## Check yourself
+
+For a motor with voltage command limited to +/-12 V:
+
+1. Is behavior linear near small commands?
+2. What happens to linearity near saturation?
+
+## Continue
+
+Apply this mindset before deriving transfer functions in [Fundamentals](/fundamentals).

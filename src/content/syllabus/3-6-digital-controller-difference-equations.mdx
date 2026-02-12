@@ -1,0 +1,84 @@
+---
+title: 3.6 Digital Controller Representation and Difference Equation Solutions
+description: Move from continuous controller equations to implementable discrete-time updates.
+---
+
+# 3.6 Digital Controller Representation and Difference Equation Solutions
+
+## Learning goals
+
+1. Represent digital controllers in $z$-domain.
+2. Derive and interpret controller difference equations.
+3. Solve first/second-order difference equations for response behavior.
+
+## Why this topic matters
+
+Real controllers run on microcontrollers/CPUs.
+That means your algorithm updates at sample instants, not continuously.
+
+## Generic digital controller form
+
+<EquationHelp hint="In implementation, this equation turns into code that uses stored past errors and past control outputs.">
+
+$$
+U(z)=C(z)E(z)
+$$
+
+</EquationHelp>
+
+If
+
+$$
+C(z)=\frac{b_0+b_1z^{-1}+\dots+b_mz^{-m}}{1+a_1z^{-1}+\dots+a_nz^{-n}}
+$$
+
+then time-domain update is:
+
+$$
+u[k]=-a_1u[k-1]-\dots-a_nu[k-n]+b_0e[k]+\dots+b_me[k-m]
+$$
+
+## Difference equation solution view
+
+Response = homogeneous part + particular part.
+
+- Homogeneous part: natural modes from characteristic roots.
+- Particular part: forced response due to input.
+
+Stability requires homogeneous part to decay.
+
+## Plain-English coding interpretation
+
+Difference equations are control code in equation form.
+Each sample, your controller:
+
+1. reads current error,
+2. uses stored past errors/outputs,
+3. computes new command,
+4. stores values for next sample.
+
+So this topic is the bridge between math and firmware implementation.
+
+## Common implementation pitfalls
+
+- Wrong sign on feedback terms in code.
+- Forgetting to initialize memory terms.
+- Using inconsistent sample time between model and software loop.
+- Numeric overflow/precision issues in fixed-point targets.
+
+## Try it now
+
+Given
+
+$$
+u[k]=0.6u[k-1]+0.5e[k]-0.2e[k-1]
+$$
+
+1. Identify controller order.
+2. Explain what memory terms are required in code.
+
+## Citations
+
+- [R6](/syllabus/references#r6)
+- [R2](/syllabus/references#r2)
+- [R8](/syllabus/references#r8)

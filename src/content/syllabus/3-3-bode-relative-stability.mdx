@@ -1,0 +1,84 @@
+---
+title: 3.3 Bode Plot and Relative Stability
+description: Use frequency response to reason about robustness, damping tendency, and crossover behavior.
+---
+
+# 3.3 Bode Plot and Relative Stability
+
+## Learning goals
+
+1. Read magnitude and phase plots correctly.
+2. Estimate gain crossover, phase crossover, and margins.
+3. Interpret relative stability from frequency-domain plots.
+
+## Why relative stability matters
+
+Absolute stability asks: stable or unstable?
+Relative stability asks: how safely stable is it?
+
+Margins provide robustness buffer against modeling uncertainty.
+
+## Bode fundamentals
+
+<EquationHelp hint="Magnitude in dB maps multiplicative gain into additive scale; this makes asymptotic shaping easier.">
+
+$$
+|G(j\omega)|_{dB}=20\log_{10}|G(j\omega)|
+$$
+
+</EquationHelp>
+
+<EquationHelp hint="Phase lag accumulation near crossover strongly influences oscillation tendency.">
+
+$$
+\phi(\omega)=\angle G(j\omega)
+$$
+
+</EquationHelp>
+
+## Key quantities
+
+- Gain crossover $\omega_{gc}$: where magnitude is 0 dB.
+- Phase margin (PM): $180^\circ+\angle G(j\omega_{gc})$.
+- Gain margin (GM): inverse gain at phase crossover.
+
+Larger positive margins generally imply better robustness.
+
+## Relative stability interpretation
+
+- Small PM: oscillatory or underdamped response risk.
+- Large PM: usually smoother transient, lower bandwidth.
+- Tradeoff: speed vs robustness.
+
+## How to read a Bode plot in 90 seconds
+
+1. Find where magnitude crosses 0 dB -> this is crossover region.
+2. Read phase around that frequency.
+3. Estimate PM from distance to $-180^\circ$.
+4. Check high-frequency magnitude slope to judge noise sensitivity.
+
+This quick scan gives a practical stability + robustness assessment without full simulation.
+
+## Common interpretation mistakes
+
+- Treating PM as an absolute guarantee (nonlinearities and delays can still destabilize).
+- Ignoring model uncertainty near crossover.
+- Increasing gain to \"speed up\" without re-checking PM/GM.
+- Looking only at magnitude and forgetting phase.
+
+## Interactive link
+
+Use [Bode Plot Lab](/interactive/bode-plot-lab) to build intuition with sliders.
+
+## Try it now
+
+For a given Bode plot, estimate PM and answer:
+
+1. Is the loop likely oscillatory?
+2. Would increasing gain help or hurt margins?
+
+## Citations
+
+- [R1](/syllabus/references#r1)
+- [R2](/syllabus/references#r2)
+- [R3](/syllabus/references#r3)

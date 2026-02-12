@@ -1,0 +1,125 @@
+---
+title: Anatomy of a Control System
+description: The four-part mental model behind almost every control problem.
+---
+
+# Anatomy of a Control System
+
+Everything from a toilet tank to an autopilot follows the same anatomy.
+Before equations, memorize this loop.
+Refer to Block Diagram 1 throughout this page.
+
+```text
+Block Diagram 1: Canonical Closed-Loop Control
+
+                      +-------------------- [ Sensor H ] --------------------+
+                      |                                                       |
+r(t) ---> ( + ) ---> [ Controller C ] ---> [ Actuator A ] ---> [ Plant P ] ---> y(t)
+           ( - ) ^                                                       
+                 +-----------------------------------------------------------+
+```
+
+If you can identify these parts in any problem, you are already thinking like a control engineer.
+
+## The Plant (The Body)
+
+The plant is the physical process you want to influence.
+It is "the thing with dynamics."
+In Block Diagram 1, this is the `[ Plant P ]` block.
+
+Examples:
+
+- A motor shaft angle
+- The temperature of a room
+- The altitude of a drone
+
+Question the plant answers:
+"What physical quantity changes over time?"
+
+## The Sensor (The Eyes)
+
+The sensor measures what is actually happening in the plant.
+Without a sensor, you are guessing.
+In Block Diagram 1, this is `[ Sensor H ]` in the feedback path.
+
+Examples:
+
+- Thermometer
+- Encoder
+- GPS + IMU
+
+Question the sensor answers:
+"What is the system really doing right now?"
+
+## The Controller (The Brain)
+
+The controller compares goal vs reality and computes the next command.
+This is where the control law (P, PI, PID, state feedback, etc.) lives.
+In Block Diagram 1, this is `[ Controller C ]` right after the summing node.
+
+Examples:
+
+- On/off thermostat logic
+- PID equation
+- State-feedback law
+
+Question the controller answers:
+"Given the error, what should we do next?"
+
+## The Actuator (The Muscle)
+
+The actuator takes the controller command and pushes on the real world.
+In Block Diagram 1, this is `[ Actuator A ]`, between controller and plant.
+
+Examples:
+
+- Motor torque
+- Heater power
+- Valve opening
+
+Question the actuator answers:
+"How do we physically inject effort into the plant?"
+
+## One fast example: cruise control
+
+- Plant: vehicle speed dynamics
+- Sensor: wheel speed sensor
+- Controller: speed control logic in ECU
+- Actuator: throttle command (or motor torque in EVs)
+
+If the car slows down on a hill, the sensor detects drop in speed, controller increases command, actuator pushes harder, and speed returns.
+That sequence is exactly the loop shown in Block Diagram 1.
+
+## Common confusion
+
+Controller vs actuator:
+
+- Controller decides effort
+- Actuator delivers effort
+
+Software is usually controller.
+Hardware that moves energy is usually actuator.
+
+## Mental model to keep forever
+
+The loop is simple:
+
+1. Measure reality
+2. Compare with goal
+3. Decide action
+4. Push the plant
+
+Repeat continuously.
+
+## Check yourself
+
+For a home AC thermostat system, identify:
+
+- Plant
+- Sensor
+- Controller
+- Actuator
+
+## Continue
+
+Go next to [Open Loop vs Closed Loop](/basics/open-vs-closed) and then [Block Diagram Algebra](/basics/block-diagram-algebra).

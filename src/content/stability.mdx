@@ -1,0 +1,71 @@
+---
+title: Stability and Performance
+description: Use pole locations and time-domain specs to evaluate closed-loop behavior.
+---
+
+# Stability and Performance
+
+In linear control, closed-loop pole locations are the first stability checkpoint.
+For continuous-time systems, poles in the open left-half plane imply asymptotic stability.
+
+## Second-order intuition
+
+For the standard form:
+
+<EquationHelp hint="This closed-loop template is the reference model for most transient-response metrics. Compare your denominator to read zeta and wn directly.">
+
+$$
+G_{cl}(s) = \frac{\omega_n^2}{s^2 + 2 \zeta \omega_n s + \omega_n^2}
+$$
+
+</EquationHelp>
+
+- $\zeta$ controls overshoot and oscillation
+- $\omega_n$ controls overall speed of response
+
+Approximate metrics:
+
+<EquationHelp hint="Percent overshoot is strongly tied to damping ratio. Smaller zeta means a larger exponential term and more overshoot.">
+
+$$
+M_p \approx e^{-\pi \zeta / \sqrt{1-\zeta^2}} \times 100\%
+$$
+
+</EquationHelp>
+
+<EquationHelp hint="This estimate captures a key design tradeoff: faster settling usually needs larger zeta*wn, often via higher bandwidth and damping.">
+
+$$
+T_s \approx \frac{4}{\zeta \omega_n}
+$$
+
+</EquationHelp>
+
+## Root locus and frequency tools
+
+- Root locus: tracks pole migration as gain changes
+- Bode/Nyquist: show gain-phase tradeoffs and robustness margins
+
+## Bode focus (syllabus connection)
+
+Bode plots are part of the core stability syllabus because they expose robustness directly.
+Use them to estimate:
+
+- Crossover frequency (speed tendency)
+- Phase margin (damping/oscillation tendency)
+- High-frequency roll-off (noise amplification tendency)
+
+Go to [Frequency Response and Bode Plots](/fundamentals/frequency-response-bode) for full walkthrough and [Bode Plot Lab](/interactive/bode-plot-lab) for sliders.
+For full syllabus sequence, continue through [Module 3.3](/syllabus/3-3-bode-relative-stability) to [Module 3.5](/syllabus/3-5-routh-nyquist).
+
+## Practice prompt
+
+For a unity-feedback plant $G(s)$, estimate a gain range that keeps
+all closed-loop poles in the left-half plane, then predict overshoot trends as gain increases.
+
+## Continue
+
+- [Stability Worked Example](/worked-examples/stability)
+- [Stability Practice Set](/practice/stability)
+- [Interactive Step and Pole Sliders](/interactive/step-and-poles)
+- [Interactive Bode Lab](/interactive/bode-plot-lab)

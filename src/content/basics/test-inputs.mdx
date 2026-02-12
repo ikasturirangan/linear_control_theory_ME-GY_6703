@@ -1,0 +1,94 @@
+---
+title: Typical Test Inputs
+description: Standard input shapes used to probe system behavior.
+---
+
+# Typical Test Inputs
+
+To understand a system, we "poke" it with standard inputs and observe the response.
+These inputs are chosen because they reveal important behavior quickly.
+
+## Why these three inputs?
+
+They are simple, repeatable, and mathematically useful.
+Also, many real commands can be built by combining these patterns.
+
+```text
+Block Diagram 6: Standard Test-Input Experiment
+
+[ Input Generator ]
+step(t) / ramp(t) / impulse(t)
+          |
+          v
+         r(t) ---> [ System Under Test ] ---> y(t)
+```
+
+In Block Diagram 6, only the input shape changes; the system block stays the same.
+That makes test results comparable.
+
+## Step Input
+
+A sudden jump in value, like flipping a light switch.
+
+What it reveals:
+
+- Rise time
+- Overshoot
+- Settling time
+- Steady-state error
+
+Common use: first performance check for a controller.
+In Block Diagram 6, set the input generator to `step(t)`.
+
+## Ramp Input
+
+A target that increases steadily with time.
+
+What it reveals:
+
+- Tracking ability
+- Lag against moving references
+- Velocity error behavior
+
+Common use: tests whether the loop can follow moving targets, not just fixed ones.
+In Block Diagram 6, set the input generator to `ramp(t)`.
+
+## Impulse Input
+
+A very short, sharp shock, like tapping a bell.
+
+What it reveals:
+
+- Natural modes
+- Oscillation frequencies
+- Damping characteristics
+
+Common use: identifies intrinsic dynamics quickly.
+In Block Diagram 6, set the input generator to `impulse(t)`.
+
+## Fast mental picture
+
+- Step asks: "How do you react to sudden change?"
+- Ramp asks: "Can you keep up with a moving goal?"
+- Impulse asks: "What are your natural vibrations?"
+
+## Mathematical forms
+
+- Unit step: $u(t) = 1$ for $t \ge 0$
+- Unit ramp: $r(t) = t$ for $t \ge 0$
+- Unit impulse: $\delta(t)$ with unit area
+
+## Why these matter
+
+If you can predict and interpret step, ramp, and impulse responses, you can reason about most basic control performance questions.
+
+## Check yourself
+
+You are tuning drone altitude hold:
+
+1. Which input best checks disturbance rejection after a sudden command change?
+2. Which input best checks tracking of a steadily climbing trajectory?
+
+## Continue
+
+Run these ideas with live sliders in [Interactive Plots](/interactive/step-and-poles).

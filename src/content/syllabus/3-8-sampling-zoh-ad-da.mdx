@@ -1,0 +1,71 @@
+---
+title: 3.8 Sampling, Zero-order Hold, A/D and D/A Converters
+description: Understand how digital controllers interface with continuous physical systems.
+---
+
+# 3.8 Sampling, Zero-order Hold, A/D and D/A Converters
+
+## Learning goals
+
+1. Explain sampling period impact on control quality.
+2. Model ZOH behavior in digital control loops.
+3. Understand practical effects of ADC/DAC quantization and delay.
+
+## Sampling basics
+
+Continuous signal $x(t)$ sampled every $T_s$ gives sequence $x[k]=x(kT_s)$.
+
+Choosing $T_s$ too large can degrade phase margin and tracking.
+
+Common heuristic: sample at least 10-20x faster than desired closed-loop bandwidth.
+
+## Zero-order hold (ZOH)
+
+DAC with ZOH holds each sample constant between updates.
+Equivalent hold transfer function:
+
+$$
+G_{ZOH}(s)=\frac{1-e^{-sT_s}}{s}
+$$
+
+ZOH introduces additional phase lag at higher frequencies.
+
+## Practical converter effects
+
+- ADC quantization: measurement granularity limits.
+- ADC/DAC conversion delay: effective phase lag.
+- Saturation/clipping at converter bounds.
+
+All three can reduce achievable performance if ignored in design.
+
+## Choosing sample time (practical rule)
+
+Start with:
+
+- sampling frequency at least 10x closed-loop bandwidth (minimum),
+- preferably 20x when computation budget allows.
+
+Then verify by simulation and experimental step tests.
+If oscillation appears after digital implementation, sampling/latency is a prime suspect.
+
+## Quantization intuition
+
+ADC quantization turns smooth analog measurements into staircase levels.
+If resolution is too low, small errors can disappear, causing limit cycles or noisy control action.
+
+## Common beginner mistakes
+
+- Designing a controller in continuous time and deploying directly without discretization checks.
+- Ignoring computational delay in control loop timing.
+- Treating converter dynamics as negligible in fast systems.
+
+## Try it now
+
+Simulate the same loop with $T_s$, $2T_s$, and $4T_s$.
+Observe changes in overshoot and settling behavior.
+
+## Citations
+
+- [R6](/syllabus/references#r6)
+- [R2](/syllabus/references#r2)
+- [R5](/syllabus/references#r5)

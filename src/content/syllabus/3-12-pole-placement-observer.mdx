@@ -1,0 +1,75 @@
+---
+title: 3.12 Pole-Placement Controller Design and Full-State Observer Design
+description: Design state feedback and observer gains to shape closed-loop dynamics and estimate states.
+---
+
+# 3.12 Pole-Placement Controller Design and Full-State Observer Design
+
+## Learning goals
+
+1. Design state-feedback gain $K$ for desired closed-loop poles.
+2. Design observer gain $L$ for state estimation.
+3. Understand separation principle in controller+observer design.
+
+## Controller design
+
+Use control law:
+
+$$
+u=-Kx+Nr
+$$
+
+Closed-loop matrix becomes $A-BK$.
+Choose poles of $A-BK$ to meet speed/damping goals.
+
+## Observer design
+
+When full state is not measured, use estimator:
+
+$$
+\dot{\hat{x}}=A\hat{x}+Bu+L(y-C\hat{x})
+$$
+
+Estimation error dynamics:
+
+$$
+\dot{e}=(A-LC)e
+$$
+
+Choose observer poles faster than controller poles (common rule: 2-5x).
+
+## Separation principle
+
+If system is controllable and observable:
+
+- Controller poles can be designed via $K$.
+- Observer poles can be designed via $L$.
+- Combined design remains valid under separation principle.
+
+## Why observer poles are usually faster
+
+Observer must estimate states quickly enough for controller to act on accurate information.
+If observer is too slow, controller behaves as if it is using stale state data.
+If observer is too fast, noise can be amplified.
+
+So practical design balances estimation speed and noise sensitivity.
+
+## Practical design checklist
+
+1. Verify controllability and observability first.
+2. Place controller poles for target transient behavior.
+3. Place observer poles moderately faster (often 2x-5x).
+4. Simulate with sensor noise and disturbances.
+5. Retune if noise amplification is excessive.
+
+## Try it now
+
+1. Pick controller poles for a 2-state plant.
+2. Pick observer poles 3x faster.
+3. Compare output response with/without observer.
+
+## Citations
+
+- [R1](/syllabus/references#r1)
+- [R2](/syllabus/references#r2)
+- [R3](/syllabus/references#r3)

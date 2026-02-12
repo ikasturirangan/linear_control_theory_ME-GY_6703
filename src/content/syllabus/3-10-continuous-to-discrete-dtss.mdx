@@ -1,0 +1,66 @@
+---
+title: 3.10 Continuous-to-Discrete Conversion and DTSS
+description: Convert continuous state-space models into discrete-time forms for implementation.
+---
+
+# 3.10 Continuous-to-Discrete Conversion and DTSS
+
+## Learning goals
+
+1. Convert continuous state-space models to discrete-time state-space (DTSS).
+2. Understand exact ZOH discretization formulas.
+3. Interpret discretization effects on poles and dynamics.
+
+## DTSS form
+
+$$
+x[k+1]=A_d x[k]+B_d u[k],\qquad y[k]=C_d x[k]+D_d u[k]
+$$
+
+## Exact ZOH conversion
+
+For sample period $T_s$:
+
+$$
+A_d=e^{AT_s}
+$$
+
+$$
+B_d=\int_0^{T_s} e^{A\tau}B\,d\tau
+$$
+
+and typically $C_d=C$, $D_d=D$ for straightforward sampling.
+
+## Pole mapping intuition
+
+Continuous pole $s_i$ maps to discrete pole:
+
+$$
+z_i=e^{s_iT_s}
+$$
+
+So LHP in $s$-plane maps inside unit circle in $z$-plane.
+
+## Why this conversion is essential
+
+Even if plant physics is continuous, real controllers are digital.
+So every practical design eventually needs $(A,B,C,D) \\to (A_d,B_d,C_d,D_d)$ conversion.
+
+Without this step, simulation and real implementation can diverge significantly.
+
+## Practical notes
+
+- Exact ZOH discretization is preferred for implementation-accurate modeling.
+- Approximate methods can be useful for hand analysis but must be validated.
+- Sampling period choice directly changes discrete pole location and margin.
+
+## Try it now
+
+Take $s=-2\pm j$ with $T_s=0.1$.
+Compute $z=e^{sT_s}$ and verify magnitude is less than 1.
+
+## Citations
+
+- [R6](/syllabus/references#r6)
+- [R2](/syllabus/references#r2)
+- [R1](/syllabus/references#r1)

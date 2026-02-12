@@ -1,0 +1,98 @@
+---
+title: 3.2 Steady-State Error, Closed-Loop Transfer Function, Performance
+description: Link closed-loop structure to tracking error and time-domain specifications.
+---
+
+# 3.2 Steady-State Error, Closed-Loop Transfer Function, Performance
+
+## Learning goals
+
+1. Derive closed-loop transfer function.
+2. Compute steady-state error with final value theorem.
+3. Relate damping and natural frequency to performance metrics.
+
+## Closed-loop transfer function
+
+For negative feedback:
+
+<EquationHelp hint="This is the core closed-loop map. Denominator term controls stability and transient behavior.">
+
+$$
+T(s)=\frac{Y(s)}{R(s)}=\frac{G(s)}{1+G(s)H(s)}
+$$
+
+</EquationHelp>
+
+## Error transfer function
+
+<EquationHelp hint="Error is not an abstract signal. It is what the controller acts on. Minimizing this is the control objective.">
+
+$$
+\frac{E(s)}{R(s)}=\frac{1}{1+G(s)H(s)}
+$$
+
+</EquationHelp>
+
+## Steady-state error (SSE)
+
+Use final value theorem for stable closed-loop systems:
+
+<EquationHelp hint="SSE is the long-term error after transients die out. Always verify closed-loop stability first.">
+
+$$
+e_{ss}=\lim_{t\to\infty} e(t)=\lim_{s\to0} sE(s)
+$$
+
+</EquationHelp>
+
+### Static error constants (unity feedback)
+
+- $K_p=\lim_{s\to0}G(s)$ for step input
+- $K_v=\lim_{s\to0}sG(s)$ for ramp input
+- $K_a=\lim_{s\to0}s^2G(s)$ for parabolic input
+
+## Performance metrics refresher
+
+- Rise time
+- Settling time
+- Overshoot
+- Steady-state error
+
+All four should be considered together; optimizing one can hurt others.
+
+## Step-by-step SSE recipe (beginner-safe)
+
+When you get an SSE question, follow this exact order:
+
+1. Write loop transfer function (usually $G(s)H(s)$).
+2. Confirm closed-loop stability assumption.
+3. Write $E(s)$ from input type (step/ramp/parabolic).
+4. Apply $e_{ss}=\lim_{s\to0}sE(s)$.
+5. Simplify slowly and only then substitute limits.
+
+This avoids most algebra and sign errors in exam settings.
+
+## Why system type matters
+
+System type equals number of pure integrators in open-loop transfer function.
+It predicts which input classes can be tracked with zero SSE:
+
+- Type 0: finite step SSE, infinite ramp SSE.
+- Type 1: zero step SSE, finite ramp SSE.
+- Type 2: zero step and ramp SSE, finite parabolic SSE.
+
+So \"performance\" is not only overshoot/speed; it also includes which references are trackable.
+
+## Try it now
+
+For $G(s)=\frac{10}{s(s+2)}$ (unity feedback):
+
+1. Write $T(s)$.
+2. Determine system type.
+3. Compute SSE for step and ramp inputs.
+
+## Citations
+
+- [R1](/syllabus/references#r1)
+- [R2](/syllabus/references#r2)
+- [R8](/syllabus/references#r8)

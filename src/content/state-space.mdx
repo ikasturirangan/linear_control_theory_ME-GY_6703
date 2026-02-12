@@ -1,0 +1,56 @@
+---
+title: State-Space Methods
+description: Represent dynamics in matrix form and reason about controllability and observability.
+---
+
+# State-Space Methods
+
+State-space form gives a compact way to represent multi-variable systems:
+
+<EquationHelp hint="State equation shows how internal states evolve. Output equation maps those states (and possibly input) to measured outputs.">
+
+$$
+\dot{x}(t) = A x(t) + B u(t), \quad y(t) = C x(t) + D u(t)
+$$
+
+</EquationHelp>
+
+## Why this form matters
+
+- Works naturally for MIMO systems
+- Connects directly to modern control design
+- Makes structural properties testable with matrix rank
+
+## Structural checks
+
+For continuous-time LTI systems:
+
+- Controllability matrix:
+  <EquationHelp hint="This matrix stacks how input direction B propagates through dynamics A. Full rank means every state direction can be reached by suitable input.">
+
+  $$
+  \mathcal{C} = \begin{bmatrix} B & AB & A^2B & \cdots & A^{n-1}B \end{bmatrix}
+  $$
+
+  </EquationHelp>
+- Observability matrix:
+  <EquationHelp hint="This matrix stacks how state directions appear in output through repeated A-action. Full rank means states can be reconstructed from output history.">
+
+  $$
+  \mathcal{O} = \begin{bmatrix} C \\ CA \\ CA^2 \\ \vdots \\ CA^{n-1} \end{bmatrix}
+  $$
+
+  </EquationHelp>
+
+If $\mathrm{rank}(\mathcal{C}) = n$, the pair $(A,B)$ is controllable.
+If $\mathrm{rank}(\mathcal{O}) = n$, the pair $(C,A)$ is observable.
+
+## Practice prompt
+
+Pick a 2-state model and compute $\mathcal{C}$ and $\mathcal{O}$ by hand.
+Then explain which states are physically hard to actuate or measure.
+
+## Continue
+
+- [State-Space Worked Example](/worked-examples/state-space)
+- [State-Space Practice Set](/practice/state-space)

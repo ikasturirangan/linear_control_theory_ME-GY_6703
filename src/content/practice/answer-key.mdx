@@ -1,0 +1,43 @@
+---
+title: Answer Key
+description: Solutions for all practice-set question IDs.
+---
+
+# Answer Key
+
+## Basics
+
+- **B1**: Plant = altitude dynamics; Sensor = altimeter/IMU; Controller = flight-control law; Actuator = rotor thrust commands.
+- **B2**: $e=r-y=50-47=3$.
+- **B3**: Open-loop.
+- **B4**: Closed-loop.
+- **B5**: Controller computes effort; actuator physically applies effort.
+- **B6**: It gives a tractable local model so linear tools can be used around an operating point.
+
+## Fundamentals
+
+- **F1**: $G(s)=\frac{Y}{U}=\frac{2}{s+4}$.
+- **F2**: $s^2+3s+2=(s+1)(s+2)$, poles at $-1,-2$.
+- **F3**: One zero at $s=-1$, two poles from denominator roots.
+- **F4**: Larger $\tau$ generally slows the response.
+- **F5**: Example: forgetting zero-initial-condition assumption for transfer-function definition.
+
+## State-Space
+
+- **SS1**: $\dot{x}=Ax+Bu,\ y=Cx+Du$.
+- **SS2**: $AB=\begin{bmatrix}1\\-2\end{bmatrix}$.
+- **SS3**: $\mathcal{C}=\begin{bmatrix}0&1\\1&-2\end{bmatrix}$, rank 2 (controllable).
+- **SS4**: $CA=\begin{bmatrix}0&1\end{bmatrix}$.
+- **SS5**: Observability asks whether internal states can be reconstructed from outputs over time.
+
+## Stability
+
+- **ST1**: Stable (real part negative).
+- **ST2**: Unstable (real part positive).
+- **ST3**: Damping ratio $\zeta$.
+- **ST4**: Settling time decreases.
+- **ST5**:
+  $$
+  T(s)=\frac{G}{1+G}=\frac{K}{s+1+K}
+  $$
+- **ST6**: $\mathrm{PM}=180^\circ-140^\circ=40^\circ$.

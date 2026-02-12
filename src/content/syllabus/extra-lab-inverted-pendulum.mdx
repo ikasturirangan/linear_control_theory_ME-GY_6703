@@ -1,0 +1,77 @@
+---
+title: Extra Lab Session - Inverted Pendulum Balancing
+description: Capstone experiment integrating modeling, control, estimation, and digital implementation.
+---
+
+# Extra Lab Session: Inverted Pendulum Balancing
+
+## Why this lab is a capstone
+
+Inverted pendulum requires nearly every syllabus idea:
+
+- nonlinear modeling and local linearization
+- stability and margins
+- state-space design
+- observer design
+- digital implementation and sampling
+
+## Lab objectives
+
+1. Linearize pendulum around upright equilibrium.
+2. Build continuous model and simulate baseline response.
+3. Discretize model for digital control.
+4. Design controller (pole placement or LQR).
+5. Design full-state observer if not all states are measured.
+6. Validate experimentally with disturbance pushes.
+
+## Suggested lab flow
+
+1. **Modeling**: derive equations and linearize near upright.
+2. **Simulation**: verify unstable open-loop behavior.
+3. **Controller design**: stabilize and tune for settling/overshoot.
+4. **Observer (if needed)**: reconstruct angular velocity/cart velocity.
+5. **Implementation**: deploy with sampling and actuator limits.
+6. **Evaluation**: step response, disturbance rejection, and robustness tests.
+
+## Lab report template
+
+- System description and assumptions
+- Model derivation and parameter identification
+- Controller/observer design method
+- Simulation vs experiment comparison
+- Failure modes and improvement plan
+
+## Common lab failure modes
+
+- Sample period too large -> poor phase margin.
+- Ignoring actuator saturation -> windup/instability.
+- Observer poles set excessively fast -> noise amplification.
+
+## Newbie-first lab execution advice
+
+1. Stabilize in simulation before touching hardware.
+2. Add saturation and sensor noise in simulation early.
+3. Start with conservative gains and slowly increase aggressiveness.
+4. Log every run (gains, sample time, response metrics, failure observations).
+5. Change one thing at a time between trials.
+
+This prevents trial-and-error chaos and makes debugging systematic.
+
+## Safety and reliability checklist
+
+- Verify emergency stop behavior.
+- Enforce actuator command limits in software.
+- Validate encoder/sensor sign conventions before closed-loop test.
+- Keep observer/controller initial conditions sensible.
+- Run short-duration tests before long balancing runs.
+
+## Try it now
+
+Before running hardware, simulate with ±10% parameter uncertainty.
+Explain why robust margin matters.
+
+## Citations
+
+- [R2](/syllabus/references#r2)
+- [R3](/syllabus/references#r3)
+- [R5](/syllabus/references#r5)

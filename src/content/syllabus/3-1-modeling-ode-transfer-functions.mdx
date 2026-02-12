@@ -1,0 +1,105 @@
+---
+title: 3.1 Modeling, ODE, Transfer Function, Responses, Simulink
+description: Build the full modeling pipeline from physics to transfer-function simulation.
+---
+
+# 3.1 Modeling, ODE, Transfer Function, Responses, Simulink
+
+## Learning goals
+
+By the end of this module, you should be able to:
+
+1. Build an ODE model from physical laws.
+2. Convert ODE model to transfer function.
+3. Distinguish command response vs disturbance response.
+4. Build the same model in Simulink for simulation.
+
+If you are new to engineering notation, start with [Transfer Functions for Absolute Beginners](/fundamentals/transfer-functions-beginner).
+
+## Big picture (for beginners)
+
+Control design starts with a model, not a controller.
+If your model is wrong, perfect tuning cannot rescue performance.
+
+## Step 1: Modeling from physics
+
+For many mechanical/thermal/electrical systems, write force/flow balance to get:
+
+<EquationHelp hint="This generic ODE says weighted derivatives of output are driven by weighted derivatives of input.">
+
+$$
+a_n y^{(n)} + a_{n-1} y^{(n-1)} + \dots + a_0 y = b_m u^{(m)} + \dots + b_0 u
+$$
+
+</EquationHelp>
+
+## Step 2: Convert to transfer function
+
+Assuming zero initial conditions:
+
+<EquationHelp hint="Transfer function is the Laplace-domain input-output map used for poles, zeros, and response analysis.">
+
+$$
+G(s)=\frac{Y(s)}{U(s)}
+$$
+
+</EquationHelp>
+
+## Command response vs disturbance response
+
+- Command (reference) response: how output follows desired input.
+- Disturbance response: how output reacts when external disturbance enters the plant.
+
+Both matter. Fast command tracking with poor disturbance rejection is not good control.
+
+## Simulink workflow
+
+1. Place blocks for transfer function and summing junction.
+2. Add Step block for command.
+3. Add optional disturbance injection point.
+4. Add Scope block for output.
+5. Sweep parameters and compare trajectories.
+
+## Mini worked example
+
+Mass-spring-damper:
+
+$$
+m\ddot{x}+c\dot{x}+kx=f
+$$
+
+For $m=1,c=2,k=5$:
+
+$$
+G(s)=\frac{X(s)}{F(s)}=\frac{1}{s^2+2s+5}
+$$
+
+## Plain-English walkthrough
+
+Think of this module as a 5-step pipeline:
+
+1. **Describe physics**: what stores energy, what dissipates energy, what forces act.
+2. **Write ODE**: one equation that captures those effects.
+3. **Choose input/output** clearly (this decides your TF meaning).
+4. **Convert to TF** to unlock poles, zeros, and response tools.
+5. **Simulate** to test whether model behavior matches intuition.
+
+If your simulation and intuition disagree strongly, revisit modeling assumptions before controller design.
+
+## Common beginner mistakes
+
+- Picking the wrong output variable (for example, displacement instead of measured sensor output).
+- Forgetting that TF derivation assumes zero initial conditions.
+- Treating disturbance as if it were the command input.
+- Using Simulink blocks without writing the underlying equation first.
+
+## Try it now
+
+- Derive transfer function for an RC circuit with input voltage and capacitor output.
+- In Simulink, compare responses for two damping values.
+
+## Citations
+
+- [R1](/syllabus/references#r1)
+- [R2](/syllabus/references#r2)
+- [R5](/syllabus/references#r5)

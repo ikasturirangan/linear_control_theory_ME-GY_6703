@@ -1,0 +1,80 @@
+---
+title: 3.7 Jury Stability Test, Sampled-data Systems, Z-Transform
+description: Analyze discrete-time stability and sampled-system behavior in the z-domain.
+---
+
+# 3.7 Jury Stability Test, Sampled-data Control Systems, Z-Transform
+
+## Learning goals
+
+1. Use Z-transform for discrete-time system analysis.
+2. Apply Jury stability test for polynomial roots inside unit circle.
+3. Understand sampled-data loop structure.
+
+## Z-transform foundation
+
+<EquationHelp hint="Z-transform plays the same role in discrete time that Laplace transform plays in continuous time.">
+
+$$
+X(z)=\sum_{k=0}^{\infty} x[k]z^{-k}
+$$
+
+</EquationHelp>
+
+Poles of discrete system must lie inside unit circle for asymptotic stability.
+
+## Jury test intuition
+
+For characteristic polynomial in $z$:
+
+$$
+P(z)=a_0z^n+a_1z^{n-1}+\dots+a_n
+$$
+
+Jury provides tabular inequalities equivalent to all roots satisfying $|z_i|<1$.
+
+Use Jury when direct root solving is cumbersome.
+
+## Sampled-data loop
+
+A sampled-data system includes:
+
+- Continuous plant
+- Sampler (A/D)
+- Digital controller
+- Hold element (D/A with ZOH)
+
+Overall behavior depends on both plant dynamics and sampling/hold effects.
+
+## Stability intuition in one line
+
+Continuous-time stability checks whether poles lie in LHP.
+Discrete-time stability checks whether poles lie **inside the unit circle**.
+Jury test is a structured way to verify that without solving roots explicitly.
+
+## Why this module feels hard at first
+
+Students are learning three shifts simultaneously:
+
+1. time variable changes from $t$ to index $k$,
+2. transform changes from Laplace to Z-transform,
+3. stability region changes from LHP to unit circle.
+
+If you treat these as a direct dictionary, confusion drops quickly.
+
+## Common mistakes
+
+- Mixing $s$-domain and $z$-domain formulas in the same derivation.
+- Interpreting $|z|<1$ incorrectly as \"real part < 0\".
+- Skipping sampling/hold effects in loop analysis.
+
+## Try it now
+
+For a second-order discrete polynomial, check unit-circle stability by both root calculation and Jury steps.
+Compare results.
+
+## Citations
+
+- [R6](/syllabus/references#r6)
+- [R7](/syllabus/references#r7)
+- [R2](/syllabus/references#r2)

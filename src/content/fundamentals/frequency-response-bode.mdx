@@ -1,0 +1,77 @@
+---
+title: Frequency Response and Bode Plots
+description: Read gain, phase, and stability margins from Bode plots.
+---
+
+# Frequency Response and Bode Plots
+
+Bode plots answer a core control question:
+how does the system react to different input frequencies?
+
+## Why this belongs in the core syllabus
+
+- Time-domain specs tell you speed and overshoot.
+- Bode plots tell you robustness and noise sensitivity.
+- Together, they give a complete tuning picture.
+
+## Bode plot structure
+
+A Bode plot has two graphs versus frequency (log scale):
+
+1. Magnitude in dB
+2. Phase in degrees
+
+For a transfer function $G(j\omega)$:
+
+<EquationHelp hint="Magnitude says how much sinusoidal inputs are amplified or attenuated at each frequency. 0 dB means output amplitude equals input amplitude.">
+
+$$
+\text{Magnitude (dB)} = 20\log_{10}|G(j\omega)|
+$$
+
+</EquationHelp>
+
+<EquationHelp hint="Phase says how much the sinusoidal output lags the input. More negative phase often means less stability margin.">
+
+$$
+\text{Phase (deg)} = \angle G(j\omega)
+$$
+
+</EquationHelp>
+
+## Key margin concepts
+
+- Gain crossover frequency $\omega_{gc}$: where magnitude crosses 0 dB.
+- Phase margin (PM): how far phase is from $-180^\circ$ at $\omega_{gc}$.
+- Larger PM usually means less oscillatory closed-loop behavior.
+
+<EquationHelp hint="A quick rule: PM around 45 to 60 degrees is often a practical target for many loops, though exact targets depend on requirements.">
+
+$$
+\mathrm{PM} = 180^\circ + \angle G(j\omega_{gc})
+$$
+
+</EquationHelp>
+
+## Interactive Bode lab
+
+<BodePlotDemo />
+
+Use the sliders and observe:
+
+- Increasing gain shifts magnitude upward.
+- Lower corner frequencies start roll-off earlier.
+- Phase lag accumulates as frequency passes each pole.
+
+## Practical interpretation checklist
+
+1. Find $\omega_{gc}$.
+2. Read phase at $\omega_{gc}$.
+3. Compute/estimate phase margin.
+4. Ask whether disturbance rejection and robustness tradeoff is acceptable.
+
+## Continue
+
+- [Stability and Performance](/stability)
+- [Interactive Bode Lab](/interactive/bode-plot-lab)
+- [Stability Practice Set](/practice/stability)

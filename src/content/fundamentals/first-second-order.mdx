@@ -1,0 +1,98 @@
+---
+title: First vs Second Order Behavior
+description: The minimum set of dynamic response patterns every student must recognize.
+---
+
+# First vs Second Order Behavior
+
+Most beginner control questions reduce to recognizing whether dynamics are first-order-like or second-order-like.
+
+## First-order template
+
+<EquationHelp hint="First-order systems have one pole and one dominant time scale. Tau controls how quickly the response moves toward its final value.">
+
+$$
+G(s)=\frac{K}{\tau s+1}
+$$
+
+</EquationHelp>
+
+- $K$: static gain
+- $\tau$: time constant
+
+For a unit-step input, the output reaches about:
+
+- 63% at $t=\tau$
+- 95% at $t\approx3\tau$
+- 98% at $t\approx4\tau$
+
+Mental picture: smooth rise, no oscillation.
+
+## Second-order template
+
+<EquationHelp hint="Second-order form separates speed and damping: wn sets natural speed, zeta sets how oscillatory or smooth the response is.">
+
+$$
+G(s)=\frac{\omega_n^2}{s^2 + 2\zeta\omega_n s + \omega_n^2}
+$$
+
+</EquationHelp>
+
+- $\zeta$: damping ratio
+- $\omega_n$: natural frequency
+
+Approximate performance relations (underdamped region $0<\zeta<1$):
+
+Peak overshoot formula:
+
+<EquationHelp hint="Overshoot drops as zeta increases. A lightly damped system (small zeta) overshoots more.">
+
+$$
+M_p\approx e^{-\pi\zeta/\sqrt{1-\zeta^2}}\times100\%
+$$
+
+</EquationHelp>
+
+2% settling time estimate:
+
+<EquationHelp hint="Settling time gets shorter if either damping (zeta) or natural frequency (wn) increases, because the decay envelope shrinks faster.">
+
+$$
+T_s\approx\frac{4}{\zeta\omega_n}
+$$
+
+</EquationHelp>
+
+Peak time:
+
+<EquationHelp hint="Peak time mainly depends on damped oscillation frequency. Larger wn usually means earlier peak.">
+
+$$
+T_p=\frac{\pi}{\omega_n\sqrt{1-\zeta^2}}
+$$
+
+</EquationHelp>
+
+Mental picture: can oscillate and overshoot depending on $\zeta$.
+
+## Quick compare table
+
+| Feature | First Order | Second Order |
+| --- | --- | --- |
+| Oscillation possible? | No | Yes (if $\zeta<1$) |
+| Main speed parameter | $\tau$ | $\omega_n$ |
+| Damping parameter | Not separate | $\zeta$ |
+| Typical test question | Time constant | Overshoot/settling tradeoff |
+
+## Use the interactive plot
+
+Try [Step and Pole Sliders](/interactive/step-and-poles) and vary $\zeta$ and $\omega_n$.
+Watch how rise speed and overshoot change.
+Then connect time-domain behavior to frequency-domain robustness in [Frequency Response and Bode Plots](/fundamentals/frequency-response-bode).
+
+## Check yourself
+
+Given a system with $\zeta=0.2$ and $\omega_n=3$ rad/s:
+
+1. Will the step response overshoot noticeably?
+2. If you increase $\zeta$ while keeping $\omega_n$ fixed, what happens to overshoot?

@@ -1,0 +1,50 @@
+---
+title: Symbols and Units
+description: Canonical notation sheet for this course.
+---
+
+# Symbols and Units
+
+Use this sheet as the default notation unless a problem states otherwise.
+
+## Core loop signals
+
+| Symbol | Meaning | Typical Unit |
+| --- | --- | --- |
+| $r(t)$ | Reference (target) | same as output (degC, m/s, rad) |
+| $y(t)$ | Output (measured reality) | process unit |
+| $e(t)=r(t)-y(t)$ | Error | same as output |
+| $u(t)$ | Control effort/command | V, N, torque, valve % |
+
+## Common dynamic parameters
+
+| Symbol | Meaning | Typical Unit |
+| --- | --- | --- |
+| $K$ | Gain | depends on signal scaling |
+| $\tau$ | Time constant | s |
+| $\zeta$ | Damping ratio | dimensionless |
+| $\omega_n$ | Natural frequency | rad/s |
+| $T_s$ | Settling time | s |
+| $M_p$ | Percent overshoot | % |
+
+## State-space notation
+
+| Symbol | Meaning | Dimensions |
+| --- | --- | --- |
+| $x(t)$ | State vector | $n\times1$ |
+| $u(t)$ | Input vector | $m\times1$ |
+| $y(t)$ | Output vector | $p\times1$ |
+| $A$ | State matrix | $n\times n$ |
+| $B$ | Input matrix | $n\times m$ |
+| $C$ | Output matrix | $p\times n$ |
+| $D$ | Feedthrough matrix | $p\times m$ |
+
+## Sign convention
+
+Default for this site is negative feedback:
+
+$$
+e(t)=r(t)-y(t)
+$$
+
+Always check the summing-node signs before deriving equations.
