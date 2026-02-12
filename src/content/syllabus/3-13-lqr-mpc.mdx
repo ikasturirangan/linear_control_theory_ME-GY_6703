@@ -5,11 +5,26 @@ description: Introduce optimization-based control for multi-objective and constr
 
 # 3.13 LQR and MPC
 
-## Learning goals
+## Learning Outcomes
 
 1. Understand LQR objective and optimal state feedback structure.
 2. Understand MPC receding-horizon optimization idea.
 3. Compare LQR vs MPC usage contexts.
+
+## Glossary
+
+| Term | Meaning |
+| --- | --- |
+| LQR | Optimal state-feedback controller minimizing quadratic infinite-horizon cost. |
+| MPC | Receding-horizon optimization-based controller with explicit constraints. |
+| Cost function | Mathematical objective balancing state regulation and control effort. |
+| Horizon | Prediction window length in MPC optimization. |
+| Constraints | Limits on inputs, states, or outputs. |
+
+## Explanation
+
+This chapter introduces optimization-based control.
+Instead of only shaping poles/margins, you explicitly optimize performance criteria.
 
 ## LQR essentials
 
@@ -70,13 +85,27 @@ MPC handles constraints explicitly at design time:
 
 This is critical in chemical process, energy, automotive, and robotics applications.
 
-## Common beginner mistakes
+## Common Mistakes
 
 - Treating LQR/MPC as \"automatic best\" without model validation.
 - Ignoring state-estimation quality when implementing MPC/LQR on real systems.
 - Choosing horizon/weights arbitrarily without checking closed-loop behavior.
 
-## Try it now
+## Worked Example
+
+For an LQR design, increase state penalty matrix $Q$ while keeping $R$ fixed.
+Observe: tighter regulation but larger control action.
+Then increase $R$ and observe reduced actuation with slower correction.
+
+## Detailed Review
+
+Check that you can explain:
+
+1. Why LQR is computationally lighter online than MPC.
+2. Why MPC becomes preferred with hard constraints.
+3. How estimator quality affects both LQR and MPC implementation.
+
+## Assignments
 
 1. Change $Q$ and $R$ weights in an LQR example and observe tradeoffs.
 2. Add actuator limits and explain why MPC becomes attractive.

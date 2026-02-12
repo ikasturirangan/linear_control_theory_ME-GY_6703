@@ -16,11 +16,16 @@ If you can reduce a diagram to one equivalent transfer function, you can immedia
 - step response
 - steady-state error
 
+If drawing diagrams is still new, study [Block Diagrams Chapter](/block-diagrams) first.
+
 ## Block Diagram A: Series Connection
 
-```text
-r ---> [ G1(s) ] ---> [ G2(s) ] ---> y
-```
+<OpenLoopDiagram
+  caption="Block Diagram A: Series Connection"
+  blocks={["G1(s)", "G2(s)"]}
+  outputLabel="y"
+  referenceLabel="r"
+/>
 
 Equivalent transfer function:
 
@@ -32,11 +37,13 @@ Interpretation: signals pass through both blocks one after another, so effects m
 
 ## Block Diagram B: Parallel Connection
 
-```text
-                 +--> [ G1(s) ] --+
-r ---> (split) --|                 +--> (sum) ---> y
-                 +--> [ G2(s) ] --+
-```
+<ParallelConnectionDiagram
+  caption="Block Diagram B: Parallel Connection"
+  inputLabel="r"
+  lowerBlockLabel="G2(s)"
+  outputLabel="y"
+  upperBlockLabel="G1(s)"
+/>
 
 Equivalent transfer function (if summed with same sign):
 
@@ -48,13 +55,14 @@ Interpretation: both paths see the same input and outputs are added.
 
 ## Block Diagram C: Single Negative-Feedback Loop
 
-```text
-                 +------------ [ H(s) ] ------------+
-                 |                                   |
-r ---> ( + ) ---> [ G(s) ] ------------------------> y
-       ( - ) ^                                       
-             +---------------------------------------+
-```
+<ClosedLoopDiagram
+  caption="Block Diagram C: Single Negative-Feedback Loop"
+  errorLabel=""
+  forwardBlocks={["G(s)"]}
+  outputLabel="y"
+  referenceLabel="r"
+  sensorLabel="H(s)"
+/>
 
 Equivalent closed-loop transfer function:
 
@@ -94,4 +102,4 @@ When reducing diagrams:
 
 ## Next step
 
-Use this skill with [Worked Fundamentals Example](/worked-examples/fundamentals).
+Use this skill with [Worked Fundamentals Example](/worked-examples/fundamentals) and the exercises in [Practice Drawing and Checking](/block-diagrams/practice-drawing).

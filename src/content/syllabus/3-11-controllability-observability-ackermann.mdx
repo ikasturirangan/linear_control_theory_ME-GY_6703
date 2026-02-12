@@ -5,11 +5,26 @@ description: Verify structural design conditions and compute state-feedback gain
 
 # 3.11 Controllability, Observability, Ackermann's Formula
 
-## Learning goals
+## Learning Outcomes
 
 1. Test controllability and observability with rank checks.
 2. Understand why these are prerequisites for state-space design.
 3. Apply Ackermann's formula for pole placement in SISO systems.
+
+## Glossary
+
+| Term | Meaning |
+| --- | --- |
+| Controllability | Ability of input to move all state modes. |
+| Observability | Ability to reconstruct states from outputs. |
+| Rank test | Matrix rank check used to verify structural properties. |
+| Ackermann's formula | Direct SISO state-feedback gain computation for chosen poles. |
+| Desired polynomial $\\phi(s)$ | Target closed-loop characteristic polynomial. |
+
+## Explanation
+
+This chapter answers a critical design question:
+\"Can my system even be controlled and estimated the way I want?\"
 
 ## Controllability and observability tests
 
@@ -47,13 +62,32 @@ $$
 
 where $\phi(A)$ is desired characteristic polynomial evaluated at $A$.
 
-## Common pitfalls
+## Common Mistakes
 
 - Applying Ackermann to non-controllable systems.
 - Numerical issues from directly inverting ill-conditioned controllability matrix.
 - Choosing unrealistic desired poles (too fast for actuator/sensor limits).
 
-## Try it now
+## Worked Example
+
+For a 2-state system, compute:
+
+$$
+\mathcal{C}=[B\ AB]
+$$
+
+If rank is 2, pole placement is structurally feasible.
+Only then apply Ackermann to compute $K$.
+
+## Detailed Review
+
+Check you can explain:
+
+1. Why controllability/observability are prerequisites, not optional checks.
+2. Why numerical conditioning matters in practical gain computation.
+3. How pole location choices connect to physical actuator/sensor limitations.
+
+## Assignments
 
 For a 2-state system, compute $\mathcal{C}$ rank before applying Ackermann.
 Then place poles at chosen stable locations.

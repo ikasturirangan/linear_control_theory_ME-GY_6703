@@ -5,11 +5,26 @@ description: Move from continuous controller equations to implementable discrete
 
 # 3.6 Digital Controller Representation and Difference Equation Solutions
 
-## Learning goals
+## Learning Outcomes
 
 1. Represent digital controllers in $z$-domain.
 2. Derive and interpret controller difference equations.
 3. Solve first/second-order difference equations for response behavior.
+
+## Glossary
+
+| Term | Meaning |
+| --- | --- |
+| $z$-domain | Transform domain for discrete-time systems. |
+| Difference equation | Recursive update equation used in digital controller code. |
+| Homogeneous response | Natural response from internal dynamics/initial conditions. |
+| Particular response | Forced response due to external input sequence. |
+| Sample index $k$ | Discrete time step number. |
+
+## Explanation
+
+This chapter connects math and implementation.
+If you can write difference equations correctly, you can implement controllers on real hardware.
 
 ## Why this topic matters
 
@@ -59,14 +74,36 @@ Each sample, your controller:
 
 So this topic is the bridge between math and firmware implementation.
 
-## Common implementation pitfalls
+## Common Mistakes
 
 - Wrong sign on feedback terms in code.
 - Forgetting to initialize memory terms.
 - Using inconsistent sample time between model and software loop.
 - Numeric overflow/precision issues in fixed-point targets.
 
-## Try it now
+## Worked Example
+
+Given:
+
+$$
+u[k]=0.6u[k-1]+0.5e[k]-0.2e[k-1]
+$$
+
+Interpretation:
+
+- first-order memory in output ($u[k-1]$),
+- one-step memory in error ($e[k-1]$),
+- implementable with two stored variables per cycle.
+
+## Detailed Review
+
+Confirm you can:
+
+1. Move between $C(z)$ form and difference-equation form.
+2. Explain why recursive controllers need state memory in code.
+3. Identify stability risk from recursive coefficients.
+
+## Assignments
 
 Given
 

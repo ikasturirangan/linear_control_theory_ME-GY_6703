@@ -5,7 +5,7 @@ description: Build the full modeling pipeline from physics to transfer-function 
 
 # 3.1 Modeling, ODE, Transfer Function, Responses, Simulink
 
-## Learning goals
+## Learning Outcomes
 
 By the end of this module, you should be able to:
 
@@ -15,6 +15,21 @@ By the end of this module, you should be able to:
 4. Build the same model in Simulink for simulation.
 
 If you are new to engineering notation, start with [Transfer Functions for Absolute Beginners](/fundamentals/transfer-functions-beginner).
+
+## Glossary
+
+| Term | Meaning |
+| --- | --- |
+| ODE | Ordinary differential equation describing system dynamics in time. |
+| TF | Transfer function, typically $G(s)=Y(s)/U(s)$. |
+| Command response | Output behavior due to reference input. |
+| Disturbance response | Output behavior due to external disturbance input. |
+| Simulink | Block-diagram simulation environment used for dynamic models. |
+
+## Explanation
+
+This chapter explains how engineers convert physical intuition into a simulation-ready model.
+You begin from physics (ODE), convert to transfer function, then test behavior for commands and disturbances.
 
 ## Big picture (for beginners)
 
@@ -60,7 +75,7 @@ Both matter. Fast command tracking with poor disturbance rejection is not good c
 4. Add Scope block for output.
 5. Sweep parameters and compare trajectories.
 
-## Mini worked example
+## Worked Example
 
 Mass-spring-damper:
 
@@ -86,14 +101,23 @@ Think of this module as a 5-step pipeline:
 
 If your simulation and intuition disagree strongly, revisit modeling assumptions before controller design.
 
-## Common beginner mistakes
+## Common Mistakes
 
 - Picking the wrong output variable (for example, displacement instead of measured sensor output).
 - Forgetting that TF derivation assumes zero initial conditions.
 - Treating disturbance as if it were the command input.
 - Using Simulink blocks without writing the underlying equation first.
 
-## Try it now
+## Detailed Review
+
+Before moving on, verify you can do these without notes:
+
+1. Write one physical law-based ODE for a simple plant.
+2. Convert that ODE to $G(s)$ under zero initial conditions.
+3. Explain the difference between command tracking and disturbance rejection.
+4. Sketch the corresponding Simulink block structure.
+
+## Assignments
 
 - Derive transfer function for an RC circuit with input voltage and capacitor output.
 - In Simulink, compare responses for two damping values.

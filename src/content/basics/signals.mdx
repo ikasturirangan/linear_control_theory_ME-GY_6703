@@ -25,15 +25,13 @@ In a basic feedback loop:
 - The controller uses `e(t)` to generate `u(t)`
 - The plant responds and produces `y(t)`
 
-```text
-Block Diagram 4: Signal Labels in a Negative-Feedback Loop
-
-                        +-------------------- y(t) --------------------+
-                        |                                               |
-r(t) ---> ( + ) ---> e(t) ---> [ Controller ] ---> u(t) ---> [ Plant ] ---> y(t)
-           ( - ) ^                                           
-                 +---------------------- [ Sensor ] --------------------+
-```
+<ClosedLoopDiagram
+  caption="Block Diagram 4: Signal Labels in a Negative-Feedback Loop"
+  controlLabel="u(t)"
+  errorLabel="e(t)"
+  forwardBlocks={["Controller", "Plant"]}
+  sensorLabel="Sensor"
+/>
 
 Use Block Diagram 4 to map every symbol to a physical meaning.
 

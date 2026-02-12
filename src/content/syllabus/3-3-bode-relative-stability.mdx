@@ -5,11 +5,26 @@ description: Use frequency response to reason about robustness, damping tendency
 
 # 3.3 Bode Plot and Relative Stability
 
-## Learning goals
+## Learning Outcomes
 
 1. Read magnitude and phase plots correctly.
 2. Estimate gain crossover, phase crossover, and margins.
 3. Interpret relative stability from frequency-domain plots.
+
+## Glossary
+
+| Term | Meaning |
+| --- | --- |
+| Bode plot | Frequency response represented as magnitude and phase vs frequency. |
+| Gain crossover | Frequency where magnitude is 0 dB. |
+| Phase margin (PM) | Distance to $-180^\circ$ phase at gain crossover. |
+| Gain margin (GM) | Extra gain before instability at phase crossover. |
+| Relative stability | How robustly stable a loop is, not just stable/unstable. |
+
+## Explanation
+
+This chapter reframes stability as a robustness problem.
+Instead of only checking poles, you evaluate how much uncertainty the loop can tolerate using margins.
 
 ## Why relative stability matters
 
@@ -59,7 +74,7 @@ Larger positive margins generally imply better robustness.
 
 This quick scan gives a practical stability + robustness assessment without full simulation.
 
-## Common interpretation mistakes
+## Common Mistakes
 
 - Treating PM as an absolute guarantee (nonlinearities and delays can still destabilize).
 - Ignoring model uncertainty near crossover.
@@ -70,7 +85,26 @@ This quick scan gives a practical stability + robustness assessment without full
 
 Use [Bode Plot Lab](/interactive/bode-plot-lab) to build intuition with sliders.
 
-## Try it now
+## Worked Example
+
+Suppose crossover frequency is where phase is $-140^\circ$.
+Then:
+
+$$
+\mathrm{PM}=180^\circ-140^\circ=40^\circ
+$$
+
+Interpretation: loop is stable but margin is moderate; damping/robustness may be limited.
+
+## Detailed Review
+
+Before moving ahead, verify you can:
+
+1. Estimate $\omega_{gc}$ from magnitude graph.
+2. Estimate PM from phase at $\omega_{gc}$.
+3. Explain speed vs robustness tradeoff in one paragraph.
+
+## Assignments
 
 For a given Bode plot, estimate PM and answer:
 

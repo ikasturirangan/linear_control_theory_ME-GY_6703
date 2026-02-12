@@ -1,0 +1,56 @@
+---
+title: Understanding Block Diagrams
+description: Build intuition for blocks, arrows, summing nodes, and feedback loops.
+---
+
+# Understanding Block Diagrams
+
+## What is a block diagram?
+
+A block diagram is a simplified signal-flow map of a control system.
+It shows what information moves where, and what transformation happens at each step.
+
+## Core symbols
+
+| Symbol | Meaning | Beginner interpretation |
+| --- | --- | --- |
+| `[ G ]` | Dynamic block | A component that transforms input signal into output signal |
+| Arrow | Signal direction | Which way information flows |
+| `( + / - )` node | Summing junction | Adds/subtracts signals (often forms error) |
+| Split node | Branch point | One signal feeding multiple destinations |
+
+## Canonical feedback structure
+
+<ClosedLoopDiagram
+  caption="Canonical negative-feedback structure"
+  errorLabel="e(t)"
+  forwardBlocks={["Controller C", "Plant P"]}
+  sensorLabel="Sensor H"
+/>
+
+## Signal meaning in this diagram
+
+- `r(t)`: reference (goal)
+- `y(t)`: measured output (reality)
+- `e(t)=r(t)-y(t)`: error
+- controller output: control effort sent to actuator/plant
+
+## Mental model
+
+Read left-to-right:
+
+1. compare goal and reality,
+2. compute action,
+3. apply action to plant,
+4. measure result,
+5. repeat.
+
+## Common confusion to avoid
+
+- A block is not necessarily one physical device; it can represent a combined subsystem.
+- A line is not electrical wire specifically; it means "signal path".
+- Diagram simplification is normal. It captures relevant dynamics, not every hardware detail.
+
+## Next
+
+Go to [How to Draw Block Diagrams](/block-diagrams/drawing-workflow).

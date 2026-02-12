@@ -9,23 +9,18 @@ Feedback is the most important word in control theory.
 It separates "send a command and hope" from "measure and correct."
 Use the two block diagrams below as your visual anchor.
 
-```text
-Block Diagram 2: Open Loop
-
-r(t) ---> [ Controller ] ---> [ Actuator ] ---> [ Plant ] ---> y(t)
+<OpenLoopDiagram
+  caption="Block Diagram 2: Open Loop"
+  blocks={["Controller", "Actuator", "Plant"]}
+/>
 
 No measured output is sent back to the controller.
-```
 
-```text
-Block Diagram 3: Closed Loop (Feedback)
-
-                      +---------------- [ Sensor ] ----------------+
-                      |                                            |
-r(t) ---> ( + ) ---> [ Controller ] ---> [ Actuator ] ---> [ Plant ] ---> y(t)
-           ( - ) ^                                           
-                 +----------------------------------------------+
-```
+<ClosedLoopDiagram
+  caption="Block Diagram 3: Closed Loop (Feedback)"
+  forwardBlocks={["Controller", "Actuator", "Plant"]}
+  sensorLabel="Sensor"
+/>
 
 ## Open Loop
 

@@ -42,18 +42,7 @@ Common non-linear effects:
 - Friction and dead zones
 - Backlash and hysteresis
 
-```text
-Block Diagram 5: Nonlinear Plant vs Local Linear Model
-
-u(t) ---> [ Nonlinear Plant ] ---> y(t)
-            |
-            | choose operating point (u0, x0, y0)
-            v
-        [ Local Linear Model ΔG(s) ]
-
-Small-signal relation near operating point:
-Δy(t) ≈ ΔG(s) Δu(t)
-```
+<LinearizationDiagram caption="Block Diagram 5: Nonlinear Plant vs Local Linear Model" />
 
 Block Diagram 5 is the core idea behind linearization: model the local behavior, not the entire nonlinear world.
 

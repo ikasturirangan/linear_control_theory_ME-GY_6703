@@ -5,11 +5,26 @@ description: Analyze discrete-time stability and sampled-system behavior in the 
 
 # 3.7 Jury Stability Test, Sampled-data Control Systems, Z-Transform
 
-## Learning goals
+## Learning Outcomes
 
 1. Use Z-transform for discrete-time system analysis.
 2. Apply Jury stability test for polynomial roots inside unit circle.
 3. Understand sampled-data loop structure.
+
+## Glossary
+
+| Term | Meaning |
+| --- | --- |
+| Z-transform | Discrete-time transform representation of sequences. |
+| Unit circle | Stability boundary in discrete-time pole map. |
+| Jury test | Tabular stability test for roots inside unit circle. |
+| Sampled-data system | Hybrid loop with continuous plant + sampled controller path. |
+| ZOH | Zero-order hold between digital commands and continuous plant input. |
+
+## Explanation
+
+This chapter is the discrete-time counterpart of Laplace-domain stability analysis.
+It teaches how sampling changes both math language and stability geometry.
 
 ## Z-transform foundation
 
@@ -62,13 +77,26 @@ Students are learning three shifts simultaneously:
 
 If you treat these as a direct dictionary, confusion drops quickly.
 
-## Common mistakes
+## Common Mistakes
 
 - Mixing $s$-domain and $z$-domain formulas in the same derivation.
 - Interpreting $|z|<1$ incorrectly as \"real part < 0\".
 - Skipping sampling/hold effects in loop analysis.
 
-## Try it now
+## Worked Example
+
+For a second-order polynomial in $z$, compute its roots numerically and verify whether each satisfies $|z_i|<1$.
+Then perform Jury steps to confirm the same conclusion.
+
+## Detailed Review
+
+Check you can clearly state:
+
+1. How Laplace and Z-transform roles are analogous.
+2. Why unit-circle criterion replaces LHP criterion.
+3. Why sampled-data modeling needs sampler + hold blocks explicitly.
+
+## Assignments
 
 For a second-order discrete polynomial, check unit-circle stability by both root calculation and Jury steps.
 Compare results.

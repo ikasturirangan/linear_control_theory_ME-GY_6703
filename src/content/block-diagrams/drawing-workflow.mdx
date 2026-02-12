@@ -1,0 +1,72 @@
+---
+title: How to Draw Block Diagrams
+description: A practical step-by-step method to draw control block diagrams from real systems.
+---
+
+# How to Draw Block Diagrams
+
+Use this workflow every time you face a new system.
+
+## Step 1: Define control objective
+
+Write one clear sentence:
+
+- "Maintain room temperature at setpoint."
+- "Track desired motor speed."
+
+If objective is unclear, diagram will be unclear.
+
+## Step 2: Identify the 4 anatomy blocks
+
+From the physical setup, identify:
+
+- Plant
+- Sensor
+- Controller
+- Actuator
+
+## Step 3: Choose primary signals
+
+At minimum define:
+
+- `r(t)` reference
+- `y(t)` output
+- `e(t)=r(t)-y(t)` error
+- `u(t)` control input to plant/actuator
+
+## Step 4: Draw forward path
+
+Typical order:
+
+`e(t) -> controller -> actuator -> plant -> y(t)`
+
+## Step 5: Add feedback path
+
+Route measured output through sensor block back to the negative input of summing node.
+
+## Step 6: Add disturbance path (if relevant)
+
+If external disturbances exist (load torque, wind, heat loss), add disturbance input at the correct physical entry point.
+
+## Step 7: Sanity-check your diagram
+
+Checklist:
+
+1. Are units consistent at each summing node?
+2. Does disturbance enter where physics says it should?
+3. Does feedback use measured output, not desired output?
+4. Can each block be described by an equation/model?
+
+## Template you can reuse
+
+<ClosedLoopDiagram
+  caption="Reusable template for a negative-feedback loop"
+  disturbanceLabel="d(t)"
+  errorLabel="e(t)"
+  forwardBlocks={["C(s)", "G(s)"]}
+  sensorLabel="H(s)"
+/>
+
+## Next
+
+See concrete examples in [Block Diagrams for Different Systems](/block-diagrams/different-systems-examples).

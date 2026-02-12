@@ -5,11 +5,26 @@ description: Design state feedback and observer gains to shape closed-loop dynam
 
 # 3.12 Pole-Placement Controller Design and Full-State Observer Design
 
-## Learning goals
+## Learning Outcomes
 
 1. Design state-feedback gain $K$ for desired closed-loop poles.
 2. Design observer gain $L$ for state estimation.
 3. Understand separation principle in controller+observer design.
+
+## Glossary
+
+| Term | Meaning |
+| --- | --- |
+| Pole placement | Choosing controller poles to shape closed-loop behavior. |
+| State feedback | Control law based on state vector, often $u=-Kx+Nr$. |
+| Observer | Dynamic estimator that reconstructs states from outputs. |
+| Separation principle | Independent controller and observer design validity under standard assumptions. |
+| Estimation error | Difference between true state and estimated state. |
+
+## Explanation
+
+This chapter combines control and estimation into a complete practical architecture.
+You design how system behaves and how hidden states are reconstructed.
 
 ## Controller design
 
@@ -62,7 +77,30 @@ So practical design balances estimation speed and noise sensitivity.
 4. Simulate with sensor noise and disturbances.
 5. Retune if noise amplification is excessive.
 
-## Try it now
+## Common Mistakes
+
+- Designing controller poles before verifying controllability.
+- Placing observer poles excessively fast and amplifying measurement noise.
+- Ignoring estimator initial-condition effects in transient behavior.
+- Treating separation principle as immunity to bad modeling assumptions.
+
+## Worked Example
+
+For a 2-state plant:
+
+1. place controller poles at moderate stable values,
+2. place observer poles 2x-3x faster,
+3. compare output tracking with full-state measurement vs observer-based implementation.
+
+## Detailed Review
+
+Make sure you can discuss:
+
+1. Why observer dynamics should usually be faster than controller dynamics.
+2. How noise sensitivity appears when observer is too aggressive.
+3. Why controller+observer must be tested together in simulation.
+
+## Assignments
 
 1. Pick controller poles for a 2-state plant.
 2. Pick observer poles 3x faster.

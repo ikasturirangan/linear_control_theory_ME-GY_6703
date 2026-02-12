@@ -5,11 +5,27 @@ description: Link closed-loop structure to tracking error and time-domain specif
 
 # 3.2 Steady-State Error, Closed-Loop Transfer Function, Performance
 
-## Learning goals
+## Learning Outcomes
 
 1. Derive closed-loop transfer function.
 2. Compute steady-state error with final value theorem.
 3. Relate damping and natural frequency to performance metrics.
+
+## Glossary
+
+| Term | Meaning |
+| --- | --- |
+| CLTF | Closed-loop transfer function, output/reference map with feedback closed. |
+| SSE | Steady-state error, long-time tracking error. |
+| FVT | Final value theorem for long-time value extraction in Laplace domain. |
+| System type | Number of open-loop integrators; predicts steady-state tracking class. |
+
+## Explanation
+
+This chapter answers two practical questions:
+
+1. What does feedback make the system do mathematically?
+2. How much final error remains after transient behavior settles?
 
 ## Closed-loop transfer function
 
@@ -83,7 +99,38 @@ It predicts which input classes can be tracked with zero SSE:
 
 So \"performance\" is not only overshoot/speed; it also includes which references are trackable.
 
-## Try it now
+## Common Mistakes
+
+- Applying final value theorem without checking closed-loop stability assumptions.
+- Mixing $E(s)$ and $Y(s)$ expressions during derivation.
+- Forgetting input type (step vs ramp) when calculating SSE.
+- Misidentifying system type by counting poles instead of integrators at origin.
+
+## Worked Example
+
+For unity feedback with:
+
+$$
+G(s)=\frac{5}{s(s+1)}
+$$
+
+- Closed-loop map:
+  $$
+  T(s)=\frac{5}{s(s+1)+5}
+  $$
+- System type: 1 (one pole at origin in open loop).
+- Step SSE: 0.
+- Ramp SSE: finite and equals $1/K_v$ with $K_v=\lim_{s\to0}sG(s)=5$.
+
+## Detailed Review
+
+Check you can confidently explain:
+
+1. Why CLTF denominator is the stability-critical polynomial.
+2. Why system type predicts SSE class.
+3. How SSE and transient metrics describe different performance dimensions.
+
+## Assignments
 
 For $G(s)=\frac{10}{s(s+2)}$ (unity feedback):
 

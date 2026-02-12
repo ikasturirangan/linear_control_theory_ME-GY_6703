@@ -5,11 +5,25 @@ description: Convert continuous state-space models into discrete-time forms for 
 
 # 3.10 Continuous-to-Discrete Conversion and DTSS
 
-## Learning goals
+## Learning Outcomes
 
 1. Convert continuous state-space models to discrete-time state-space (DTSS).
 2. Understand exact ZOH discretization formulas.
 3. Interpret discretization effects on poles and dynamics.
+
+## Glossary
+
+| Term | Meaning |
+| --- | --- |
+| DTSS | Discrete-time state-space model. |
+| ZOH discretization | Exact conversion method under held input assumption. |
+| $A_d,B_d$ | Discrete-time dynamics and input matrices. |
+| Pole mapping | Relation between continuous poles and discrete poles via sampling. |
+
+## Explanation
+
+This chapter is about making continuous models deployable on digital controllers.
+You keep physical meaning, but express dynamics at sample instants.
 
 ## DTSS form
 
@@ -54,7 +68,31 @@ Without this step, simulation and real implementation can diverge significantly.
 - Approximate methods can be useful for hand analysis but must be validated.
 - Sampling period choice directly changes discrete pole location and margin.
 
-## Try it now
+## Common Mistakes
+
+- Using continuous-time gains directly in discrete implementation.
+- Choosing sample period without checking mapped pole locations.
+- Confusing exact ZOH conversion with rough approximation formulas.
+
+## Worked Example
+
+For continuous pole $s=-2+j$ and $T_s=0.1$:
+
+$$
+z=e^{sT_s}=e^{-0.2}e^{j0.1}
+$$
+
+magnitude is $e^{-0.2}<1$, so mapped pole is inside unit circle.
+
+## Detailed Review
+
+Before progressing, verify you can:
+
+1. Write DTSS equations from CTSS form.
+2. Compute $A_d$ and interpret sampled dynamics.
+3. Explain how sampling period changes stability margins.
+
+## Assignments
 
 Take $s=-2\pm j$ with $T_s=0.1$.
 Compute $z=e^{sT_s}$ and verify magnitude is less than 1.

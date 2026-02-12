@@ -1,0 +1,169 @@
+---
+title: Poles, Zeros, DC Gain, and Relative Degree (Beginner Guide)
+description: Learn the four most important transfer-function features with zero prior engineering background.
+---
+
+# Poles, Zeros, DC Gain, and Relative Degree (Beginner Guide)
+
+When students first see transfer functions, these four words show up everywhere.
+This page explains them in plain language first, then math.
+
+## Why these four matter
+
+For
+
+$$
+G(s)=\frac{N(s)}{D(s)}
+$$
+
+you can often predict most behavior from:
+
+1. poles
+2. zeros
+3. DC gain
+4. relative degree
+
+Think of them as a quick \"system fingerprint.\"
+
+## 1) Poles: where natural behavior comes from
+
+Poles are the roots of the denominator $D(s)=0$.
+
+<EquationHelp hint="Poles are values of s that make the denominator zero. They are tied to natural modes and stability tendency.">
+
+$$
+\text{Poles: } D(s)=0
+$$
+
+</EquationHelp>
+
+### Intuition
+
+- Poles tell you how the system behaves on its own.
+- In continuous time, poles with negative real part usually decay.
+- Poles with positive real part usually grow (unstable).
+- Poles near imaginary axis decay slowly and can cause long settling.
+
+### Tiny example
+
+$$
+G(s)=\frac{5}{(s+1)(s+4)}
+$$
+
+Poles are at $s=-1,-4$.
+Both are negative, so open-loop natural behavior is decaying.
+
+## 2) Zeros: where response shape is modified
+
+Zeros are the roots of numerator $N(s)=0$.
+
+<EquationHelp hint="Zeros are values of s that make the numerator zero. They shape how input appears at output, especially transient shape.">
+
+$$
+\text{Zeros: } N(s)=0
+$$
+
+</EquationHelp>
+
+### Intuition
+
+- Zeros do not usually decide stability directly like poles do.
+- Zeros strongly affect transient shape (overshoot, undershoot, initial direction).
+- Right-half-plane zeros can create inverse response (initial movement in wrong direction).
+
+### Tiny example
+
+$$
+G(s)=\frac{s+2}{(s+1)(s+4)}
+$$
+
+Zero is at $s=-2$.
+Compared to no-zero case, step-response shape changes even if poles stay same.
+
+## 3) DC gain: low-frequency/static scaling
+
+DC gain means gain at zero frequency (constant input).
+
+<EquationHelp hint="DC gain is G(0) when it exists. It gives long-term output/input scaling for constant or very slow inputs.">
+
+$$
+K_{DC}=G(0)
+$$
+
+</EquationHelp>
+
+### Intuition
+
+- If $K_{DC}=2$, a constant input of 1 tends to output around 2 (in compatible units).
+- DC gain helps estimate steady-state scaling.
+- If $G(0)$ is infinite (integrator present), do not interpret it as ordinary static scaling.
+
+### Tiny example
+
+$$
+G(s)=\frac{10}{s+2}
+$$
+
+$$
+K_{DC}=G(0)=\frac{10}{2}=5
+$$
+
+So very slow/constant input is amplified by about 5.
+
+## 4) Relative degree: numerator order vs denominator order
+
+Relative degree is:
+
+<EquationHelp hint="Relative degree is denominator order minus numerator order. It predicts high-frequency roll-off and realizability hints.">
+
+$$
+r=\deg(D)-\deg(N)
+$$
+
+</EquationHelp>
+
+### Intuition
+
+- Larger relative degree -> stronger high-frequency attenuation.
+- In Bode magnitude, each extra degree gives about additional -20 dB/dec high-frequency slope.
+- Proper/strictly proper transfer functions are usually physically realizable models.
+
+### Quick classification
+
+- Proper: $\deg(D)\ge\deg(N)$
+- Strictly proper: $\deg(D)>\deg(N)$
+- Improper: $\deg(D)<\deg(N)$ (often not physically realizable without extra dynamics)
+
+## One combined reading example
+
+Given:
+
+$$
+G(s)=\frac{2(s+3)}{(s+1)(s+5)}
+$$
+
+- Poles: $-1,-5$
+- Zero: $-3$
+- DC gain: $G(0)=\frac{2\cdot3}{1\cdot5}=1.2$
+- Relative degree: $2-1=1$
+
+What this suggests quickly:
+
+- stable tendency (all poles in LHP),
+- one zero shaping transient,
+- low-frequency scaling around 1.2,
+- moderate high-frequency roll-off.
+
+## Common beginner mistakes
+
+- Mixing pole and zero definitions (denominator vs numerator).
+- Thinking zeros alone decide stability.
+- Using DC gain without checking if $G(0)$ exists.
+- Forgetting relative degree sign and subtracting in wrong order.
+
+## Where this is used next
+
+1. [Modeling and Transfer Functions](/fundamentals)
+2. [First vs Second Order Behavior](/fundamentals/first-second-order)
+3. [Frequency Response and Bode Plots](/fundamentals/frequency-response-bode)
+4. [Stability and Performance](/stability)

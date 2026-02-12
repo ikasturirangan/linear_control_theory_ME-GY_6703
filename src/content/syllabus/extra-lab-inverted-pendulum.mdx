@@ -5,6 +5,28 @@ description: Capstone experiment integrating modeling, control, estimation, and 
 
 # Extra Lab Session: Inverted Pendulum Balancing
 
+## Learning Outcomes
+
+1. Build and validate a linearized model around upright equilibrium.
+2. Design and test stabilizing controller/observer architecture.
+3. Evaluate robustness under disturbances and parameter uncertainty.
+4. Document engineering decisions and failure analysis clearly.
+
+## Glossary
+
+| Term | Meaning |
+| --- | --- |
+| Upright equilibrium | Unstable balance point around which linearization is done. |
+| Swing-up (if used) | Strategy to bring pendulum near upright before balancing mode. |
+| Observer | Estimator used when not all states are directly measured. |
+| Robustness | Ability to maintain stability/performance under uncertainty/disturbance. |
+| Saturation | Actuator command limits that can degrade or destabilize control. |
+
+## Explanation
+
+This lab is where theory becomes real engineering.
+It combines modeling, control design, estimation, digital implementation, and safety decisions in one workflow.
+
 ## Why this lab is a capstone
 
 Inverted pendulum requires nearly every syllabus idea:
@@ -41,7 +63,7 @@ Inverted pendulum requires nearly every syllabus idea:
 - Simulation vs experiment comparison
 - Failure modes and improvement plan
 
-## Common lab failure modes
+## Common Mistakes
 
 - Sample period too large -> poor phase margin.
 - Ignoring actuator saturation -> windup/instability.
@@ -65,7 +87,25 @@ This prevents trial-and-error chaos and makes debugging systematic.
 - Keep observer/controller initial conditions sensible.
 - Run short-duration tests before long balancing runs.
 
-## Try it now
+## Worked Example
+
+Example mini-run:
+
+1. Use linearized model and design LQR gain.
+2. Add observer with poles 3x faster than controller poles.
+3. Simulate with ±10% mass uncertainty and impulse disturbance.
+4. Verify stabilization and acceptable settling before hardware test.
+
+## Detailed Review
+
+Before final submission, confirm you can justify:
+
+1. Why your model is valid near operating region.
+2. Why selected poles/weights are physically reasonable.
+3. How sampling, saturation, and noise were handled.
+4. What failed in early trials and what design change fixed it.
+
+## Assignments
 
 Before running hardware, simulate with ±10% parameter uncertainty.
 Explain why robust margin matters.

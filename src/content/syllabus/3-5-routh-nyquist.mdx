@@ -5,11 +5,26 @@ description: Apply algebraic and graphical methods for closed-loop stability ass
 
 # 3.5 Routh Stability Criterion and Nyquist Diagram
 
-## Learning goals
+## Learning Outcomes
 
 1. Use Routh table for polynomial stability.
 2. Interpret Nyquist encirclement criterion.
 3. Connect both methods to the same stability question.
+
+## Glossary
+
+| Term | Meaning |
+| --- | --- |
+| Characteristic polynomial | Denominator polynomial determining closed-loop poles. |
+| Routh table | Tabular method to count RHP roots without solving roots explicitly. |
+| Nyquist plot | Complex-plane trace of $L(j\omega)$. |
+| Encirclement | Number/direction of loops around critical point $-1+j0$. |
+| RHP | Right-half plane, unstable side for continuous-time poles. |
+
+## Explanation
+
+This chapter gives two complementary stability tools:
+one algebraic (Routh) and one frequency-domain geometric (Nyquist).
 
 ## Routh criterion (polynomial method)
 
@@ -55,14 +70,33 @@ Closed-loop stable requires $Z=0$.
 
 They answer the same stability question from different views, so using both on the same problem builds confidence.
 
-## Common beginner errors
+## Common Mistakes
 
 - Building Routh rows with incorrect column alignment.
 - Forgetting that zero in first column needs special handling.
 - Miscounting Nyquist encirclement direction (clockwise vs counterclockwise).
 - Ignoring open-loop RHP poles when applying $N=Z-P$.
 
-## Try it now
+## Worked Example
+
+For:
+
+$$
+s^3+2s^2+3s+K=0
+$$
+
+Build Routh first-column terms and find the interval of $K$ where no sign changes occur.
+This interval is the stable parameter region.
+
+## Detailed Review
+
+Ensure you can articulate:
+
+1. Why sign changes in Routh first column imply RHP roots.
+2. What each variable in $N=Z-P$ means physically.
+3. When Nyquist is preferred over pure polynomial tests.
+
+## Assignments
 
 1. Build Routh table for $s^3+2s^2+3s+K=0$ and find stable $K$ range.
 2. For an open-loop with one RHP pole, determine required Nyquist encirclement for closed-loop stability.

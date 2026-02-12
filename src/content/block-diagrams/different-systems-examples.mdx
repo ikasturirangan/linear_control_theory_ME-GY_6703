@@ -1,0 +1,104 @@
+---
+title: Block Diagrams for Different Systems
+description: Draw and compare block diagrams for thermal, mechanical, fluid, and digital control systems.
+---
+
+# Block Diagrams for Different Systems
+
+Below are beginner-friendly examples from different domains.
+
+## Example 1: Room temperature control (thermostat)
+
+<ClosedLoopDiagram
+  caption="Room temperature control loop"
+  disturbanceLabel="Outside weather disturbance"
+  errorLabel="e"
+  forwardBlocks={["Thermostat Controller", "Heater + Room"]}
+  outputLabel="T_room"
+  referenceLabel="T_ref"
+  sensorLabel="Temp Sensor"
+/>
+
+What to notice:
+
+- Disturbance is heat loss/gain from environment.
+- Sensor is temperature measurement.
+
+## Example 2: DC motor speed control
+
+<ClosedLoopDiagram
+  caption="DC motor speed control loop"
+  disturbanceLabel="Load torque disturbance"
+  errorLabel="e"
+  forwardBlocks={["Speed Controller", "Motor + Driver"]}
+  outputLabel="omega"
+  referenceLabel="omega_ref"
+  sensorLabel="Encoder"
+/>
+
+What to notice:
+
+- Load torque disturbance changes speed even with same input.
+- Feedback reduces speed error under load changes.
+
+## Example 3: Tank level control
+
+<ClosedLoopDiagram
+  caption="Tank level control loop"
+  disturbanceLabel="Outlet flow disturbance"
+  errorLabel="e"
+  forwardBlocks={["Level Controller", "Valve + Tank Dynamics"]}
+  outputLabel="h"
+  referenceLabel="h_ref"
+  sensorLabel="Level Sensor"
+/>
+
+What to notice:
+
+- Process is fluid accumulation dynamics.
+- Disturbance often enters through outlet demand changes.
+
+## Example 4: Cruise control (vehicle speed)
+
+<ClosedLoopDiagram
+  caption="Cruise control loop"
+  disturbanceLabel="Road slope and wind drag"
+  errorLabel="e"
+  forwardBlocks={["Cruise Controller", "Engine + Vehicle"]}
+  outputLabel="v"
+  referenceLabel="v_ref"
+  sensorLabel="Speed Sensor"
+/>
+
+What to notice:
+
+- Slope and drag are classic disturbances.
+- Controller adjusts throttle effort to maintain speed.
+
+## Example 5: Digital control architecture
+
+<ClosedLoopDiagram
+  caption="Digital control architecture"
+  errorLabel="e[k]"
+  forwardBlocks={["Digital Controller C(z)", "DAC + ZOH + Plant"]}
+  outputLabel="y(t)"
+  referenceLabel="r[k]"
+  sensorLabel="Sensor + ADC"
+/>
+
+What to notice:
+
+- Controller is discrete (`k` index), plant is often continuous (`t`).
+- ADC/DAC/ZOH are explicit interface blocks.
+
+## Cross-example pattern
+
+All five examples share same skeleton:
+
+- reference -> error -> controller -> plant -> output -> sensor -> feedback
+
+Only block meaning and disturbance location change by domain.
+
+## Next
+
+Practice with [Practice Drawing and Checking](/block-diagrams/practice-drawing).

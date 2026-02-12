@@ -5,11 +5,26 @@ description: Build dynamic models in matrix form and propagate state trajectorie
 
 # 3.9 State-Transition Matrix and State-Space Representation
 
-## Learning goals
+## Learning Outcomes
 
 1. Write state-space models in standard form.
 2. Interpret state-transition matrix physically and mathematically.
 3. Compute state trajectories with and without input.
+
+## Glossary
+
+| Term | Meaning |
+| --- | --- |
+| State vector $x$ | Minimum internal variables needed to predict future behavior. |
+| State matrix $A$ | Internal dynamics matrix. |
+| Input matrix $B$ | How control input affects state change. |
+| Output matrix $C$ | How states map to measured outputs. |
+| State-transition matrix $\\Phi(t)$ | Matrix exponential governing free state evolution. |
+
+## Explanation
+
+This chapter introduces the modern control language for multivariable systems.
+It replaces single transfer-function view with a structured internal-state view.
 
 ## Standard state-space model
 
@@ -56,13 +71,37 @@ Once current state and input are known, future trajectory is determined by dynam
 
 This is why state-space scales better than transfer functions for multivariable systems.
 
-## Common beginner mistakes
+## Common Mistakes
 
 - Choosing states that are not independent.
 - Confusing measured outputs with full state vector.
 - Ignoring physical meaning of each state and treating matrices as pure algebra.
 
-## Try it now
+## Worked Example
+
+For diagonal
+
+$$
+A=\mathrm{diag}(-1,-3)
+$$
+
+the state-transition matrix is:
+
+$$
+\Phi(t)=\mathrm{diag}(e^{-t},e^{-3t})
+$$
+
+which shows the second state decays faster.
+
+## Detailed Review
+
+Ensure you can:
+
+1. Explain why state-space is preferred for MIMO systems.
+2. Separate free response from forced response in the solution formula.
+3. Map each matrix ($A,B,C,D$) to physical meaning.
+
+## Assignments
 
 For diagonal $A=\text{diag}(-1,-3)$, compute $\Phi(t)$ and explain which state decays faster.
 

@@ -1,0 +1,72 @@
+---
+title: Practice Drawing and Checking
+description: Exercises to build confidence in creating correct block diagrams from word problems.
+---
+
+# Practice Drawing and Checking
+
+Use these prompts without looking at example solutions first.
+
+## Exercise A: Drone altitude hold
+
+System description:
+
+- User gives desired altitude.
+- Flight controller computes thrust command.
+- Barometer/IMU estimate altitude.
+- Wind gust acts as disturbance.
+
+Tasks:
+
+1. Draw full feedback loop.
+2. Mark disturbance entry location.
+3. Label `r`, `e`, `u`, `y`.
+
+## Exercise B: Conveyor belt speed control
+
+System description:
+
+- Desired belt speed is set by operator.
+- Motor driver receives command voltage.
+- Tachometer measures actual speed.
+- Added package mass causes speed droop.
+
+Tasks:
+
+1. Draw block diagram.
+2. Decide what belongs inside plant block.
+3. Mark external disturbance.
+
+## Exercise C: Chemical reactor temperature control
+
+System description:
+
+- Setpoint is reactor temperature.
+- Control input is coolant valve position.
+- Sensor measures reactor temperature.
+- Feed concentration variation disturbs heat generation.
+
+Tasks:
+
+1. Draw loop with disturbance.
+2. Decide where disturbance enters (controller or plant?) and justify.
+
+## Self-check rubric
+
+Give yourself 1 point each:
+
+1. Correct feedback sign at summing node.
+2. Clear plant/controller/sensor separation.
+3. Disturbance enters physically correct location.
+4. Signals are labeled and directional.
+5. Diagram can be converted into equations.
+
+Score guide:
+
+- 5/5: solid
+- 3-4/5: review workflow
+- 0-2/5: revisit examples page
+
+## Continue
+
+After this chapter, go to [Block Diagram Algebra](/basics/block-diagram-algebra) to reduce diagrams into transfer functions.

@@ -5,11 +5,26 @@ description: Understand how digital controllers interface with continuous physic
 
 # 3.8 Sampling, Zero-order Hold, A/D and D/A Converters
 
-## Learning goals
+## Learning Outcomes
 
 1. Explain sampling period impact on control quality.
 2. Model ZOH behavior in digital control loops.
 3. Understand practical effects of ADC/DAC quantization and delay.
+
+## Glossary
+
+| Term | Meaning |
+| --- | --- |
+| Sampling period $T_s$ | Time between controller updates. |
+| ZOH | Hold block that keeps command constant between updates. |
+| ADC | Analog-to-digital converter for measurements. |
+| DAC | Digital-to-analog converter for actuation signal. |
+| Quantization | Discretization of continuous values into finite levels. |
+
+## Explanation
+
+This chapter explains hardware reality.
+Even perfect controller equations can fail if sampling and converter effects are ignored.
 
 ## Sampling basics
 
@@ -53,13 +68,26 @@ If oscillation appears after digital implementation, sampling/latency is a prime
 ADC quantization turns smooth analog measurements into staircase levels.
 If resolution is too low, small errors can disappear, causing limit cycles or noisy control action.
 
-## Common beginner mistakes
+## Common Mistakes
 
 - Designing a controller in continuous time and deploying directly without discretization checks.
 - Ignoring computational delay in control loop timing.
 - Treating converter dynamics as negligible in fast systems.
 
-## Try it now
+## Worked Example
+
+Run the same closed-loop design at $T_s$, $2T_s$, and $4T_s$.
+Observe that increasing $T_s$ usually increases lag and can reduce damping margin.
+
+## Detailed Review
+
+Make sure you can explain:
+
+1. Why ZOH adds effective phase lag.
+2. Why converter delay matters for fast loops.
+3. Why sample-time selection is a control-design decision, not only a coding decision.
+
+## Assignments
 
 Simulate the same loop with $T_s$, $2T_s$, and $4T_s$.
 Observe changes in overshoot and settling behavior.

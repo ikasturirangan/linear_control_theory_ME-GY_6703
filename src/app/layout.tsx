@@ -27,7 +27,15 @@ export default async function RootLayout({
           }}
           footer={
             <Footer>
-              Linear Control Theory Notes for students.
+              Linear Control Theory Notes for students. Built by{" "}
+              <a
+                href="https://github.com/ikasturirangan"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Kasturirangan Iyengar
+              </a>
+              .
             </Footer>
           }
           navbar={<Navbar logo={<strong>Linear Control Theory</strong>} />}

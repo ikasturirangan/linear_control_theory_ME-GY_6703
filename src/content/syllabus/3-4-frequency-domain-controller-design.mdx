@@ -5,11 +5,25 @@ description: Design lead/lag/PID behavior by shaping Bode magnitude and phase.
 
 # 3.4 Frequency-domain Controller Design
 
-## Learning goals
+## Learning Outcomes
 
 1. Translate performance targets into Bode-shaping goals.
 2. Understand lead, lag, and PI/PID effects in frequency domain.
 3. Iterate controller tuning with margin checks.
+
+## Glossary
+
+| Term | Meaning |
+| --- | --- |
+| Lead compensator | Adds positive phase near crossover to improve PM. |
+| Lag compensator | Boosts low-frequency gain to improve steady-state accuracy. |
+| Crossover frequency | Target loop speed region in frequency design. |
+| Loop shaping | Designing controller by shaping open-loop frequency response. |
+
+## Explanation
+
+Frequency-domain design is about deliberately shaping loop behavior.
+You do not guess gains randomly; you move magnitude/phase where performance targets require.
 
 ## Design workflow
 
@@ -63,7 +77,32 @@ The key is balancing these simultaneously rather than maximizing one target.
 4. Re-check margins and simulate with disturbance + measurement noise.
 5. Repeat with small parameter changes, not large jumps.
 
-## Try it now
+## Common Mistakes
+
+- Pushing crossover too high without accounting for sensor noise and unmodeled dynamics.
+- Adding too much lag/PI and reducing phase margin unintentionally.
+- Using only one test input and ignoring disturbance/noise scenarios.
+- Tuning by trial-and-error without explicit PM/GM targets.
+
+## Worked Example
+
+If uncompensated loop has PM near $20^\circ$ and target is about $50^\circ$:
+
+1. Add lead compensation around crossover.
+2. Replot Bode and check PM change.
+3. Adjust gain so crossover remains near desired speed band.
+
+This is the standard practical lead-design loop in early courses.
+
+## Detailed Review
+
+Confirm you can explain:
+
+1. Why lead improves damping tendency.
+2. Why lag/PI improves low-frequency accuracy.
+3. Why controller design must re-check both margins and noise amplification.
+
+## Assignments
 
 Take a plant with low PM and design a lead compensator that adds about 30 deg phase near crossover.
 Then verify margin changes.

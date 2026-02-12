@@ -9,15 +9,11 @@ Everything from a toilet tank to an autopilot follows the same anatomy.
 Before equations, memorize this loop.
 Refer to Block Diagram 1 throughout this page.
 
-```text
-Block Diagram 1: Canonical Closed-Loop Control
-
-                      +-------------------- [ Sensor H ] --------------------+
-                      |                                                       |
-r(t) ---> ( + ) ---> [ Controller C ] ---> [ Actuator A ] ---> [ Plant P ] ---> y(t)
-           ( - ) ^                                                       
-                 +-----------------------------------------------------------+
-```
+<ClosedLoopDiagram
+  caption="Block Diagram 1: Canonical Closed-Loop Control"
+  forwardBlocks={["Controller C", "Actuator A", "Plant P"]}
+  sensorLabel="Sensor H"
+/>
 
 If you can identify these parts in any problem, you are already thinking like a control engineer.
 

@@ -5,6 +5,7 @@ import { useEffect, useMemo, useState } from "react";
 type TrackerItem = {
   id: string;
   title: string;
+  hours: number;
 };
 
 type TrackerState = Record<string, boolean>;
@@ -12,20 +13,41 @@ type TrackerState = Record<string, boolean>;
 const STORAGE_KEY = "lct_syllabus_tracker_v1";
 
 const ITEMS: TrackerItem[] = [
-  { id: "3-1", title: "Modeling, ODE, Transfer Function, Command & Disturbance Responses, Simulink" },
-  { id: "3-2", title: "Steady-State Error, Closed-Loop Transfer Function, System Performance" },
-  { id: "3-3", title: "Bode Plot and Relative Stability" },
-  { id: "3-4", title: "Frequency-Domain Controller Design" },
-  { id: "3-5", title: "Routh Criterion and Nyquist Diagram" },
-  { id: "3-6", title: "Digital Controller Representation, Difference Equations" },
-  { id: "3-7", title: "Jury Test, Sampled-Data Control, Z-Transform" },
-  { id: "3-8", title: "Sampling, ZOH, A/D and D/A Converters" },
-  { id: "3-9", title: "State-Transition Matrix, State-Space Representation" },
-  { id: "3-10", title: "Continuous-to-Discrete Conversion, DTSS" },
-  { id: "3-11", title: "Controllability, Observability, Ackermann's Formula" },
-  { id: "3-12", title: "Pole Placement and Full-State Observer Design" },
-  { id: "3-13", title: "LQR and MPC" },
-  { id: "lab", title: "Extra Lab: Inverted Pendulum Balancing" },
+  {
+    id: "3-1",
+    title:
+      "Modeling, ODE, Transfer Function, Command & Disturbance Responses, Simulink",
+    hours: 3,
+  },
+  {
+    id: "3-2",
+    title: "Steady-State Error, Closed-Loop Transfer Function, System Performance",
+    hours: 3,
+  },
+  { id: "3-3", title: "Bode Plot and Relative Stability", hours: 3 },
+  { id: "3-4", title: "Frequency-Domain Controller Design", hours: 3 },
+  { id: "3-5", title: "Routh Criterion and Nyquist Diagram", hours: 3 },
+  {
+    id: "3-6",
+    title: "Digital Controller Representation, Difference Equations",
+    hours: 3,
+  },
+  { id: "3-7", title: "Jury Test, Sampled-Data Control, Z-Transform", hours: 3 },
+  { id: "3-8", title: "Sampling, ZOH, A/D and D/A Converters", hours: 3 },
+  {
+    id: "3-9",
+    title: "State-Transition Matrix, State-Space Representation",
+    hours: 3,
+  },
+  { id: "3-10", title: "Continuous-to-Discrete Conversion, DTSS", hours: 3 },
+  {
+    id: "3-11",
+    title: "Controllability, Observability, Ackermann's Formula",
+    hours: 3,
+  },
+  { id: "3-12", title: "Pole Placement and Full-State Observer Design", hours: 3 },
+  { id: "3-13", title: "LQR and MPC", hours: 3 },
+  { id: "lab", title: "Extra Lab: Inverted Pendulum Balancing", hours: 2 },
 ];
 
 function buildInitialState(): TrackerState {
@@ -71,12 +93,26 @@ export function SyllabusTracker() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
   }, [hydrated, state]);
 
-  const completed = useMemo(
+  const completedModules = useMemo(
     () => ITEMS.filter((item) => state[item.id]).length,
     [state],
   );
-  const total = ITEMS.length;
-  const percent = Math.round((completed / total) * 100);
+  const totalModules = ITEMS.length;
+  const modulePercent = Math.round((completedModules / totalModules) * 100);
+
+  const totalHours = useMemo(
+    () => ITEMS.reduce((sum, item) => sum + item.hours, 0),
+    [],
+  );
+  const completedHours = useMemo(
+    () =>
+      ITEMS.reduce(
+        (sum, item) => (state[item.id] ? sum + item.hours : sum),
+        0,
+      ),
+    [state],
+  );
+  const hourPercent = Math.round((completedHours / totalHours) * 100);
 
   return (
     <section
@@ -90,8 +126,12 @@ export function SyllabusTracker() {
     >
       <h3 style={{ marginTop: 0 }}>Syllabus Progress Tracker</h3>
       <p style={{ marginTop: 0 }}>
-        Completed <strong>{completed}</strong> of <strong>{total}</strong> modules
-        ({percent}%). Progress is saved in your browser.
+        Module progress: <strong>{completedModules}</strong> of{" "}
+        <strong>{totalModules}</strong> ({modulePercent}%).
+        <br />
+        Hours progress: <strong>{completedHours}</strong> of{" "}
+        <strong>{totalHours}</strong> hours ({hourPercent}%).
+        Progress is saved in your browser.
       </p>
 
       <div
@@ -109,7 +149,7 @@ export function SyllabusTracker() {
             background: "#0f766e",
             height: "100%",
             transition: "width 180ms ease",
-            width: `${percent}%`,
+            width: `${hourPercent}%`,
           }}
         />
       </div>
@@ -136,7 +176,7 @@ export function SyllabusTracker() {
               type="checkbox"
             />
             <span>
-              <strong>{item.id}</strong>: {item.title}
+              <strong>{item.id}</strong> ({item.hours}h): {item.title}
             </span>
           </label>
         ))}
