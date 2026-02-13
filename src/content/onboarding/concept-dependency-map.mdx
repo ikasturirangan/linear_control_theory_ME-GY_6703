@@ -1,0 +1,54 @@
+---
+title: Concept Dependency Map
+description: A prerequisite map showing what you must understand before each major control topic.
+---
+
+# Concept Dependency Map
+
+## Why This Matters
+
+This map prevents studying advanced modules before core foundations are stable.
+
+## Dependency flow (high-level)
+
+1. Signals and block diagrams
+2. Differential equations and Laplace basics
+3. Transfer functions and poles/zeros
+4. Time-domain response + stability basics
+5. Frequency-domain tools (Bode/Nyquist)
+6. Digital and sampled-data tools
+7. State-space foundations
+8. Controllability/observability and design
+9. LQR/MPC and capstone lab
+
+## Module-level dependency table
+
+| Module | Direct prerequisites |
+| --- | --- |
+| 3.1 Modeling, ODE, TF | Basics + Laplace basics |
+| 3.2 SSE and closed-loop performance | 3.1 |
+| 3.3 Bode and relative stability | 3.1 + 3.2 + complex numbers |
+| 3.4 Frequency-domain design | 3.3 |
+| 3.5 Routh and Nyquist | 3.2 + 3.3 |
+| 3.6 Digital difference equations | 3.1 + sampling basics |
+| 3.7 Jury and Z-transform | 3.6 |
+| 3.8 Sampling, ZOH, A/D, D/A | 3.6 |
+| 3.9 State-space and transition matrix | matrix/rank basics + 3.1 |
+| 3.10 Continuous-to-discrete | 3.8 + 3.9 |
+| 3.11 Controllability/observability/Ackermann | 3.9 |
+| 3.12 Pole placement and observer | 3.11 |
+| 3.13 LQR and MPC | 3.9 + 3.11 + optimization intuition |
+
+## Use this map in practice
+
+Before starting a new module, ask:
+
+- Can I explain its prerequisite topics in one minute?
+- Can I solve one prerequisite problem without notes?
+
+If not, review prerequisites first.
+
+## If This Felt Hard, Review First
+
+- [Beginner Onboarding](/onboarding)
+- [Detailed Syllabus Learning Path](/syllabus)

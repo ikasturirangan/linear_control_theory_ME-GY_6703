@@ -8,6 +8,30 @@ description: Why linear models are used even when the real world is not perfectl
 This course is called linear control systems for a reason.
 Linear models are predictable and give us tools that are fast and powerful.
 
+## Why This Matters
+
+Linearity is the assumption that unlocks transfer functions, superposition, and most tools in this course.
+
+## What You Should Already Know
+
+- Basic signal and loop notation
+- Idea of local operating point
+
+## Learning Outcomes
+
+1. State scaling and additivity conditions for linearity.
+2. Explain why real systems are modeled as locally linear.
+3. Identify when linear approximation may fail.
+
+## Glossary
+
+| Term | Meaning |
+| --- | --- |
+| Linearity | Scaling + additivity property |
+| Superposition | Response to sum equals sum of responses |
+| Linearization | Local linear approximation near operating point |
+| Saturation | Actuator or state limit causing nonlinearity |
+
 ## What "linear" means
 
 For a system operator $G[\cdot]$, linearity means two rules:
@@ -79,6 +103,22 @@ For a motor with voltage command limited to +/-12 V:
 
 1. Is behavior linear near small commands?
 2. What happens to linearity near saturation?
+
+## Detailed Review
+
+1. Why does linearization depend on operating region?
+2. Why do high-amplitude commands often violate linear assumptions?
+3. How can you test linear-model validity experimentally?
+
+## Assignments
+
+1. Identify one nonlinearity in each of: motor, thermal, and fluid systems.
+2. Describe a likely operating region where linear approximation is acceptable.
+
+## If This Felt Hard, Review First
+
+- [Anatomy of a Control System](/basics/anatomy)
+- [Modeling and Transfer Functions](/fundamentals)
 
 ## Continue
 

@@ -7,6 +7,31 @@ description: A no-background introduction to what transfer functions are, why th
 
 If you are new to engineering and this is your first control course, start here.
 
+## Why This Matters
+
+Transfer functions are the core language connecting physical modeling, stability, and controller design.
+
+## What You Should Already Know
+
+- Basic notion of input and output signals
+- Very basic derivative intuition
+
+## Learning Outcomes
+
+1. Define transfer function clearly and correctly.
+2. Derive first-order transfer function from an ODE.
+3. Explain where transfer functions are used in control workflow.
+
+## Glossary
+
+| Term | Meaning |
+| --- | --- |
+| ODE | Differential equation in time domain |
+| Laplace transform | Map to algebraic form in variable $s$ |
+| Transfer function | $G(s)=Y(s)/U(s)$ under zero initial conditions |
+| Pole | Denominator root of $G(s)$ |
+| Zero | Numerator root of $G(s)$ |
+
 ## One-sentence definition
 
 A **transfer function** is a compact equation that tells how output changes when input changes, for a linear time-invariant system.
@@ -62,6 +87,12 @@ $$
 
 </EquationHelp>
 
+<CheckpointBox title="Checkpoint: Explain Before You Compute">
+
+Can you explain in plain English why transfer functions replace derivatives with algebra in the $s$-domain?
+
+</CheckpointBox>
+
 ## How we get a transfer function (step by step)
 
 Start with a simple first-order ODE model:
@@ -114,6 +145,16 @@ In real systems, two questions are different:
 
 Transfer functions can be derived for both paths, and both should be checked in design.
 
+<CheckpointBox>
+
+Try this without notes:
+
+1. Define command tracking in one sentence.
+2. Define disturbance rejection in one sentence.
+3. State one reason both must be checked before claiming a design is good.
+
+</CheckpointBox>
+
 ## Most common beginner confusions
 
 - "Is TF only for electrical systems?" No. Mechanical, thermal, fluid systems too.
@@ -129,3 +170,19 @@ Transfer functions can be derived for both paths, and both should be checked in 
 4. [Frequency Response and Bode Plots](/fundamentals/frequency-response-bode)
 5. [Syllabus Module 3.1](/syllabus/3-1-modeling-ode-transfer-functions)
 6. [Short Forms Index](/syllabus/short-forms-index)
+
+## Detailed Review
+
+1. Why does TF definition use zero initial conditions?
+2. How do poles and zeros differ physically?
+3. Why is TF a model, not a signal?
+
+## Assignments
+
+1. Derive TF for a first-order RC-like model from its ODE.
+2. For a given TF, identify poles/zeros and predict qualitative step behavior.
+
+## If This Felt Hard, Review First
+
+- [Laplace Transform Basics](/onboarding/laplace-basics)
+- [Differential Equations Basics](/onboarding/differential-equations-basics)

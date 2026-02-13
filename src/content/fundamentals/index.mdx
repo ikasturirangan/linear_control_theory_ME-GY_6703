@@ -10,6 +10,30 @@ This chapter turns physical intuition into math you can compute with.
 If you are completely new, read [Transfer Functions for Absolute Beginners](/fundamentals/transfer-functions-beginner) first.
 If block-diagram flow is unclear, first review [Block Diagrams Chapter](/block-diagrams).
 
+## Why This Matters
+
+This chapter is the mathematical entry point for nearly all classical control analysis and design.
+
+## What You Should Already Know
+
+- Basic loop anatomy and signal labels
+- Intro differential-equation notation
+
+## Learning Outcomes
+
+1. Derive transfer functions from physical models.
+2. Interpret poles/zeros from model structure.
+3. Use transfer functions for response and stability reasoning.
+
+## Glossary
+
+| Term | Meaning |
+| --- | --- |
+| ODE | Time-domain differential equation model |
+| Laplace transform | Algebraic transform for linear dynamics |
+| TF | Transfer function $G(s)=Y/U$ |
+| Pole/zero | Denominator/numerator roots affecting behavior |
+
 ## Core workflow
 
 1. Write a differential equation from physics.
@@ -66,3 +90,19 @@ If these four terms are new, read [Poles, Zeros, DC Gain, Relative Degree (Begin
 - For a full solved calculation: [Worked Fundamentals Example](/worked-examples/fundamentals)
 - For drills: [Fundamentals Practice Set](/practice/fundamentals)
 - For syllabus-aligned deep notes: [Module 3.1](/syllabus/3-1-modeling-ode-transfer-functions) and [Module 3.2](/syllabus/3-2-steady-state-error-closed-loop-performance)
+
+## Detailed Review
+
+1. Why does model selection determine controller outcomes?
+2. Why is zero-initial-condition assumption central to TF definition?
+3. How do poles and zeros encode behavior differently?
+
+## Assignments
+
+1. Build one model from physics and derive its TF end-to-end.
+2. Compare two parameter sets and predict response-speed differences.
+
+## If This Felt Hard, Review First
+
+- [Differential Equations Basics](/onboarding/differential-equations-basics)
+- [Laplace Transform Basics](/onboarding/laplace-basics)

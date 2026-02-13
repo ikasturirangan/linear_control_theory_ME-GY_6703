@@ -63,6 +63,16 @@ Closed-loop stable requires $Z=0$.
 - Routh: quick for parametric polynomial checks.
 - Nyquist: powerful with delays and frequency-shaped models.
 
+## Same system, three views
+
+After Nyquist/Routh stability check, verify the same loop through:
+
+1. step response quality,
+2. Bode margins,
+3. Nyquist geometry around `-1`.
+
+Use [Step vs Bode vs Nyquist (Detailed Comparison)](/fundamentals/step-bode-nyquist-comparison) for the full bridge.
+
 ## When to choose which method
 
 - Use **Routh** when you have an explicit characteristic polynomial and want fast stable-parameter ranges.
@@ -97,6 +107,8 @@ Ensure you can articulate:
 3. When Nyquist is preferred over pure polynomial tests.
 
 ## Assignments
+
+Skills tested: `derivation`, `interpretation`, `stability test`, `design choice`.
 
 1. Build Routh table for $s^3+2s^2+3s+K=0$ and find stable $K$ range.
 2. For an open-loop with one RHP pole, determine required Nyquist encirclement for closed-loop stability.

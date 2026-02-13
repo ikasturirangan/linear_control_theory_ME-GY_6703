@@ -7,6 +7,31 @@ description: The minimum set of dynamic response patterns every student must rec
 
 Most beginner control questions reduce to recognizing whether dynamics are first-order-like or second-order-like.
 
+## Why This Matters
+
+You cannot tune intelligently if you cannot recognize first-order vs second-order response signatures.
+
+## What You Should Already Know
+
+- Basic transfer-function form
+- Meaning of poles
+
+## Learning Outcomes
+
+1. Distinguish first-order and second-order templates.
+2. Interpret how parameters affect overshoot and speed.
+3. Predict qualitative response changes from parameter variation.
+
+## Glossary
+
+| Term | Meaning |
+| --- | --- |
+| Time constant $\\tau$ | Dominant speed parameter in first-order systems |
+| Damping ratio $\\zeta$ | Oscillation/overshoot tendency parameter |
+| Natural frequency $\\omega_n$ | Dynamic speed scale in second-order systems |
+| Settling time | Time to stay within small error band |
+| Overshoot | Peak excursion beyond final value |
+
 ## First-order template
 
 <EquationHelp hint="First-order systems have one pole and one dominant time scale. Tau controls how quickly the response moves toward its final value.">
@@ -96,3 +121,19 @@ Given a system with $\zeta=0.2$ and $\omega_n=3$ rad/s:
 
 1. Will the step response overshoot noticeably?
 2. If you increase $\zeta$ while keeping $\omega_n$ fixed, what happens to overshoot?
+
+## Detailed Review
+
+1. Why does low $\\zeta$ imply stronger oscillation?
+2. Why can increasing $\\omega_n$ speed response?
+3. When does first-order approximation fail?
+
+## Assignments
+
+1. Compare predicted response for two second-order parameter sets and justify differences.
+2. For one measured response curve, classify whether it appears first-order-like or second-order-like.
+
+## If This Felt Hard, Review First
+
+- [Transfer Functions for Absolute Beginners](/fundamentals/transfer-functions-beginner)
+- [Step Response and Pole Sliders](/interactive/step-and-poles)

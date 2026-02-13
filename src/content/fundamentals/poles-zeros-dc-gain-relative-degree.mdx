@@ -8,6 +8,31 @@ description: Learn the four most important transfer-function features with zero 
 When students first see transfer functions, these four words show up everywhere.
 This page explains them in plain language first, then math.
 
+## Why This Matters
+
+Most quick engineering judgments about speed, robustness trend, and transient shape start from these four features.
+
+## What You Should Already Know
+
+- Transfer function definition
+- Numerator and denominator basics
+
+## Learning Outcomes
+
+1. Extract poles, zeros, DC gain, and relative degree from any simple TF.
+2. Predict qualitative behavior from these values.
+3. Connect TF features to time-domain and frequency-domain intuition.
+
+## Glossary
+
+| Term | Meaning |
+| --- | --- |
+| Pole | Denominator root of $G(s)$ |
+| Zero | Numerator root of $G(s)$ |
+| DC gain | Low-frequency gain $G(0)$ |
+| Relative degree | Denominator order minus numerator order |
+| Roll-off | High-frequency attenuation trend |
+
 ## Why these four matter
 
 For
@@ -167,3 +192,19 @@ What this suggests quickly:
 2. [First vs Second Order Behavior](/fundamentals/first-second-order)
 3. [Frequency Response and Bode Plots](/fundamentals/frequency-response-bode)
 4. [Stability and Performance](/stability)
+
+## Detailed Review
+
+1. Which of these four most strongly influences stability tendency?
+2. Why can zeros change transient shape without deciding stability alone?
+3. How does relative degree affect high-frequency behavior?
+
+## Assignments
+
+1. For three transfer functions, extract all four features and compare expected behavior.
+2. Explain how shifting one pole closer to the imaginary axis changes settling tendency.
+
+## If This Felt Hard, Review First
+
+- [Transfer Functions for Absolute Beginners](/fundamentals/transfer-functions-beginner)
+- [Modeling and Transfer Functions](/fundamentals)

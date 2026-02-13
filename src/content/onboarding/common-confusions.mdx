@@ -1,0 +1,61 @@
+---
+title: Common Confusions
+description: High-frequency misconceptions in linear control and how to correct them quickly.
+---
+
+# Common Confusions
+
+## Why This Matters
+
+Most performance loss in learning comes from repeated conceptual mix-ups.
+
+## Routh vs Nyquist
+
+**Confusion:** both are unrelated methods.
+
+**Correction:** both answer the same closed-loop stability question.
+
+- Routh: coefficient-table algebra from characteristic polynomial.
+- Nyquist: frequency-domain geometry via encirclements of `-1+j0`.
+
+## Transfer Function vs State-Space
+
+**Confusion:** state-space replaces transfer functions completely.
+
+**Correction:** both are equivalent linear representations (under conditions).
+
+- TF is compact for SISO frequency/time response analysis.
+- State-space is stronger for MIMO, observers, controllability, modern control.
+
+## Continuous vs Discrete Stability
+
+**Confusion:** same geometric rule applies.
+
+**Correction:** stability regions differ.
+
+- Continuous: poles in left half-plane.
+- Discrete: poles inside unit circle.
+
+## Open-loop stability vs Closed-loop stability
+
+**Confusion:** stable plant means stable controlled system automatically.
+
+**Correction:** controller can destabilize a stable plant (and can stabilize unstable plants).
+
+## High gain means always better tracking
+
+**Confusion:** larger gain is always good.
+
+**Correction:** higher gain can reduce margins, amplify noise, and increase oscillation risk.
+
+## Phase margin gives exact overshoot
+
+**Confusion:** one fixed PM means one exact overshoot.
+
+**Correction:** PM-overshoot relationship is approximate and model-dependent.
+
+## If This Felt Hard, Review First
+
+- [Step vs Bode vs Nyquist](/fundamentals/step-bode-nyquist-comparison)
+- [Syllabus 3.5 Routh and Nyquist](/syllabus/3-5-routh-nyquist)
+- [State-Space Methods](/state-space)

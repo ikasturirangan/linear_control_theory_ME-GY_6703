@@ -1,0 +1,85 @@
+---
+title: Differential Equations Basics
+description: Understand derivatives, order, and physical meaning before control-system modeling.
+---
+
+# Differential Equations Basics
+
+## Why This Matters
+
+Control models begin as differential equations from physics.
+
+## What You Should Already Know
+
+- Basic algebra
+- Meaning of slope/rate of change
+
+## Learning Outcomes
+
+1. Distinguish first-order and second-order system equations.
+2. Relate derivatives to physical rates (velocity, acceleration, temperature change).
+3. Read ODE terms as storage, damping, and forcing effects.
+
+## Glossary
+
+| Term | Meaning |
+| --- | --- |
+| ODE | Equation relating a variable and its derivatives |
+| Order | Highest derivative in the equation |
+| Natural response | Behavior with no external input |
+| Forced response | Behavior caused by external input |
+
+## Explanation
+
+Typical first-order model:
+
+$$
+\tau\dot{y}+y=Ku
+$$
+
+Typical second-order model:
+
+$$
+\ddot{y}+2\zeta\omega_n\dot{y}+\omega_n^2y=\omega_n^2u
+$$
+
+Interpretation:
+
+- derivative terms represent dynamic memory,
+- coefficients represent physical properties,
+- right-hand side drives system behavior.
+
+## Worked Example
+
+Mass-spring-damper:
+
+$$
+m\ddot{x}+c\dot{x}+kx=f(t)
+$$
+
+- $m\ddot{x}$: inertia effect
+- $c\dot{x}$: damping/friction effect
+- $kx$: restoring force
+- $f(t)$: applied input force
+
+## Common Mistakes
+
+- Ignoring units when writing terms.
+- Treating coefficient values as dimensionless.
+- Forgetting that higher order means more internal memory/states.
+
+## Detailed Review
+
+1. What does equation order tell you?
+2. Why do damping terms reduce oscillation?
+3. How does external forcing enter model equations?
+
+## Assignments
+
+1. Identify order of these equations and explain physical meaning.
+2. For a thermal system, propose a first-order ODE with clear variable definitions.
+
+## If This Felt Hard, Review First
+
+- [Syllabus 3.1](/syllabus/3-1-modeling-ode-transfer-functions)
+- [First vs Second Order Behavior](/fundamentals/first-second-order)

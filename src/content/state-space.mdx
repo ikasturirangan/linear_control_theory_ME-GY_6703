@@ -7,6 +7,30 @@ description: Represent dynamics in matrix form and reason about controllability 
 
 State-space form gives a compact way to represent multi-variable systems:
 
+## Why This Matters
+
+State-space is the bridge from classical control to modern control design (observer, pole placement, LQR, MPC).
+
+## What You Should Already Know
+
+- Basic matrix multiplication
+- Transfer-function fundamentals
+
+## Learning Outcomes
+
+1. Read and interpret standard state-space equations.
+2. Explain controllability and observability rank tests.
+3. Connect state-space structure to design feasibility.
+
+## Glossary
+
+| Term | Meaning |
+| --- | --- |
+| State vector $x$ | Minimal internal memory variables |
+| $A,B,C,D$ matrices | Dynamics/input/output/feedthrough matrices |
+| Controllability | Ability to move all state directions by input |
+| Observability | Ability to reconstruct states from outputs |
+
 <EquationHelp hint="State equation shows how internal states evolve. Output equation maps those states (and possibly input) to measured outputs.">
 
 $$
@@ -45,6 +69,12 @@ For continuous-time LTI systems:
 If $\mathrm{rank}(\mathcal{C}) = n$, the pair $(A,B)$ is controllable.
 If $\mathrm{rank}(\mathcal{O}) = n$, the pair $(C,A)$ is observable.
 
+<CheckpointBox>
+
+Without notes, explain what rank deficiency in controllability means physically for control authority.
+
+</CheckpointBox>
+
 ## Practice prompt
 
 Pick a 2-state model and compute $\mathcal{C}$ and $\mathcal{O}$ by hand.
@@ -54,3 +84,19 @@ Then explain which states are physically hard to actuate or measure.
 
 - [State-Space Worked Example](/worked-examples/state-space)
 - [State-Space Practice Set](/practice/state-space)
+
+## Detailed Review
+
+1. Why do states represent memory of the system?
+2. Why is rank condition structural and not optional?
+3. What does uncontrollable mode imply for controller design?
+
+## Assignments
+
+1. Build a 2-state model from a second-order ODE and identify $A,B,C,D$.
+2. Compute controllability and observability ranks for one 2x2 example.
+
+## If This Felt Hard, Review First
+
+- [Matrix and Rank Basics](/onboarding/matrix-rank-basics)
+- [Syllabus 3.9](/syllabus/3-9-state-transition-state-space)

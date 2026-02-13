@@ -76,6 +76,20 @@ Hence:
 - Ignoring actuator limits while placing very aggressive controller poles.
 - Forgetting reference prefilter/scaling when evaluating tracking.
 
+## Physical interpretation
+
+Translate the final equations into plain language before moving on:
+what physical quantity is changing, what drives it, and what limits the model assumptions.
+
+## When this formula fails
+
+- If assumptions (linearity, operating region, or model fidelity) are violated, prediction quality drops.
+- Strong saturation, delay, or unmodeled dynamics can invalidate direct formula use.
+
+## Dimensional/unit check
+
+Before finalizing derivations, verify units on both sides of each equation and confirm coefficient dimensions are physically consistent.
+
 ## Link back
 
 - [Syllabus 3.12](/syllabus/3-12-pole-placement-observer)

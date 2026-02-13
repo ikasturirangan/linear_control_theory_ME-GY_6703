@@ -7,6 +7,29 @@ description: Draw and compare block diagrams for thermal, mechanical, fluid, and
 
 Below are beginner-friendly examples from different domains.
 
+## Why This Matters
+
+Seeing the same loop pattern across domains helps you transfer knowledge instead of relearning from scratch each time.
+
+## What You Should Already Know
+
+- Standard feedback loop structure
+- Basic signals (`r, e, y, u`)
+
+## Learning Outcomes
+
+1. Recognize shared loop structure across thermal, mechanical, fluid, and digital systems.
+2. Identify domain-specific disturbance entry points.
+3. Reuse one diagram skeleton across multiple applications.
+
+## Glossary
+
+| Term | Meaning |
+| --- | --- |
+| Cross-domain mapping | Reusing same control structure across physical systems |
+| Disturbance entry point | Where non-command effects enter dynamics |
+| Digital architecture | Sampled controller with ADC/DAC/ZOH interfaces |
+
 ## Example 1: Room temperature control (thermostat)
 
 <ClosedLoopDiagram
@@ -102,3 +125,19 @@ Only block meaning and disturbance location change by domain.
 ## Next
 
 Practice with [Practice Drawing and Checking](/block-diagrams/practice-drawing).
+
+## Detailed Review
+
+1. What remains constant across all five examples?
+2. What changes across domains?
+3. Why is disturbance location physically meaningful?
+
+## Assignments
+
+1. Convert one thermal example into equivalent mechanical analogy with same loop skeleton.
+2. Add one new domain example (biomedical/process/robotics) using the same structure.
+
+## If This Felt Hard, Review First
+
+- [How to Draw Block Diagrams](/block-diagrams/drawing-workflow)
+- [Block Diagram Algebra](/basics/block-diagram-algebra)

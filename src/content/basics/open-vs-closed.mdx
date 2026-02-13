@@ -9,6 +9,30 @@ Feedback is the most important word in control theory.
 It separates "send a command and hope" from "measure and correct."
 Use the two block diagrams below as your visual anchor.
 
+## Why This Matters
+
+Most real control failures happen when disturbance and uncertainty are ignored. This page explains why feedback exists.
+
+## What You Should Already Know
+
+- Basic loop anatomy (plant/sensor/controller/actuator)
+- Meaning of target vs measured output
+
+## Learning Outcomes
+
+1. Classify systems as open-loop or closed-loop.
+2. Explain practical tradeoffs of each architecture.
+3. Justify when feedback is essential.
+
+## Glossary
+
+| Term | Meaning |
+| --- | --- |
+| Open-loop | Control with no output-based correction |
+| Closed-loop | Control using measured output feedback |
+| Disturbance | External effect pushing system away from target |
+| Robustness | Ability to tolerate uncertainty/disturbance |
+
 <OpenLoopDiagram
   caption="Block Diagram 2: Open Loop"
   blocks={["Controller", "Actuator", "Plant"]}
@@ -88,6 +112,22 @@ Classify each as open or closed loop:
 1. Sprinkler on a fixed timer.
 2. Robot arm using encoder feedback.
 3. Oven heater with only a countdown knob.
+
+## Detailed Review
+
+1. Why can an open-loop system work in predictable environments?
+2. Why can closed-loop systems still fail if badly tuned?
+3. What extra cost/complexity does feedback introduce?
+
+## Assignments
+
+1. For two daily-life examples, classify loop type and justify in one sentence each.
+2. Convert one open-loop example into a proposed closed-loop architecture.
+
+## If This Felt Hard, Review First
+
+- [Anatomy of a Control System](/basics/anatomy)
+- [Block Diagrams Chapter](/block-diagrams)
 
 ## Continue
 

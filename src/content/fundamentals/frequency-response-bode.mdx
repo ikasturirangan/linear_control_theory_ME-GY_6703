@@ -8,6 +8,32 @@ description: Read gain, phase, and stability margins from Bode plots.
 Bode plots answer a core control question:
 how does the system react to different input frequencies?
 
+## Why This Matters
+
+Bode analysis is the fastest way to assess robustness margins and speed-robustness tradeoffs before full simulation.
+
+## What You Should Already Know
+
+- Transfer function basics
+- Pole/zero intuition
+- Time-domain response metrics
+
+## Learning Outcomes
+
+1. Read magnitude and phase curves correctly.
+2. Estimate crossover and phase margin from Bode data.
+3. Relate Bode features to robustness and noise behavior.
+
+## Glossary
+
+| Term | Meaning |
+| --- | --- |
+| Frequency response | System response to sinusoidal input by frequency |
+| Magnitude (dB) | Logarithmic gain measure |
+| Phase lag | Output phase shift relative to input |
+| Crossover frequency | Frequency where magnitude is 0 dB |
+| Phase margin | Distance from -180 deg at crossover |
+
 ## Why this belongs in the core syllabus
 
 - Time-domain specs tell you speed and overshoot.
@@ -53,6 +79,12 @@ $$
 
 </EquationHelp>
 
+<CheckpointBox title="Checkpoint: Margin Intuition">
+
+If crossover frequency increases but phase margin decreases, describe likely speed and robustness changes in one sentence each.
+
+</CheckpointBox>
+
 ## Interactive Bode lab
 
 <BodePlotDemo />
@@ -75,3 +107,19 @@ Use the sliders and observe:
 - [Stability and Performance](/stability)
 - [Interactive Bode Lab](/interactive/bode-plot-lab)
 - [Stability Practice Set](/practice/stability)
+
+## Detailed Review
+
+1. Why is margin measured near crossover?
+2. Why does high-frequency slope matter for noise sensitivity?
+3. Why can higher crossover improve speed but hurt robustness?
+
+## Assignments
+
+1. Estimate PM and crossover from a Bode plot and classify risk level.
+2. Propose one compensator direction (lead/lag/gain change) for low PM case and justify.
+
+## If This Felt Hard, Review First
+
+- [Step vs Bode vs Nyquist (Detailed Comparison)](/fundamentals/step-bode-nyquist-comparison)
+- [Syllabus 3.3 Bode and Relative Stability](/syllabus/3-3-bode-relative-stability)

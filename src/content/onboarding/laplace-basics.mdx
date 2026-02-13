@@ -1,0 +1,87 @@
+---
+title: Laplace Transform Basics
+description: A beginner-safe bridge from time-domain differential equations to transfer functions.
+---
+
+# Laplace Transform Basics
+
+## Why This Matters
+
+Transfer functions are built using Laplace transforms. Without this bridge, module 3.1 feels mechanical.
+
+## What You Should Already Know
+
+- Derivatives
+- Basic integration concept
+
+## Learning Outcomes
+
+1. Explain why Laplace is used in control.
+2. Apply core transform pairs used in first modules.
+3. Use zero-initial-condition assumption in transfer-function derivation.
+
+## Glossary
+
+| Term | Meaning |
+| --- | --- |
+| Laplace transform | Map from time domain to complex-frequency domain |
+| $s$ | Complex variable used in Laplace analysis |
+| Initial condition | State/value at $t=0$ |
+| Transfer function | $G(s)=Y(s)/U(s)$ with zero initial conditions |
+
+## Explanation
+
+Laplace transform turns derivatives into multiplication by $s$:
+
+- time-domain differential equation -> algebraic equation in $s$
+- easier to solve and analyze poles/zeros
+
+Key identity used in control:
+
+$$
+\mathcal{L}\{\dot{y}(t)\}=sY(s)-y(0)
+$$
+
+With zero initial conditions, this simplifies to $sY(s)$.
+
+## Worked Example
+
+Given:
+
+$$
+\tau\dot{y}(t)+y(t)=Ku(t)
+$$
+
+Laplace with zero initial conditions:
+
+$$
+(\tau s+1)Y(s)=KU(s)
+$$
+
+So:
+
+$$
+G(s)=\frac{Y(s)}{U(s)}=\frac{K}{\tau s+1}
+$$
+
+## Common Mistakes
+
+- Forgetting initial-condition terms during transform.
+- Calling $Y(s)$ itself a transfer function.
+- Mixing time-domain and $s$-domain variables in one equation line.
+
+## Detailed Review
+
+1. Why does Laplace make modeling easier?
+2. What exact assumption is required for TF definition?
+3. What does denominator degree represent physically?
+
+## Assignments
+
+1. Derive TF from $\ddot{y}+3\dot{y}+2y=u$ under zero initial conditions.
+2. Explain in one paragraph why transfer functions are not defined from nonzero initial-condition response directly.
+
+## If This Felt Hard, Review First
+
+- [Transfer Functions for Absolute Beginners](/fundamentals/transfer-functions-beginner)
+- [Modeling and Transfer Functions](/fundamentals)

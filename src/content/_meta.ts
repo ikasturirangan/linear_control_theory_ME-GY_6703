@@ -6,6 +6,7 @@ const meta = {
     },
   },
   basics: "Absolute Basics",
+  onboarding: "Beginner Onboarding",
   "block-diagrams": "Block Diagrams Chapter",
   fundamentals: "Fundamentals",
   "math-origins": "Math Origins",

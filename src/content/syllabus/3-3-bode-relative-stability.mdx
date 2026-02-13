@@ -85,6 +85,16 @@ This quick scan gives a practical stability + robustness assessment without full
 
 Use [Bode Plot Lab](/interactive/bode-plot-lab) to build intuition with sliders.
 
+## Same system, three views
+
+For one loop, always cross-check:
+
+1. Step response (time-domain speed and overshoot),
+2. Bode margins (frequency-domain robustness),
+3. Nyquist distance to `-1` (geometric stability buffer).
+
+See [Step vs Bode vs Nyquist (Detailed Comparison)](/fundamentals/step-bode-nyquist-comparison).
+
 ## Worked Example
 
 Suppose crossover frequency is where phase is $-140^\circ$.
@@ -105,6 +115,8 @@ Before moving ahead, verify you can:
 3. Explain speed vs robustness tradeoff in one paragraph.
 
 ## Assignments
+
+Skills tested: `derivation`, `interpretation`, `stability test`, `design choice`.
 
 For a given Bode plot, estimate PM and answer:
 

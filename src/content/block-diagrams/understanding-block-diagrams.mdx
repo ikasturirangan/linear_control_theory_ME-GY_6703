@@ -5,6 +5,29 @@ description: Build intuition for blocks, arrows, summing nodes, and feedback loo
 
 # Understanding Block Diagrams
 
+## Why This Matters
+
+If signal flow is unclear, control equations are usually wrong even when algebra is correct.
+
+## What You Should Already Know
+
+- Basic notion of input/output and feedback
+
+## Learning Outcomes
+
+1. Read standard block diagram symbols correctly.
+2. Identify reference, error, controller, plant, and feedback paths.
+3. Explain loop operation in plain language.
+
+## Glossary
+
+| Symbol | Meaning |
+| --- | --- |
+| Summing node | Signal addition/subtraction point |
+| Block | Dynamic transformation from input to output |
+| Feedback path | Measured-output return path |
+| Branch node | One signal feeding multiple destinations |
+
 ## What is a block diagram?
 
 A block diagram is a simplified signal-flow map of a control system.
@@ -54,3 +77,19 @@ Read left-to-right:
 ## Next
 
 Go to [How to Draw Block Diagrams](/block-diagrams/drawing-workflow).
+
+## Detailed Review
+
+1. Why is a signal path not the same thing as physical wiring detail?
+2. Why is feedback sign at summing node critical?
+3. How does a single wrong signal label propagate to wrong equations?
+
+## Assignments
+
+1. Draw one canonical feedback loop and label all main signals.
+2. Explain each symbol in your drawing in one sentence.
+
+## If This Felt Hard, Review First
+
+- [Anatomy of a Control System](/basics/anatomy)
+- [The Language of Signals](/basics/signals)

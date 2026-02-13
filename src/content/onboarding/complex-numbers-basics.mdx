@@ -1,0 +1,73 @@
+---
+title: Complex Numbers Basics
+description: The minimum complex-number intuition needed for poles, oscillation, and frequency response.
+---
+
+# Complex Numbers Basics
+
+## Why This Matters
+
+Poles, oscillation, damping, and frequency response all rely on complex numbers.
+
+## What You Should Already Know
+
+- Basic algebra
+- Square roots and powers
+
+## Learning Outcomes
+
+1. Interpret $a + jb$ as point and as oscillation component.
+2. Convert between rectangular and magnitude-angle forms.
+3. Explain what real and imaginary parts mean for pole behavior.
+
+## Glossary
+
+| Term | Meaning |
+| --- | --- |
+| $j$ | Imaginary unit, $j^2=-1$ |
+| Complex number | $z=a+jb$ |
+| Magnitude | $|z|=\sqrt{a^2+b^2}$ |
+| Angle | $\theta=\tan^{-1}(b/a)$ |
+| Conjugate | $a-jb$ |
+
+## Explanation
+
+Rectangular form: $z = a + jb$
+
+Polar form: $z = |z|e^{j\theta}$
+
+For control poles:
+
+- Real part ($a$) controls growth/decay.
+- Imaginary part ($b$) controls oscillation frequency.
+
+## Worked Example
+
+Given $z=-2+j3$:
+
+- Magnitude: $|z|=\sqrt{13}$
+- Angle: $\theta=\tan^{-1}(3/-2)$ (quadrant II)
+
+Interpretation for pole: decaying oscillation because real part is negative and imaginary part nonzero.
+
+## Common Mistakes
+
+- Ignoring quadrant when computing angle.
+- Forgetting complex poles in real systems appear as conjugate pairs.
+- Treating imaginary part as instability by itself (real part determines stability sign).
+
+## Detailed Review
+
+1. Why does negative real part imply decay?
+2. Why do conjugate poles imply sinusoidal components?
+3. How does bigger $|\operatorname{Im}(p)|$ change oscillation frequency?
+
+## Assignments
+
+1. Convert $-1+j2$ and $-1-j2$ to magnitude-angle form.
+2. For poles $-0.5\pm j4$, state damping tendency and oscillation tendency.
+
+## If This Felt Hard, Review First
+
+- [State-Space Methods](/state-space)
+- [Stability and Performance](/stability)

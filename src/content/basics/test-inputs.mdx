@@ -8,6 +8,30 @@ description: Standard input shapes used to probe system behavior.
 To understand a system, we "poke" it with standard inputs and observe the response.
 These inputs are chosen because they reveal important behavior quickly.
 
+## Why This Matters
+
+Standard test inputs make system behavior comparable and diagnosable across designs.
+
+## What You Should Already Know
+
+- Basic loop signals (`r, y, e, u`)
+- Why closed-loop response matters
+
+## Learning Outcomes
+
+1. Explain what step, ramp, and impulse inputs reveal.
+2. Choose the right test input for a given control objective.
+3. Interpret response differences under each standard input.
+
+## Glossary
+
+| Term | Meaning |
+| --- | --- |
+| Step input | Sudden jump to a constant value |
+| Ramp input | Linearly increasing input over time |
+| Impulse input | Idealized short input with unit area |
+| Tracking | Ability to follow changing reference |
+
 ## Why these three inputs?
 
 They are simple, repeatable, and mathematically useful.
@@ -80,6 +104,22 @@ You are tuning drone altitude hold:
 
 1. Which input best checks disturbance rejection after a sudden command change?
 2. Which input best checks tracking of a steadily climbing trajectory?
+
+## Detailed Review
+
+1. Why is step response the default first test?
+2. Why does ramp response expose tracking limitations?
+3. Why is impulse useful for identifying natural modes?
+
+## Assignments
+
+1. For one plant of your choice, predict response differences for step vs ramp input.
+2. Run a simulation and compare measured settling/tracking behavior.
+
+## If This Felt Hard, Review First
+
+- [The Language of Signals](/basics/signals)
+- [First vs Second Order Behavior](/fundamentals/first-second-order)
 
 ## Continue
 

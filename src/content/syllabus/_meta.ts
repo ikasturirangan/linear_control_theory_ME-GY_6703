@@ -21,6 +21,8 @@ const meta = {
   "3-12-pole-placement-observer": "3.12 Pole Placement and Full-State Observer",
   "3-13-lqr-mpc": "3.13 LQR and MPC",
   "extra-lab-inverted-pendulum": "Extra Lab: Inverted Pendulum Balancing",
+  "professor-question-bank": "What Professors Typically Ask",
+  "capstone-prep-pack": "Capstone Prep Pack",
   references: "References and Citations",
 };
 

@@ -9,6 +9,33 @@ Everything from a toilet tank to an autopilot follows the same anatomy.
 Before equations, memorize this loop.
 Refer to Block Diagram 1 throughout this page.
 
+## Why This Matters
+
+If you cannot identify plant/sensor/controller/actuator, later equations become disconnected symbols.
+
+## What You Should Already Know
+
+- Basic idea of a system input and output
+- Difference between desired target and measured reality
+
+## Learning Outcomes
+
+By the end, you should be able to:
+
+1. Identify plant, sensor, controller, and actuator in real systems.
+2. Explain each block's role in one sentence.
+3. Map a verbal system description to a closed-loop diagram.
+
+## Glossary
+
+| Term | Meaning |
+| --- | --- |
+| Plant | Physical process being controlled |
+| Sensor | Device/system estimating measured output |
+| Controller | Logic/mathematics computing corrective action |
+| Actuator | Physical mechanism applying control effort |
+| Feedback loop | Repeated measurement and correction cycle |
+
 <ClosedLoopDiagram
   caption="Block Diagram 1: Canonical Closed-Loop Control"
   forwardBlocks={["Controller C", "Actuator A", "Plant P"]}
@@ -115,6 +142,24 @@ For a home AC thermostat system, identify:
 - Sensor
 - Controller
 - Actuator
+
+## Detailed Review
+
+Before moving on, check you can:
+
+1. Distinguish controller decision from actuator effort.
+2. Explain why sensor quality affects control performance.
+3. Identify one disturbance for each of two real systems.
+
+## Assignments
+
+1. Pick two systems (one mechanical, one thermal) and identify all 4 anatomy blocks.
+2. For each system, list one likely disturbance and where it enters.
+
+## If This Felt Hard, Review First
+
+- [Open Loop vs Closed Loop](/basics/open-vs-closed)
+- [The Language of Signals](/basics/signals)
 
 ## Continue
 

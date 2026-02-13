@@ -1,0 +1,54 @@
+---
+title: Capstone Prep Pack - Inverted Pendulum
+description: A pre-lab checklist and preparation guide for the inverted pendulum balancing experiment.
+---
+
+# Capstone Prep Pack - Inverted Pendulum
+
+## Objective
+
+Prepare for the lab with a structured pre-check so hardware time is efficient and safe.
+
+## Pre-lab technical checklist
+
+1. Re-derive linearized model around upright equilibrium.
+2. Confirm state definitions and sensor mappings.
+3. Validate controllability and observability from identified parameters.
+4. Choose initial controller method (pole placement or LQR).
+5. Choose observer strategy if all states are not measured.
+6. Select sample period and justify it with bandwidth/margin logic.
+
+## Simulation checklist
+
+- Include actuator saturation.
+- Include sensor noise.
+- Include disturbance impulse and parameter uncertainty.
+- Compare nominal vs +10% and -10% parameter variants.
+
+## Hardware readiness checklist
+
+- Emergency stop tested.
+- Sign conventions verified (sensor and control direction).
+- Actuator limits enforced in software.
+- Safe initial conditions set.
+
+## What to document during runs
+
+- Gains/weights used.
+- Sample time.
+- Settling time and overshoot trend.
+- Disturbance recovery quality.
+- Failure observations and corrective changes.
+
+## Mini rubric for final report
+
+- Model validity and assumptions clearly justified.
+- Controller and observer design traceable from theory.
+- Simulation-to-experiment comparison included.
+- Failure analysis and next-step improvements included.
+
+## Linked pages
+
+- [Extra Lab Session: Inverted Pendulum Balancing](/syllabus/extra-lab-inverted-pendulum)
+- [What Professors Typically Ask](/syllabus/professor-question-bank)
+- [Modules 10-13 Mixed Set](/practice/mixed/modules-10-13)

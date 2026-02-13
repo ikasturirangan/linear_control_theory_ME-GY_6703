@@ -1,43 +1,104 @@
 ---
 title: Answer Key
-description: Solutions for all practice-set question IDs.
+description: Step-by-step solutions for practice sets and mixed sets.
 ---
 
 # Answer Key
 
+Use this after a full attempt.
+
 ## Basics
 
-- **B1**: Plant = altitude dynamics; Sensor = altimeter/IMU; Controller = flight-control law; Actuator = rotor thrust commands.
-- **B2**: $e=r-y=50-47=3$.
-- **B3**: Open-loop.
-- **B4**: Closed-loop.
-- **B5**: Controller computes effort; actuator physically applies effort.
-- **B6**: It gives a tractable local model so linear tools can be used around an operating point.
+- **B1**:
+  1. Plant = altitude dynamics.
+  2. Sensor = altimeter/IMU estimate.
+  3. Controller = flight-control law.
+  4. Actuator = rotor thrust commands.
+- **B2**:
+  1. Use negative feedback: $e=r-y$.
+  2. Compute: $e=50-47=3$.
+- **B3**: Open-loop (no output measurement correction).
+- **B4**: Closed-loop (measured temperature drives correction).
+- **B5**: Controller computes effort; actuator applies physical effort.
+- **B6**: Linearization provides a local model so linear tools are valid near operating point.
 
 ## Fundamentals
 
-- **F1**: $G(s)=\frac{Y}{U}=\frac{2}{s+4}$.
-- **F2**: $s^2+3s+2=(s+1)(s+2)$, poles at $-1,-2$.
-- **F3**: One zero at $s=-1$, two poles from denominator roots.
-- **F4**: Larger $\tau$ generally slows the response.
-- **F5**: Example: forgetting zero-initial-condition assumption for transfer-function definition.
+- **F1**:
+  1. Start: $(s+4)Y=2U$.
+  2. Divide by $U(s+4)$.
+  3. $G(s)=Y/U=2/(s+4)$.
+- **F2**:
+  1. Denominator: $s^2+3s+2=(s+1)(s+2)$.
+  2. Poles: $-1,-2$.
+- **F3**: One zero ($s=-1$), two poles (denominator roots).
+- **F4**: Larger $\tau$ usually slows first-order response.
+- **F5**: Example: forgetting TF assumes zero initial conditions.
 
 ## State-Space
 
 - **SS1**: $\dot{x}=Ax+Bu,\ y=Cx+Du$.
-- **SS2**: $AB=\begin{bmatrix}1\\-2\end{bmatrix}$.
-- **SS3**: $\mathcal{C}=\begin{bmatrix}0&1\\1&-2\end{bmatrix}$, rank 2 (controllable).
-- **SS4**: $CA=\begin{bmatrix}0&1\end{bmatrix}$.
-- **SS5**: Observability asks whether internal states can be reconstructed from outputs over time.
+- **SS2**:
+  1. Multiply: $AB=\begin{bmatrix}0&1\\-1&-2\end{bmatrix}\begin{bmatrix}0\\1\end{bmatrix}$.
+  2. Result: $\begin{bmatrix}1\\-2\end{bmatrix}$.
+- **SS3**:
+  1. $\mathcal{C}=[B\ AB]=\begin{bmatrix}0&1\\1&-2\end{bmatrix}$.
+  2. Determinant $=-1\ne0$.
+  3. Rank 2 => controllable.
+- **SS4**:
+  1. $CA=\begin{bmatrix}1&0\end{bmatrix}\begin{bmatrix}0&1\\-1&-2\end{bmatrix}$.
+  2. Result: $\begin{bmatrix}0&1\end{bmatrix}$.
+- **SS5**: Observability asks whether hidden states can be reconstructed from output history.
 
 ## Stability
 
 - **ST1**: Stable (real part negative).
 - **ST2**: Unstable (real part positive).
 - **ST3**: Damping ratio $\zeta$.
-- **ST4**: Settling time decreases.
+- **ST4**: Settling time decreases since $T_s\propto 1/\omega_n$.
 - **ST5**:
-  $$
-  T(s)=\frac{G}{1+G}=\frac{K}{s+1+K}
-  $$
-- **ST6**: $\mathrm{PM}=180^\circ-140^\circ=40^\circ$.
+  1. $T=G/(1+G)$ for unity feedback.
+  2. $T(s)=\frac{K/(s+1)}{1+K/(s+1)}=\frac{K}{s+1+K}$.
+- **ST6**: $PM=180^\circ-140^\circ=40^\circ$.
+
+## Mistake-Fix Drills
+
+- **Drill 1**: For standard negative feedback, correct sign is $e=r-y$.
+- **Drill 2**: Correct TF is $G(s)=Y/U=K/(\tau s+1)$.
+- **Drill 3**: Discrete stability requires all poles satisfy $|z_i|<1$.
+- **Drill 4**: Routh sign changes are counted in the first column.
+- **Drill 5**: Controllability requires rank$(\mathcal{C})=n$, not det$(A)\ne0$.
+
+## Mixed Set Solutions (short form)
+
+### Modules 1-3
+
+1. $G(s)=1/(s^2+3s+2)$; poles at $-1,-2$.
+2. $T(s)=\frac{10}{s(s+5)+10}=\frac{10}{s^2+5s+10}$.
+3. PM $=30^\circ$ => moderate/high oscillation risk.
+4. Command path: output tracks reference; disturbance path: output reacts to external input.
+5. Type-1 gives zero step SSE (with stable closed loop).
+
+### Modules 4-6
+
+1. Lead compensator (adds phase near crossover).
+2. Stable for $K>0$ and additional Routh condition gives bounded positive range per computed row terms.
+3. Need one clockwise encirclement cancellation condition per $N=Z-P$ when $P=1$ and $Z=0$.
+4. Difference form: $u[k]-0.6u[k-1]=0.5e[k]+0.2e[k-1]$.
+5. Delay adds phase lag near crossover and reduces margin.
+
+### Modules 7-9
+
+1. Discrete: unit circle; continuous: LHP.
+2. ZOH captures piecewise-constant actuator behavior between samples.
+3. Larger sample period usually lowers effective phase margin.
+4. Convert second-order ODE into two first-order states via $x_1=y$, $x_2=\dot{y}$.
+5. State-transition matrix maps current state to future state under dynamics.
+
+### Modules 10-13
+
+1. $x[k+1]=A_dx[k]+B_du[k]$, with $A_d=e^{AT_s}$ and $B_d=\int_0^{T_s}e^{A\tau}Bd\tau$.
+2. $I+AT_s$ is first-order approximation, not exact exponential.
+3. Use controllability matrix rank test rank$(\mathcal{C})=n$.
+4. Faster observer poles improve estimation convergence (but too fast amplifies noise).
+5. MPC is more direct under hard constraints.

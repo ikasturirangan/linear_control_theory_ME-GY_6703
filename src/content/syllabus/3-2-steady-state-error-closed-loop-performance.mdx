@@ -99,6 +99,15 @@ It predicts which input classes can be tracked with zero SSE:
 
 So \"performance\" is not only overshoot/speed; it also includes which references are trackable.
 
+## Same system, three views
+
+After computing SSE and transient behavior here, cross-check the same loop with:
+
+- Bode margins (robustness buffer),
+- Nyquist geometry near `-1` (stability reserve).
+
+Use [Step vs Bode vs Nyquist (Detailed Comparison)](/fundamentals/step-bode-nyquist-comparison).
+
 ## Common Mistakes
 
 - Applying final value theorem without checking closed-loop stability assumptions.
@@ -131,6 +140,8 @@ Check you can confidently explain:
 3. How SSE and transient metrics describe different performance dimensions.
 
 ## Assignments
+
+Skills tested: `derivation`, `interpretation`, `stability test`, `design choice`.
 
 For $G(s)=\frac{10}{s(s+2)}$ (unity feedback):
 

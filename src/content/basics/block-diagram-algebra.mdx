@@ -7,6 +7,30 @@ description: Reduce control block diagrams into one equivalent transfer function
 
 Block-diagram algebra is how you convert a control wiring picture into equations you can analyze.
 
+## Why This Matters
+
+Reducing diagrams correctly is the bridge from signal-flow intuition to solvable transfer-function equations.
+
+## What You Should Already Know
+
+- Basic block diagram symbols and feedback sign
+- Transfer-function notation
+
+## Learning Outcomes
+
+1. Reduce series, parallel, and feedback structures correctly.
+2. Derive equivalent transfer function from a block diagram.
+3. Avoid common reduction-order mistakes.
+
+## Glossary
+
+| Term | Meaning |
+| --- | --- |
+| Series connection | Blocks multiplied in sequence |
+| Parallel connection | Paths added at summing node |
+| Equivalent transfer function | Single TF replacing whole diagram |
+| Feedback reduction | Using $T=G/(1+GH)$ for negative feedback |
+
 ## Why this matters
 
 If you can reduce a diagram to one equivalent transfer function, you can immediately study:
@@ -103,3 +127,19 @@ When reducing diagrams:
 ## Next step
 
 Use this skill with [Worked Fundamentals Example](/worked-examples/fundamentals) and the exercises in [Practice Drawing and Checking](/block-diagrams/practice-drawing).
+
+## Detailed Review
+
+1. Why should reduction usually proceed series/parallel first, feedback last?
+2. Why is feedback sign verification mandatory?
+3. What errors appear if branch points are simplified incorrectly?
+
+## Assignments
+
+1. Reduce one custom diagram containing series + parallel + feedback blocks.
+2. Verify your final TF by checking limiting behavior ($s\\to0$ and high frequency trend).
+
+## If This Felt Hard, Review First
+
+- [Understanding Block Diagrams](/block-diagrams/understanding-block-diagrams)
+- [How to Draw Block Diagrams](/block-diagrams/drawing-workflow)

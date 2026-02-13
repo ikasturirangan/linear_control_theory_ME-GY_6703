@@ -3,6 +3,8 @@ import {
   PoleMovementDemo,
   StepResponseDemo,
 } from "@/components/control-plot-demos";
+import { ControlSystemsTree } from "@/components/control-systems-tree";
+import { CheckpointBox } from "@/components/checkpoint-box";
 import {
   ClosedLoopDiagram,
   InputTestDiagram,
@@ -35,11 +37,13 @@ export function useMDXComponents(components = {}) {
     StepResponseDemo,
     PoleMovementDemo,
     BodePlotDemo,
+    ControlSystemsTree,
     OpenLoopDiagram,
     ClosedLoopDiagram,
     ParallelConnectionDiagram,
     InputTestDiagram,
     LinearizationDiagram,
+    CheckpointBox,
     Badge,
     Table,
     TableHeader,

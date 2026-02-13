@@ -8,6 +8,31 @@ description: Use pole locations and time-domain specs to evaluate closed-loop be
 In linear control, closed-loop pole locations are the first stability checkpoint.
 For continuous-time systems, poles in the open left-half plane imply asymptotic stability.
 
+## Why This Matters
+
+A design that tracks quickly but is weakly stable is unsafe; stability and performance must be evaluated together.
+
+## What You Should Already Know
+
+- Transfer function and poles
+- Basic step-response metrics
+
+## Learning Outcomes
+
+1. Connect pole location to stability and transient trends.
+2. Use second-order formulas for quick performance estimates.
+3. Relate time-domain behavior to frequency-domain robustness intuition.
+
+## Glossary
+
+| Term | Meaning |
+| --- | --- |
+| Stable pole | Pole with negative real part (continuous time) |
+| Damping ratio $\\zeta$ | Oscillation/overshoot tendency |
+| Natural frequency $\\omega_n$ | Dynamic speed scale |
+| Phase margin | Frequency-domain robustness buffer |
+| Relative stability | Degree of robustness, not just stable/unstable |
+
 ## Second-order intuition
 
 For the standard form:
@@ -70,3 +95,19 @@ all closed-loop poles in the left-half plane, then predict overshoot trends as g
 - [Stability Practice Set](/practice/stability)
 - [Interactive Step and Pole Sliders](/interactive/step-and-poles)
 - [Interactive Bode Lab](/interactive/bode-plot-lab)
+
+## Detailed Review
+
+1. Why can increasing speed and robustness conflict?
+2. Why does lower damping ratio increase overshoot tendency?
+3. Why should time-domain and frequency-domain checks both be used?
+
+## Assignments
+
+1. For one second-order model, estimate overshoot and settling time from $\\zeta,\\omega_n$.
+2. Predict how phase-margin reduction would likely affect transient response.
+
+## If This Felt Hard, Review First
+
+- [First vs Second Order Behavior](/fundamentals/first-second-order)
+- [Step vs Bode vs Nyquist (Detailed Comparison)](/fundamentals/step-bode-nyquist-comparison)

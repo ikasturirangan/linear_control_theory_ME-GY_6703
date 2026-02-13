@@ -8,6 +8,30 @@ description: The standard symbols used on almost every control diagram.
 Control diagrams are arrows carrying signals.
 The symbols below appear in almost every textbook and lecture.
 
+## Why This Matters
+
+Most beginner errors in control come from symbol confusion, especially mixing `u(t)` and `y(t)` or flipping error sign.
+
+## What You Should Already Know
+
+- Open-loop vs closed-loop idea
+- Basic block-diagram flow
+
+## Learning Outcomes
+
+1. Correctly define `r(t), y(t), e(t), u(t)`.
+2. Use consistent sign convention in negative feedback.
+3. Translate a word problem into standard signal labels.
+
+## Glossary
+
+| Term | Meaning |
+| --- | --- |
+| `r(t)` | Reference/target signal |
+| `y(t)` | Measured output signal |
+| `e(t)` | Error signal (`r-y`) |
+| `u(t)` | Control effort signal |
+
 | Symbol | Name | Easy English |
 | --- | --- | --- |
 | `r(t)` | Reference | Your goal (for example, 70 degrees). |
@@ -74,6 +98,22 @@ If target speed is `30 m/s` and measured speed is `27 m/s`, what are:
 - `r(t)`
 - `y(t)`
 - `e(t)`
+
+## Detailed Review
+
+1. Why must `e(t)` share units with `r(t)` and `y(t)`?
+2. Why can `u(t)` have different units?
+3. What failure occurs if error sign is reversed?
+
+## Assignments
+
+1. For a motor speed loop, label all four signals and units.
+2. Write one incorrect signal equation and then correct it.
+
+## If This Felt Hard, Review First
+
+- [Open Loop vs Closed Loop](/basics/open-vs-closed)
+- [Block Diagram Algebra](/basics/block-diagram-algebra)
 
 ## Continue
 

@@ -1,0 +1,45 @@
+---
+title: Visual Comparisons
+description: Side-by-side visual summaries for foundational control tradeoffs.
+---
+
+# Visual Comparisons
+
+## Open-loop vs Closed-loop
+
+<OpenLoopDiagram
+  caption="Open-loop: no output correction"
+  blocks={["Controller", "Actuator", "Plant"]}
+/>
+
+<ClosedLoopDiagram
+  caption="Closed-loop: output measured and corrected"
+  forwardBlocks={["Controller", "Actuator", "Plant"]}
+  sensorLabel="Sensor"
+/>
+
+| Aspect | Open-loop | Closed-loop |
+| --- | --- | --- |
+| Disturbance handling | Weak | Stronger |
+| Complexity | Lower | Higher |
+| Accuracy | Lower | Higher (if tuned well) |
+
+## Stable vs Marginal vs Unstable
+
+| Condition | Pole location (continuous) | Typical time response |
+| --- | --- | --- |
+| Stable | Real parts negative | Decays and settles |
+| Marginal | On imaginary axis (special cases) | Sustained oscillation/no decay |
+| Unstable | Any real part positive | Diverges |
+
+Use [Step Response and Pole Sliders](/interactive/step-and-poles) to see this behavior directly.
+
+## Fast vs Robust Tradeoff
+
+| Design direction | Typical effect |
+| --- | --- |
+| Increase crossover/gain | Faster response, often reduced margin |
+| Increase phase margin | More robust/damped, often slower response |
+| Aggressive derivative action | Faster phase lift but noise sensitivity risk |
+
+Read full bridge: [Step vs Bode vs Nyquist](/fundamentals/step-bode-nyquist-comparison).

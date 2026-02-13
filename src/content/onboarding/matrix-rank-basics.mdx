@@ -1,0 +1,78 @@
+---
+title: Matrix and Rank Basics
+description: Minimum matrix skills needed for state-space, controllability, and observability.
+---
+
+# Matrix and Rank Basics
+
+## Why This Matters
+
+Modern control (state-space, observers, pole placement, LQR) depends on matrix operations.
+
+## What You Should Already Know
+
+- Basic arithmetic
+- Simple equation solving
+
+## Learning Outcomes
+
+1. Multiply matrices with dimension checks.
+2. Interpret rank as independent information directions.
+3. Explain why rank tests appear in controllability/observability.
+
+## Glossary
+
+| Term | Meaning |
+| --- | --- |
+| Matrix | Rectangular array of numbers |
+| Dimension | Rows x columns |
+| Rank | Number of linearly independent rows/columns |
+| Invertible | Square matrix with full rank |
+
+## Explanation
+
+State-space uses:
+
+$$
+\dot{x}=Ax+Bu, \quad y=Cx+Du
+$$
+
+Rank appears in tests:
+
+$$
+\mathcal{C}=[B\ AB\ \cdots A^{n-1}B], \quad \mathcal{O}=\begin{bmatrix}C\\CA\\\vdots\\CA^{n-1}\end{bmatrix}
+$$
+
+Full rank means all state directions are reachable/observable.
+
+## Worked Example
+
+Given:
+
+$$
+\mathcal{C}=\begin{bmatrix}0&1\\1&-3\end{bmatrix}
+$$
+
+Determinant is $-1 \ne 0$, so rank is 2 (full rank for 2-state system).
+
+## Common Mistakes
+
+- Multiplying matrices with incompatible dimensions.
+- Assuming nonzero entries automatically imply full rank.
+- Confusing square matrix with invertible matrix.
+
+## Detailed Review
+
+1. Why is rank a structural property, not a random calculation step?
+2. Why do controllability/observability require rank $n$?
+3. What does rank deficiency mean physically?
+
+## Assignments
+
+1. Compute rank for two 2x2 examples (one full rank, one deficient).
+2. Build $\mathcal{C}$ for a 2-state system and test controllability.
+
+## If This Felt Hard, Review First
+
+- [State-Space Methods](/state-space)
+- [Syllabus 3.11](/syllabus/3-11-controllability-observability-ackermann)
