@@ -1,0 +1,94 @@
+---
+title: 3.4 Math Origin - Frequency-Domain Controller Design
+description: How lead, lag, and PID forms are derived to shape crossover and margins.
+---
+
+# 3.4 Math Origin - Frequency-Domain Controller Design
+
+## What question creates this math?
+
+Given desired speed and robustness, what controller form changes loop shape in the right way?
+
+## Core design equation
+
+The controlled loop is:
+
+$$
+L(s)=C(s)G(s)
+$$
+
+Design means selecting $C(s)$ so $L(j\omega)$ satisfies target crossover, PM, GM, and noise roll-off.
+
+## Why lead compensator exists
+
+Need extra phase near crossover without large low-frequency gain penalty.
+A lead form is:
+
+$$
+C_{lead}(s)=K\frac{\tau s+1}{\alpha \tau s+1}, \quad 0<\alpha<1
+$$
+
+Zero appears before pole, creating positive phase bump in a selected band.
+
+Maximum phase lead relation:
+
+$$
+\phi_{max}=\sin^{-1}\!\left(\frac{1-\alpha}{1+\alpha}\right)
+$$
+
+This comes from differentiating phase expression w.r.t. frequency.
+
+## Why lag compensator exists
+
+Need stronger low-frequency gain for SSE reduction while preserving high-frequency behavior:
+
+$$
+C_{lag}(s)=K\frac{\tau s+1}{\beta \tau s+1}, \quad \beta>1
+$$
+
+Pole appears before zero, boosting low-frequency loop gain.
+
+## PID frequency interpretation
+
+PID in parallel form:
+
+$$
+C(s)=K_p + \frac{K_i}{s} + K_d s
+$$
+
+- $K_i/s$ raises low-frequency gain (reduces SSE),
+- $K_d s$ contributes phase lead around crossover,
+- $K_p$ shifts overall gain level.
+
+Practical derivative usually filtered:
+
+$$
+K_d\frac{N s}{s+N}
+$$
+
+to limit noise amplification.
+
+## Typical derivation workflow
+
+1. From specs, estimate target bandwidth and PM.
+2. Plot uncompensated Bode of $G$.
+3. Compute needed phase boost at desired crossover.
+4. Solve compensator parameters from phase-boost equations.
+5. Recheck PM/GM and time response.
+
+## Assumptions
+
+- model accuracy near crossover,
+- linear operation region,
+- actuator not saturated during designed operating regime.
+
+## Common mistakes
+
+- Raising gain to improve speed without PM check.
+- Adding derivative without high-frequency filter.
+- Enforcing too high crossover for sampled/noisy systems.
+
+## Link back
+
+- [Syllabus 3.4](/syllabus/3-4-frequency-domain-controller-design)
+- [Step vs Bode vs Nyquist](/fundamentals/step-bode-nyquist-comparison)

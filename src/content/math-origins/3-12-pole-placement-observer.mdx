@@ -1,0 +1,82 @@
+---
+title: 3.12 Math Origin - Pole Placement and Observer Design
+description: How controller and observer gains are derived from desired closed-loop and estimation dynamics.
+---
+
+# 3.12 Math Origin - Pole Placement and Observer Design
+
+## What question creates this math?
+
+How do we force desired dynamic speed/damping when full state is not directly measured?
+
+## Pole-placement controller origin
+
+With state feedback:
+
+$$
+u = -Kx + Nr
+$$
+
+closed-loop dynamics become:
+
+$$
+\dot{x}=(A-BK)x + BNr
+$$
+
+So choosing $K$ is equivalent to choosing eigenvalues of $(A-BK)$.
+
+If system is controllable, these poles can be assigned to desired locations.
+
+## Observer origin
+
+When only output is measured:
+
+$$
+y=Cx
+$$
+
+build estimator:
+
+$$
+\dot{\hat{x}} = A\hat{x}+Bu+L(y-C\hat{x})
+$$
+
+Estimation error $e_x=x-\hat{x}$ follows:
+
+$$
+\dot{e}_x = (A-LC)e_x
+$$
+
+So $L$ sets observer poles via eigenvalues of $(A-LC)$.
+
+## Why observer poles are usually faster
+
+If observer is too slow, estimated state lags true state and feedback quality degrades.
+Common practice places observer poles 2x to 5x faster than controller poles, balancing convergence and noise sensitivity.
+
+## Separation principle origin
+
+Combined dynamics matrix becomes block upper triangular in transformed coordinates, so controller poles and observer poles appear independently in characteristic polynomial.
+
+Hence:
+
+- design $K$ from controllability,
+- design $L$ from observability,
+- combine safely under LTI assumptions.
+
+## Assumptions
+
+- controllable/observable model,
+- reasonably accurate linearization,
+- sensor noise not dominating fast observer dynamics.
+
+## Common mistakes
+
+- Choosing very fast observer poles that amplify noise severely.
+- Ignoring actuator limits while placing very aggressive controller poles.
+- Forgetting reference prefilter/scaling when evaluating tracking.
+
+## Link back
+
+- [Syllabus 3.12](/syllabus/3-12-pole-placement-observer)
+- [Syllabus 3.11](/syllabus/3-11-controllability-observability-ackermann)

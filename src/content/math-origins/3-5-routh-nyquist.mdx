@@ -1,0 +1,76 @@
+---
+title: 3.5 Math Origin - Routh and Nyquist
+description: Why Routh sign changes and Nyquist encirclements count unstable closed-loop poles.
+---
+
+# 3.5 Math Origin - Routh and Nyquist
+
+## What question creates this math?
+
+Can we determine closed-loop stability without explicitly solving all roots of the characteristic equation?
+
+## Routh origin (algebraic route)
+
+Characteristic polynomial:
+
+$$
+a_n s^n + a_{n-1}s^{n-1} + \cdots + a_0 = 0
+$$
+
+Routh array is built from polynomial coefficients so the first-column sign pattern encodes number of right-half-plane roots.
+
+Key result:
+
+- Number of sign changes in first column = number of RHP roots.
+
+This comes from Cauchy index/continued-fraction reasoning behind the Routh-Hurwitz theorem.
+
+## Why zero first-column entries are special
+
+A zero entry breaks ratio computations in table recursion and indicates boundary/symmetric root scenarios.
+Special handling (epsilon method or auxiliary polynomial) restores valid count.
+
+## Nyquist origin (complex-analysis route)
+
+Closed-loop poles are zeros of $1+L(s)$.
+Nyquist maps contour in $s$-plane through function $1+L(s)$ and uses argument principle:
+
+- change in argument around contour relates zeros minus poles inside contour.
+
+This gives:
+
+$$
+N = Z - P
+$$
+
+where:
+
+- $N$: clockwise encirclements of $-1$ by $L(j\omega)$,
+- $P$: open-loop RHP poles of $L$,
+- $Z$: closed-loop RHP poles.
+
+For stability, require $Z=0$.
+
+## Why both methods answer same question
+
+- Routh inspects polynomial coefficients directly.
+- Nyquist inspects loop frequency geometry.
+
+Both count unstable closed-loop poles through different math machinery.
+
+## Assumptions
+
+- proper contour handling for poles on imaginary axis,
+- accurate open-loop model,
+- characteristic equation correctly formed.
+
+## Common mistakes
+
+- Using wrong characteristic polynomial for Routh.
+- Ignoring open-loop unstable poles in Nyquist count.
+- Misreading encirclement direction.
+
+## Link back
+
+- [Syllabus 3.5](/syllabus/3-5-routh-nyquist)
+- [Stability and Performance](/stability)

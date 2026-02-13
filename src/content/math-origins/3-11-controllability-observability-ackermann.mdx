@@ -1,0 +1,67 @@
+---
+title: 3.11 Math Origin - Controllability, Observability, Ackermann
+description: Why rank tests and Ackermann's formula determine whether pole assignment is possible.
+---
+
+# 3.11 Math Origin - Controllability, Observability, Ackermann
+
+## What question creates this math?
+
+Can input move every dynamic mode, and can output measurements reveal every mode?
+
+## Controllability matrix origin
+
+For $\dot{x}=Ax+Bu$, repeated dynamics under input produce directions:
+
+$$
+B,\ AB,\ A^2B,\ \ldots,\ A^{n-1}B
+$$
+
+Stacking these gives controllability matrix:
+
+$$
+\mathcal{C}=[B\ AB\ A^2B\ \cdots\ A^{n-1}B]
+$$
+
+If rank is $n$, all state directions are reachable.
+
+## Observability matrix origin
+
+Output derivatives include terms with $C,CA,CA^2,\ldots$.
+Stacking gives:
+
+$$
+\mathcal{O}=\begin{bmatrix}C\\CA\\CA^2\\\vdots\\CA^{n-1}\end{bmatrix}
+$$
+
+If rank is $n$, all states are inferable from output history.
+
+## Why Ackermann formula works (SISO)
+
+For controllable pair $(A,B)$, state feedback $u=-Kx$ can place closed-loop polynomial arbitrarily.
+Ackermann provides direct computation:
+
+$$
+K = e_n^T\mathcal{C}^{-1}\phi(A)
+$$
+
+where $\phi(A)$ is desired characteristic polynomial evaluated at $A$.
+
+This works because controllable canonical structure guarantees independent coefficient shaping.
+
+## Assumptions
+
+- exact linear model,
+- full state available for feedback (or observer used),
+- SISO and controllable for direct Ackermann formula.
+
+## Common mistakes
+
+- Using numerical rank without tolerance reasoning.
+- Applying Ackermann to uncontrollable system.
+- Confusing observability with ability to physically measure each state directly.
+
+## Link back
+
+- [Syllabus 3.11](/syllabus/3-11-controllability-observability-ackermann)
+- [State-Space Methods](/state-space)

@@ -1,0 +1,94 @@
+---
+title: 3.2 Math Origin - Steady-State Error and Closed-Loop Performance
+description: Why steady-state error formulas and closed-loop transfer functions look the way they do.
+---
+
+# 3.2 Math Origin - Steady-State Error and Closed-Loop Performance
+
+## What question creates this math?
+
+After feedback is added, how close does output get to the target, and how fast/smooth is the response?
+
+## Closed-loop formula origin
+
+Start with negative feedback:
+
+$$
+E(s)=R(s)-Y(s), \quad Y(s)=G(s)C(s)E(s)
+$$
+
+Substitute and solve for $Y/R$:
+
+$$
+Y = GC(R-Y) \Rightarrow Y(1+GC)=GCR
+$$
+
+$$
+T(s)=\frac{Y(s)}{R(s)}=\frac{G(s)C(s)}{1+G(s)C(s)}
+$$
+
+This comes directly from signal relations at the summing node.
+
+## Error transfer function origin
+
+From $E=R-Y$ and $Y=TR$:
+
+$$
+E=R-TR = (1-T)R
+$$
+
+So:
+
+$$
+\frac{E(s)}{R(s)} = \frac{1}{1+G(s)C(s)}
+$$
+
+This is sensitivity to reference.
+
+## Why final value theorem appears
+
+Steady-state error is limit as $t \to \infty$, and Laplace gives:
+
+$$
+e_{ss}=\lim_{t\to\infty} e(t)=\lim_{s\to 0} sE(s)
+$$
+
+when all poles of $sE(s)$ are in left half-plane (except possible pole at origin).
+
+## Where system type comes from
+
+For unity feedback, low-frequency behavior of open-loop $L(s)=G(s)C(s)$ dominates SSE.
+Number of integrators in $L(s)$ at origin defines system type.
+
+- Type 0: finite step error.
+- Type 1: zero step error, finite ramp error.
+- Type 2: zero step and ramp error, finite parabolic error.
+
+These are direct consequences of $s \to 0$ limits.
+
+## Performance-metric math origin
+
+Second-order template:
+
+$$
+\frac{\omega_n^2}{s^2+2\zeta\omega_n s+\omega_n^2}
+$$
+
+Approximate formulas for overshoot/settling/rise come from solving this ODE exactly or by envelope approximation.
+
+## Assumptions
+
+- linear closed loop,
+- stable for final-value theorem use,
+- dominant second-order approximation when using textbook transient formulas.
+
+## Common mistakes
+
+- Using final value theorem on unstable system.
+- Counting poles instead of integrators at origin for type.
+- Applying second-order formulas to strongly non-dominant higher-order systems.
+
+## Link back
+
+- [Syllabus 3.2](/syllabus/3-2-steady-state-error-closed-loop-performance)
+- [Stability and Performance](/stability)

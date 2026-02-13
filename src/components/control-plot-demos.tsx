@@ -1,39 +1,68 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, type CSSProperties } from "react";
+import {
+  CartesianGrid,
+  Line,
+  LineChart,
+  ReferenceLine,
+  ResponsiveContainer,
+  Scatter,
+  ScatterChart,
+  Tooltip as RechartsTooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
+import { Badge } from "@/components/ui/badge";
+import {
+  ChartContainer,
+  ChartLegend,
+  ChartTooltipContent,
+  type ChartConfig,
+} from "@/components/ui/chart";
+import { Slider } from "@/components/ui/slider";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
-type Point = {
-  x: number;
-  y: number;
+type StepPoint = {
+  response: number;
+  time: number;
 };
 
 type ComplexPoint = {
-  real: number;
   imag: number;
+  real: number;
 };
 
 type BodePoint = {
   freq: number;
+  logFreq: number;
   magDb: number;
   phaseDeg: number;
 };
 
-const STEP_CHART = {
-  width: 620,
-  height: 300,
-  padding: 42,
+type DemoSliderProps = {
+  label: string;
+  max: number;
+  min: number;
+  onChange: (nextValue: number) => void;
+  step: number;
+  value: number;
+  valueText: string;
 };
 
-const POLE_CHART = {
-  width: 620,
-  height: 320,
-  padding: 42,
-};
-
-const BODE_CHART = {
-  width: 620,
-  height: 220,
-  padding: 42,
+const panelStyle: CSSProperties = {
+  border: "1px solid #d1d5db",
+  borderRadius: 12,
+  padding: 16,
+  marginTop: 12,
+  marginBottom: 20,
 };
 
 function secondOrderStepResponse(t: number, zeta: number, wn: number): number {
@@ -54,12 +83,12 @@ function secondOrderStepResponse(t: number, zeta: number, wn: number): number {
   return 1 - (s2 * Math.exp(s1 * t) - s1 * Math.exp(s2 * t)) / (s2 - s1);
 }
 
-function stepPoints(horizon: number, zeta: number, wn: number): Point[] {
-  const samples = 260;
+function stepPoints(horizon: number, zeta: number, wn: number): StepPoint[] {
+  const samples = 240;
   return Array.from({ length: samples + 1 }, (_, i) => {
-    const x = (i / samples) * horizon;
-    const y = secondOrderStepResponse(x, zeta, wn);
-    return { x, y };
+    const time = (i / samples) * horizon;
+    const response = secondOrderStepResponse(time, zeta, wn);
+    return { response, time };
   });
 }
 
@@ -68,22 +97,6 @@ function formatNumber(value: number, digits = 3): string {
     return "-";
   }
   return value.toFixed(digits);
-}
-
-function toStepPolyline(points: Point[], horizon: number): string {
-  const { width, height, padding } = STEP_CHART;
-  const yMin = -0.2;
-  const yMax = 1.8;
-  const xSpan = width - padding * 2;
-  const ySpan = height - padding * 2;
-
-  return points
-    .map((p) => {
-      const px = padding + (p.x / horizon) * xSpan;
-      const py = height - padding - ((p.y - yMin) / (yMax - yMin)) * ySpan;
-      return `${px.toFixed(1)},${py.toFixed(1)}`;
-    })
-    .join(" ");
 }
 
 function overshoot(zeta: number): number {
@@ -126,24 +139,6 @@ function poleRegionText(gain: number): string {
   return "Complex-conjugate poles (damped oscillation).";
 }
 
-function toPoleCoords(point: ComplexPoint): Point {
-  const realMin = -6;
-  const realMax = 1;
-  const imagMin = -4;
-  const imagMax = 4;
-  const { width, height, padding } = POLE_CHART;
-
-  const x =
-    padding +
-    ((point.real - realMin) / (realMax - realMin)) * (width - 2 * padding);
-  const y =
-    height -
-    padding -
-    ((point.imag - imagMin) / (imagMax - imagMin)) * (height - 2 * padding);
-
-  return { x, y };
-}
-
 function logspace(startExp: number, endExp: number, count: number): number[] {
   if (count < 2) {
     return [10 ** startExp];
@@ -157,7 +152,7 @@ function logspace(startExp: number, endExp: number, count: number): number[] {
 
 function bodePoints(gainDb: number, w1: number, w2: number): BodePoint[] {
   const k = 10 ** (gainDb / 20);
-  const freqs = logspace(-1, 2, 240);
+  const freqs = logspace(-1, 2, 220);
 
   return freqs.map((freq) => {
     const m1 = 1 / Math.sqrt(1 + (freq / w1) ** 2);
@@ -166,59 +161,18 @@ function bodePoints(gainDb: number, w1: number, w2: number): BodePoint[] {
     const phaseDeg =
       -((Math.atan(freq / w1) + Math.atan(freq / w2)) * 180) / Math.PI;
 
-    return { freq, magDb, phaseDeg };
+    return { freq, logFreq: Math.log10(freq), magDb, phaseDeg };
   });
-}
-
-function mapBodeX(freq: number): number {
-  const { width, padding } = BODE_CHART;
-  const xMin = -1;
-  const xMax = 2;
-  const x = Math.log10(freq);
-  return padding + ((x - xMin) / (xMax - xMin)) * (width - 2 * padding);
-}
-
-function bodePolyline(
-  points: BodePoint[],
-  yMin: number,
-  yMax: number,
-  chartHeight: number,
-): string {
-  const { padding, width } = BODE_CHART;
-  const ySpan = chartHeight - 2 * padding;
-  const xSpan = width - 2 * padding;
-
-  return points
-    .map((p) => {
-      const x = padding + ((Math.log10(p.freq) + 1) / 3) * xSpan;
-      const y =
-        chartHeight - padding - ((p.magDb - yMin) / (yMax - yMin)) * ySpan;
-      return `${x.toFixed(1)},${y.toFixed(1)}`;
-    })
-    .join(" ");
-}
-
-function phasePolyline(points: BodePoint[]): string {
-  const { padding, width, height } = BODE_CHART;
-  const yMin = -200;
-  const yMax = 10;
-  const ySpan = height - 2 * padding;
-  const xSpan = width - 2 * padding;
-
-  return points
-    .map((p) => {
-      const x = padding + ((Math.log10(p.freq) + 1) / 3) * xSpan;
-      const y = height - padding - ((p.phaseDeg - yMin) / (yMax - yMin)) * ySpan;
-      return `${x.toFixed(1)},${y.toFixed(1)}`;
-    })
-    .join(" ");
 }
 
 function findGainCrossover(points: BodePoint[]): number | null {
   for (let i = 1; i < points.length; i += 1) {
     const prev = points[i - 1];
     const curr = points[i];
-    if ((prev.magDb >= 0 && curr.magDb <= 0) || (prev.magDb <= 0 && curr.magDb >= 0)) {
+    if (
+      (prev.magDb >= 0 && curr.magDb <= 0) ||
+      (prev.magDb <= 0 && curr.magDb >= 0)
+    ) {
       const ratio = (0 - prev.magDb) / (curr.magDb - prev.magDb);
       return prev.freq + ratio * (curr.freq - prev.freq);
     }
@@ -226,12 +180,48 @@ function findGainCrossover(points: BodePoint[]): number | null {
   return null;
 }
 
-function phaseAtFrequency(
-  freq: number,
-  w1: number,
-  w2: number,
-): number {
+function phaseAtFrequency(freq: number, w1: number, w2: number): number {
   return -((Math.atan(freq / w1) + Math.atan(freq / w2)) * 180) / Math.PI;
+}
+
+function formatFrequencyTick(logFreq: number): string {
+  const value = 10 ** logFreq;
+  if (value >= 100) {
+    return "100";
+  }
+  if (value >= 10) {
+    return "10";
+  }
+  if (value >= 1) {
+    return "1";
+  }
+  return "0.1";
+}
+
+function DemoSlider({
+  label,
+  max,
+  min,
+  onChange,
+  step,
+  value,
+  valueText,
+}: DemoSliderProps) {
+  return (
+    <label style={{ display: "grid", gap: 6 }}>
+      <span>
+        {label}: <strong>{valueText}</strong>
+      </span>
+      <Slider
+        aria-label={label}
+        max={max}
+        min={min}
+        onValueChange={(nextValues) => onChange(nextValues[0] ?? value)}
+        step={step}
+        value={[value]}
+      />
+    </label>
+  );
 }
 
 export function StepResponseDemo() {
@@ -239,112 +229,117 @@ export function StepResponseDemo() {
   const [wn, setWn] = useState(2.2);
   const [horizon, setHorizon] = useState(8);
 
-  const points = useMemo(() => stepPoints(horizon, zeta, wn), [horizon, zeta, wn]);
-  const polyline = useMemo(() => toStepPolyline(points, horizon), [points, horizon]);
+  const data = useMemo(() => stepPoints(horizon, zeta, wn), [horizon, zeta, wn]);
+
+  const chartConfig: ChartConfig = {
+    response: { color: "#0f766e", label: "Step response" },
+    target: { color: "#64748b", label: "Target (y=1)" },
+  };
 
   const mp = overshoot(zeta);
   const ts = settlingTime(zeta, wn);
 
-  const targetY =
-    STEP_CHART.height -
-    STEP_CHART.padding -
-    ((1 - -0.2) / (1.8 - -0.2)) * (STEP_CHART.height - STEP_CHART.padding * 2);
-
   return (
-    <section
-      style={{
-        border: "1px solid #d1d5db",
-        borderRadius: 12,
-        padding: 16,
-        marginTop: 12,
-        marginBottom: 20,
-      }}
-    >
+    <section style={panelStyle}>
       <h3 style={{ marginTop: 0 }}>Step Response Slider</h3>
       <p style={{ marginTop: 0 }}>
         Adjust damping ratio <code>zeta</code> and natural frequency <code>wn</code>.
-        The plot shows the unit-step response of a second-order model.
+        The chart uses shadcn-style UI and renders a unit-step response.
       </p>
 
       <div style={{ display: "grid", gap: 10, marginBottom: 12 }}>
-        <label>
-          zeta: <strong>{zeta.toFixed(2)}</strong>
-          <input
-            type="range"
-            min="0.05"
-            max="1.60"
-            step="0.01"
-            value={zeta}
-            onChange={(e) => setZeta(Number(e.target.value))}
-            style={{ width: "100%" }}
-          />
-        </label>
+        <DemoSlider
+          label="zeta"
+          max={1.6}
+          min={0.05}
+          onChange={setZeta}
+          step={0.01}
+          value={zeta}
+          valueText={zeta.toFixed(2)}
+        />
 
-        <label>
-          wn (rad/s): <strong>{wn.toFixed(2)}</strong>
-          <input
-            type="range"
-            min="0.40"
-            max="8.00"
-            step="0.05"
-            value={wn}
-            onChange={(e) => setWn(Number(e.target.value))}
-            style={{ width: "100%" }}
-          />
-        </label>
+        <DemoSlider
+          label="wn (rad/s)"
+          max={8}
+          min={0.4}
+          onChange={setWn}
+          step={0.05}
+          value={wn}
+          valueText={wn.toFixed(2)}
+        />
 
-        <label>
-          time window (s): <strong>{horizon.toFixed(1)}</strong>
-          <input
-            type="range"
-            min="3.0"
-            max="20.0"
-            step="0.5"
-            value={horizon}
-            onChange={(e) => setHorizon(Number(e.target.value))}
-            style={{ width: "100%" }}
-          />
-        </label>
+        <DemoSlider
+          label="time window (s)"
+          max={20}
+          min={3}
+          onChange={setHorizon}
+          step={0.5}
+          value={horizon}
+          valueText={horizon.toFixed(1)}
+        />
       </div>
 
-      <svg
-        viewBox={`0 0 ${STEP_CHART.width} ${STEP_CHART.height}`}
-        style={{ width: "100%", height: "auto", background: "#ffffff" }}
-      >
-        <line
-          x1={STEP_CHART.padding}
-          y1={STEP_CHART.height - STEP_CHART.padding}
-          x2={STEP_CHART.width - STEP_CHART.padding}
-          y2={STEP_CHART.height - STEP_CHART.padding}
-          stroke="#9ca3af"
-        />
-        <line
-          x1={STEP_CHART.padding}
-          y1={STEP_CHART.padding}
-          x2={STEP_CHART.padding}
-          y2={STEP_CHART.height - STEP_CHART.padding}
-          stroke="#9ca3af"
-        />
-        <line
-          x1={STEP_CHART.padding}
-          y1={targetY}
-          x2={STEP_CHART.width - STEP_CHART.padding}
-          y2={targetY}
-          stroke="#94a3b8"
-          strokeDasharray="6 4"
-        />
-        <polyline
-          points={polyline}
-          fill="none"
-          stroke="#0f766e"
-          strokeWidth="2.5"
-        />
-      </svg>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 8 }}>
+        <Badge variant={mp < 15 ? "success" : "warning"}>
+          Overshoot: {formatNumber(mp, 1)}%
+        </Badge>
+        <Badge variant="secondary">Settling (2%): {formatNumber(ts, 2)} s</Badge>
+      </div>
 
-      <p style={{ marginBottom: 0 }}>
-        Estimated overshoot: <strong>{formatNumber(mp, 1)}%</strong> | Estimated 2%
-        settling time: <strong>{formatNumber(ts, 2)} s</strong>
-      </p>
+      <ChartContainer config={chartConfig}>
+        <ChartLegend config={chartConfig} />
+        <ResponsiveContainer height={280} width="100%">
+          <LineChart data={data} margin={{ top: 8, right: 14, bottom: 8, left: 2 }}>
+            <CartesianGrid stroke="#e5e7eb" strokeDasharray="4 4" />
+            <XAxis
+              dataKey="time"
+              domain={[0, horizon]}
+              tickFormatter={(value) => Number(value).toFixed(1)}
+              type="number"
+            />
+            <YAxis domain={[-0.2, 1.8]} />
+            <ReferenceLine
+              stroke="var(--color-target)"
+              strokeDasharray="6 4"
+              y={1}
+            />
+            <RechartsTooltip
+              content={<ChartTooltipContent config={chartConfig} />}
+            />
+            <Line
+              dataKey="response"
+              dot={false}
+              isAnimationActive={false}
+              stroke="var(--color-response)"
+              strokeWidth={2.6}
+              type="monotone"
+            />
+          </LineChart>
+        </ResponsiveContainer>
+      </ChartContainer>
+
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Quantity</TableHead>
+            <TableHead>Value</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          <TableRow>
+            <TableCell>Damping ratio zeta</TableCell>
+            <TableCell>{zeta.toFixed(3)}</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>Natural frequency wn</TableCell>
+            <TableCell>{wn.toFixed(3)} rad/s</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>Estimated 2% settling time</TableCell>
+            <TableCell>{formatNumber(ts, 2)} s</TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
     </section>
   );
 }
@@ -353,77 +348,77 @@ export function PoleMovementDemo() {
   const [gain, setGain] = useState(0.5);
 
   const poles = useMemo(() => closedLoopPoles(gain), [gain]);
-  const coords = poles.map(toPoleCoords);
-
   const imagMagnitude = Math.abs(poles[0]?.imag ?? 0);
 
+  const chartConfig: ChartConfig = {
+    poles: { color: "#b91c1c", label: "Closed-loop poles" },
+  };
+
   return (
-    <section
-      style={{
-        border: "1px solid #d1d5db",
-        borderRadius: 12,
-        padding: 16,
-        marginTop: 12,
-        marginBottom: 20,
-      }}
-    >
+    <section style={panelStyle}>
       <h3 style={{ marginTop: 0 }}>Pole Movement Slider</h3>
       <p style={{ marginTop: 0 }}>
-        Plant model: <code>G(s) = K/((s+1)(s+3))</code> with unity feedback. The
-        closed-loop characteristic equation is <code>s^2 + 4s + (3+K) = 0</code>.
+        Plant model: <code>G(s) = K/((s+1)(s+3))</code> with unity feedback.
+        The closed-loop characteristic equation is
+        <code> s^2 + 4s + (3+K) = 0</code>.
       </p>
 
-      <label>
-        gain K: <strong>{gain.toFixed(2)}</strong>
-        <input
-          type="range"
-          min="0.00"
-          max="8.00"
-          step="0.05"
-          value={gain}
-          onChange={(e) => setGain(Number(e.target.value))}
-          style={{ width: "100%", marginTop: 6 }}
-        />
-      </label>
+      <DemoSlider
+        label="gain K"
+        max={8}
+        min={0}
+        onChange={setGain}
+        step={0.05}
+        value={gain}
+        valueText={gain.toFixed(2)}
+      />
 
-      <svg
-        viewBox={`0 0 ${POLE_CHART.width} ${POLE_CHART.height}`}
-        style={{ width: "100%", height: "auto", background: "#ffffff", marginTop: 12 }}
-      >
-        <line
-          x1={POLE_CHART.padding}
-          y1={POLE_CHART.height / 2}
-          x2={POLE_CHART.width - POLE_CHART.padding}
-          y2={POLE_CHART.height / 2}
-          stroke="#9ca3af"
-        />
-        <line
-          x1={POLE_CHART.padding + ((0 - -6) / (1 - -6)) * (POLE_CHART.width - 2 * POLE_CHART.padding)}
-          y1={POLE_CHART.padding}
-          x2={POLE_CHART.padding + ((0 - -6) / (1 - -6)) * (POLE_CHART.width - 2 * POLE_CHART.padding)}
-          y2={POLE_CHART.height - POLE_CHART.padding}
-          stroke="#9ca3af"
-        />
+      <div style={{ marginTop: 10, marginBottom: 8 }}>
+        <Badge variant={gain <= 1 ? "secondary" : "warning"}>{poleRegionText(gain)}</Badge>
+      </div>
 
-        {coords.map((p, i) => (
-          <g key={`${i}-${p.x}-${p.y}`}>
-            <circle cx={p.x} cy={p.y} r="6" fill="#b91c1c" />
-            <line x1={p.x - 8} y1={p.y - 8} x2={p.x + 8} y2={p.y + 8} stroke="#ffffff" strokeWidth="1.5" />
-            <line x1={p.x + 8} y1={p.y - 8} x2={p.x - 8} y2={p.y + 8} stroke="#ffffff" strokeWidth="1.5" />
-          </g>
-        ))}
-      </svg>
+      <ChartContainer config={chartConfig} style={{ marginTop: 10 }}>
+        <ChartLegend config={chartConfig} />
+        <ResponsiveContainer height={300} width="100%">
+          <ScatterChart margin={{ top: 8, right: 16, bottom: 8, left: 4 }}>
+            <CartesianGrid stroke="#e5e7eb" strokeDasharray="4 4" />
+            <XAxis dataKey="real" domain={[-6, 1]} name="Re" type="number" />
+            <YAxis dataKey="imag" domain={[-4, 4]} name="Im" type="number" />
+            <ReferenceLine stroke="#9ca3af" x={0} />
+            <ReferenceLine stroke="#9ca3af" y={0} />
+            <RechartsTooltip
+              content={<ChartTooltipContent config={chartConfig} />}
+            />
+            <Scatter data={poles} dataKey="imag" fill="var(--color-poles)" line={false} />
+          </ScatterChart>
+        </ResponsiveContainer>
+      </ChartContainer>
 
-      <p>
-        Pole 1: <code>{formatNumber(poles[0]?.real ?? 0, 3)} {poles[0]!.imag >= 0 ? "+" : "-"} j{formatNumber(Math.abs(poles[0]?.imag ?? 0), 3)}</code>
-      </p>
-      <p>
-        Pole 2: <code>{formatNumber(poles[1]?.real ?? 0, 3)} {poles[1]!.imag >= 0 ? "+" : "-"} j{formatNumber(Math.abs(poles[1]?.imag ?? 0), 3)}</code>
-      </p>
-      <p style={{ marginBottom: 0 }}>
-        Region: <strong>{poleRegionText(gain)}</strong> Oscillation frequency grows with
-        <code> |Im(p)| = {formatNumber(imagMagnitude, 3)}</code> when poles are complex.
-      </p>
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Pole</TableHead>
+            <TableHead>Real</TableHead>
+            <TableHead>Imag</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          <TableRow>
+            <TableCell>Pole 1</TableCell>
+            <TableCell>{formatNumber(poles[0]?.real ?? 0, 3)}</TableCell>
+            <TableCell>{formatNumber(poles[0]?.imag ?? 0, 3)}</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>Pole 2</TableCell>
+            <TableCell>{formatNumber(poles[1]?.real ?? 0, 3)}</TableCell>
+            <TableCell>{formatNumber(poles[1]?.imag ?? 0, 3)}</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>|Im(p)| (oscillation tendency)</TableCell>
+            <TableCell colSpan={2}>{formatNumber(imagMagnitude, 3)}</TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
     </section>
   );
 }
@@ -434,28 +429,20 @@ export function BodePlotDemo() {
   const [w2, setW2] = useState(8);
 
   const points = useMemo(() => bodePoints(gainDb, w1, w2), [gainDb, w1, w2]);
-  const magLine = useMemo(
-    () => bodePolyline(points, -80, 30, BODE_CHART.height),
-    [points],
-  );
-  const phaseLine = useMemo(() => phasePolyline(points), [points]);
 
   const crossover = findGainCrossover(points);
   const phaseMargin =
     crossover === null ? null : 180 + phaseAtFrequency(crossover, w1, w2);
 
-  const xTicks = [0.1, 1, 10, 100];
+  const magConfig: ChartConfig = {
+    magDb: { color: "#0f766e", label: "Magnitude (dB)" },
+  };
+  const phaseConfig: ChartConfig = {
+    phaseDeg: { color: "#b45309", label: "Phase (deg)" },
+  };
 
   return (
-    <section
-      style={{
-        border: "1px solid #d1d5db",
-        borderRadius: 12,
-        padding: 16,
-        marginTop: 12,
-        marginBottom: 20,
-      }}
-    >
+    <section style={panelStyle}>
       <h3 style={{ marginTop: 0 }}>Bode Plot Slider</h3>
       <p style={{ marginTop: 0 }}>
         Model: <code>G(s)=K/((1+s/w1)(1+s/w2))</code>. Move gain and corner
@@ -463,166 +450,137 @@ export function BodePlotDemo() {
       </p>
 
       <div style={{ display: "grid", gap: 10, marginBottom: 12 }}>
-        <label>
-          gain (dB): <strong>{gainDb.toFixed(1)}</strong>
-          <input
-            type="range"
-            min="-20"
-            max="30"
-            step="0.5"
-            value={gainDb}
-            onChange={(e) => setGainDb(Number(e.target.value))}
-            style={{ width: "100%" }}
-          />
-        </label>
+        <DemoSlider
+          label="gain (dB)"
+          max={30}
+          min={-20}
+          onChange={setGainDb}
+          step={0.5}
+          value={gainDb}
+          valueText={gainDb.toFixed(1)}
+        />
 
-        <label>
-          first corner w1 (rad/s): <strong>{w1.toFixed(2)}</strong>
-          <input
-            type="range"
-            min="0.2"
-            max="15"
-            step="0.1"
-            value={w1}
-            onChange={(e) => setW1(Number(e.target.value))}
-            style={{ width: "100%" }}
-          />
-        </label>
+        <DemoSlider
+          label="first corner w1 (rad/s)"
+          max={15}
+          min={0.2}
+          onChange={setW1}
+          step={0.1}
+          value={w1}
+          valueText={w1.toFixed(2)}
+        />
 
-        <label>
-          second corner w2 (rad/s): <strong>{w2.toFixed(2)}</strong>
-          <input
-            type="range"
-            min="0.3"
-            max="20"
-            step="0.1"
-            value={w2}
-            onChange={(e) => setW2(Number(e.target.value))}
-            style={{ width: "100%" }}
-          />
-        </label>
+        <DemoSlider
+          label="second corner w2 (rad/s)"
+          max={20}
+          min={0.3}
+          onChange={setW2}
+          step={0.1}
+          value={w2}
+          valueText={w2.toFixed(2)}
+        />
+      </div>
+
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 10 }}>
+        <Badge variant="secondary">
+          Crossover: {crossover === null ? "none" : `${formatNumber(crossover, 3)} rad/s`}
+        </Badge>
+        <Badge
+          variant={
+            phaseMargin === null
+              ? "outline"
+              : phaseMargin >= 45
+                ? "success"
+                : "warning"
+          }
+        >
+          PM: {phaseMargin === null ? "N/A" : `${formatNumber(phaseMargin, 1)} deg`}
+        </Badge>
       </div>
 
       <h4 style={{ marginBottom: 6 }}>Magnitude (dB)</h4>
-      <svg
-        viewBox={`0 0 ${BODE_CHART.width} ${BODE_CHART.height}`}
-        style={{ width: "100%", height: "auto", background: "#ffffff" }}
-      >
-        <line
-          x1={BODE_CHART.padding}
-          y1={BODE_CHART.height - BODE_CHART.padding}
-          x2={BODE_CHART.width - BODE_CHART.padding}
-          y2={BODE_CHART.height - BODE_CHART.padding}
-          stroke="#9ca3af"
-        />
-        <line
-          x1={BODE_CHART.padding}
-          y1={BODE_CHART.padding}
-          x2={BODE_CHART.padding}
-          y2={BODE_CHART.height - BODE_CHART.padding}
-          stroke="#9ca3af"
-        />
-        <line
-          x1={BODE_CHART.padding}
-          y1={BODE_CHART.height - BODE_CHART.padding - ((0 - -80) / 110) * (BODE_CHART.height - 2 * BODE_CHART.padding)}
-          x2={BODE_CHART.width - BODE_CHART.padding}
-          y2={BODE_CHART.height - BODE_CHART.padding - ((0 - -80) / 110) * (BODE_CHART.height - 2 * BODE_CHART.padding)}
-          stroke="#94a3b8"
-          strokeDasharray="6 4"
-        />
-        {xTicks.map((tick) => {
-          const x = mapBodeX(tick);
-          return (
-            <g key={`mag-${tick}`}>
-              <line
-                x1={x}
-                y1={BODE_CHART.padding}
-                x2={x}
-                y2={BODE_CHART.height - BODE_CHART.padding}
-                stroke="#e5e7eb"
-              />
-              <text
-                x={x}
-                y={BODE_CHART.height - BODE_CHART.padding + 16}
-                textAnchor="middle"
-                fontSize="11"
-                fill="#334155"
-              >
-                {tick}
-              </text>
-            </g>
-          );
-        })}
-        <polyline
-          points={magLine}
-          fill="none"
-          stroke="#0f766e"
-          strokeWidth="2.5"
-        />
-      </svg>
+      <ChartContainer config={magConfig}>
+        <ChartLegend config={magConfig} />
+        <ResponsiveContainer height={250} width="100%">
+          <LineChart data={points} margin={{ top: 8, right: 14, bottom: 8, left: 2 }}>
+            <CartesianGrid stroke="#e5e7eb" strokeDasharray="4 4" />
+            <XAxis
+              dataKey="logFreq"
+              domain={[-1, 2]}
+              tickFormatter={(value) => formatFrequencyTick(Number(value))}
+              ticks={[-1, 0, 1, 2]}
+              type="number"
+            />
+            <YAxis domain={[-80, 30]} />
+            <ReferenceLine stroke="#94a3b8" strokeDasharray="6 4" y={0} />
+            <RechartsTooltip
+              content={<ChartTooltipContent config={magConfig} />}
+            />
+            <Line
+              dataKey="magDb"
+              dot={false}
+              isAnimationActive={false}
+              stroke="var(--color-magDb)"
+              strokeWidth={2.4}
+              type="monotone"
+            />
+          </LineChart>
+        </ResponsiveContainer>
+      </ChartContainer>
 
       <h4 style={{ marginTop: 14, marginBottom: 6 }}>Phase (deg)</h4>
-      <svg
-        viewBox={`0 0 ${BODE_CHART.width} ${BODE_CHART.height}`}
-        style={{ width: "100%", height: "auto", background: "#ffffff" }}
-      >
-        <line
-          x1={BODE_CHART.padding}
-          y1={BODE_CHART.height - BODE_CHART.padding}
-          x2={BODE_CHART.width - BODE_CHART.padding}
-          y2={BODE_CHART.height - BODE_CHART.padding}
-          stroke="#9ca3af"
-        />
-        <line
-          x1={BODE_CHART.padding}
-          y1={BODE_CHART.padding}
-          x2={BODE_CHART.padding}
-          y2={BODE_CHART.height - BODE_CHART.padding}
-          stroke="#9ca3af"
-        />
-        {xTicks.map((tick) => {
-          const x = mapBodeX(tick);
-          return (
-            <g key={`phase-${tick}`}>
-              <line
-                x1={x}
-                y1={BODE_CHART.padding}
-                x2={x}
-                y2={BODE_CHART.height - BODE_CHART.padding}
-                stroke="#e5e7eb"
-              />
-              <text
-                x={x}
-                y={BODE_CHART.height - BODE_CHART.padding + 16}
-                textAnchor="middle"
-                fontSize="11"
-                fill="#334155"
-              >
-                {tick}
-              </text>
-            </g>
-          );
-        })}
-        <polyline
-          points={phaseLine}
-          fill="none"
-          stroke="#b45309"
-          strokeWidth="2.5"
-        />
-      </svg>
+      <ChartContainer config={phaseConfig}>
+        <ChartLegend config={phaseConfig} />
+        <ResponsiveContainer height={250} width="100%">
+          <LineChart data={points} margin={{ top: 8, right: 14, bottom: 8, left: 2 }}>
+            <CartesianGrid stroke="#e5e7eb" strokeDasharray="4 4" />
+            <XAxis
+              dataKey="logFreq"
+              domain={[-1, 2]}
+              tickFormatter={(value) => formatFrequencyTick(Number(value))}
+              ticks={[-1, 0, 1, 2]}
+              type="number"
+            />
+            <YAxis domain={[-200, 10]} />
+            <RechartsTooltip
+              content={<ChartTooltipContent config={phaseConfig} />}
+            />
+            <Line
+              dataKey="phaseDeg"
+              dot={false}
+              isAnimationActive={false}
+              stroke="var(--color-phaseDeg)"
+              strokeWidth={2.4}
+              type="monotone"
+            />
+          </LineChart>
+        </ResponsiveContainer>
+      </ChartContainer>
 
-      <p style={{ marginBottom: 0 }}>
-        Gain crossover:
-        <strong>
-          {" "}
-          {crossover === null ? "none in plotted range" : `${formatNumber(crossover, 3)} rad/s`}
-        </strong>
-        {" | "}Estimated phase margin:
-        <strong>
-          {" "}
-          {phaseMargin === null ? "N/A" : `${formatNumber(phaseMargin, 1)} deg`}
-        </strong>
-      </p>
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Metric</TableHead>
+            <TableHead>Value</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          <TableRow>
+            <TableCell>Gain setting</TableCell>
+            <TableCell>{gainDb.toFixed(2)} dB</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>Gain crossover</TableCell>
+            <TableCell>
+              {crossover === null ? "none in plotted range" : `${formatNumber(crossover, 3)} rad/s`}
+            </TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>Estimated phase margin</TableCell>
+            <TableCell>{phaseMargin === null ? "N/A" : `${formatNumber(phaseMargin, 1)} deg`}</TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
     </section>
   );
 }

@@ -1,0 +1,86 @@
+---
+title: 3.13 Math Origin - LQR and MPC
+description: Why optimal control cost functions and constrained optimization produce LQR and MPC laws.
+---
+
+# 3.13 Math Origin - LQR and MPC
+
+## What question creates this math?
+
+Instead of only placing poles, can we compute control by minimizing a clearly defined performance objective, with or without constraints?
+
+## LQR origin
+
+Continuous-time LQR problem:
+
+$$
+\min_u \int_0^{\infty} (x^TQx + u^TRu)\,dt
+$$
+
+subject to:
+
+$$
+\dot{x}=Ax+Bu
+$$
+
+Using dynamic programming/Hamilton-Jacobi-Bellman theory, optimal value is quadratic:
+
+$$
+V(x)=x^TPx
+$$
+
+with $P$ solving algebraic Riccati equation:
+
+$$
+A^TP + PA - PBR^{-1}B^TP + Q = 0
+$$
+
+and optimal feedback:
+
+$$
+u=-Kx, \quad K=R^{-1}B^TP
+$$
+
+So LQR math comes from explicit optimization of a quadratic tradeoff.
+
+## MPC origin
+
+MPC solves finite-horizon optimization repeatedly:
+
+$$
+\min_{u_0,\ldots,u_{N-1}} \sum_{k=0}^{N-1}(x_k^TQx_k+u_k^TRu_k)+x_N^TPx_N
+$$
+
+subject to model dynamics and constraints:
+
+$$
+x_{k+1}=Ax_k+Bu_k,
+$$
+
+$$
+u_{min}\le u_k \le u_{max}, \quad x_{min}\le x_k \le x_{max}
+$$
+
+At each sample, solve optimization, apply first control move, shift horizon, and repeat.
+
+## Why MPC generalizes LQR
+
+- If constraints are removed and horizon is infinite, MPC recovers LQR-like behavior.
+- With constraints, MPC remains feasible where LQR has no direct constraint handling.
+
+## Assumptions
+
+- reliable prediction model,
+- optimization solvable in available sample time,
+- estimator provides usable state for feedback.
+
+## Common mistakes
+
+- Choosing weights without checking closed-loop implications.
+- Ignoring feasibility and solver timing constraints.
+- Treating LQR/MPC as model-free methods.
+
+## Link back
+
+- [Syllabus 3.13](/syllabus/3-13-lqr-mpc)
+- [State-Space Methods](/state-space)

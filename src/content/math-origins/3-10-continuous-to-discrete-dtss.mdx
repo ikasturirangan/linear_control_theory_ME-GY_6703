@@ -1,0 +1,73 @@
+---
+title: 3.10 Math Origin - Continuous-to-Discrete and DTSS
+description: How exact discrete state-space models are derived from continuous models under sampling and hold.
+---
+
+# 3.10 Math Origin - Continuous-to-Discrete and DTSS
+
+## What question creates this math?
+
+Given continuous model $(A,B,C,D)$ and sample period $T_s$, what exact discrete model governs $x[k]$?
+
+## Starting point
+
+Continuous model:
+
+$$
+\dot{x}(t)=Ax(t)+Bu(t)
+$$
+
+With zero-order hold, input is constant within each interval: $u(t)=u[k]$ for $kT_s \le t < (k+1)T_s$.
+
+## Exact discrete derivation
+
+Evaluate state one sample later:
+
+$$
+x((k+1)T_s)=e^{AT_s}x(kT_s)+\int_0^{T_s} e^{A\tau}B\,d\tau\,u[k]
+$$
+
+Define:
+
+$$
+A_d=e^{AT_s}, \quad B_d=\int_0^{T_s} e^{A\tau}B\,d\tau
+$$
+
+Then:
+
+$$
+x[k+1]=A_d x[k]+B_d u[k]
+$$
+
+and output equation remains:
+
+$$
+y[k]=Cx[k]+Du[k]
+$$
+
+(for sample-at-output convention).
+
+## Why this matters
+
+This is the exact bridge between continuous physics and digital implementation under ZOH, not an approximation by default.
+
+## Approximation alternatives
+
+Forward Euler, backward Euler, and Tustin are numerical approximations used when exact matrix exponential conversion is not preferred.
+
+## Assumptions
+
+- ZOH input behavior,
+- fixed sampling period,
+- linear model valid over each interval.
+
+## Common mistakes
+
+- Using $A_d=I+AT_s$ as if always exact.
+- Ignoring that $B_d$ is integral, not simply $BT_s$ in general.
+- Converting $A$ but forgetting consistent conversion of $B$.
+
+## Link back
+
+- [Syllabus 3.10](/syllabus/3-10-continuous-to-discrete-dtss)
+- [Syllabus 3.8](/syllabus/3-8-sampling-zoh-ad-da)

@@ -1,0 +1,75 @@
+---
+title: 3.9 Math Origin - State Transition and State-Space
+description: Why vector-matrix state equations are introduced and how the state-transition matrix is derived.
+---
+
+# 3.9 Math Origin - State Transition and State-Space
+
+## What question creates this math?
+
+For multi-variable or higher-order systems, how do we represent dynamics compactly and systematically?
+
+## Why state-space form exists
+
+High-order ODEs can be rewritten as first-order vector system:
+
+$$
+\dot{x}(t)=Ax(t)+Bu(t), \quad y(t)=Cx(t)+Du(t)
+$$
+
+State vector $x$ stores minimal memory needed to predict future behavior.
+
+## Where state-transition matrix comes from
+
+For zero input:
+
+$$
+\dot{x}=Ax
+$$
+
+solution is:
+
+$$
+x(t)=e^{At}x(0)
+$$
+
+where matrix exponential is defined by series:
+
+$$
+e^{At}=I+At+\frac{(At)^2}{2!}+\cdots
+$$
+
+This is direct matrix analog of scalar $e^{at}$ solution.
+
+## Full forced solution origin
+
+Using variation of constants:
+
+$$
+x(t)=e^{At}x(0)+\int_0^t e^{A(t-\tau)}Bu(\tau)\,d\tau
+$$
+
+This separates natural response and input-forced response.
+
+## Why this representation is powerful
+
+- naturally handles MIMO systems,
+- links directly to controllability/observability tests,
+- supports modern design (LQR, observers, MPC).
+
+## Assumptions
+
+- linearized or linear model,
+- known matrices around operating point,
+- measurable or estimable states for feedback implementation.
+
+## Common mistakes
+
+- Confusing state variables with outputs.
+- Forgetting dimensions when multiplying matrices.
+- Treating $e^{At}$ as elementwise exponential.
+
+## Link back
+
+- [Syllabus 3.9](/syllabus/3-9-state-transition-state-space)
+- [State-Space Methods](/state-space)

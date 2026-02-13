@@ -1,0 +1,253 @@
+---
+title: Step Response vs Bode vs Nyquist (Detailed Comparison)
+description: A beginner-safe map of what each method tells you, how they connect, and how to use them together.
+---
+
+# Step Response vs Bode vs Nyquist (Detailed Comparison)
+
+Students often ask: are Step, Bode, and Nyquist three different topics, or the same topic in three forms?
+
+They are **the same feedback system seen through three lenses**:
+
+- Step response: time-domain behavior you can directly feel.
+- Bode: frequency-domain shaping and robustness margins.
+- Nyquist: geometric stability/robustness check around the critical point.
+
+If you learn the connections, tuning decisions become much faster and less confusing.
+
+<Badge style={{ marginRight: 8 }} variant="secondary">Step: Time Domain</Badge>
+<Badge style={{ marginRight: 8 }} variant="default">Bode: Frequency Domain</Badge>
+<Badge variant="outline">Nyquist: Complex Plane</Badge>
+
+## Learning Outcomes
+
+By the end of this page, you should be able to:
+
+1. Explain what question each lens answers best.
+2. Relate overshoot/settling trends to margin and crossover trends.
+3. Use Step + Bode + Nyquist in one practical tuning workflow.
+4. Avoid common interpretation mistakes when switching domains.
+
+## Glossary
+
+| Term | Meaning |
+| --- | --- |
+| Step response | Output $y(t)$ when input is a step change. |
+| Rise time | How quickly output reaches near final value. |
+| Overshoot | Peak amount above final value after a step. |
+| Settling time | Time until response stays in a small error band. |
+| Loop transfer | Open-loop product $L(s)=C(s)G(s)H(s)$. |
+| Crossover frequency | Frequency where Bode magnitude crosses 0 dB. |
+| Phase margin (PM) | Phase distance from $-180^\circ$ at crossover. |
+| Nyquist encirclement | Net loops around $-1+j0$ used for stability test. |
+| Relative stability | How robustly stable the loop is, not just stable/unstable. |
+
+## Explanation
+
+A practical control engineer rarely uses only one of these.
+Instead:
+
+1. Set performance goals in time domain (step specs).
+2. Shape loop in frequency domain (Bode).
+3. Confirm no hidden stability risk (Nyquist).
+
+This three-view workflow is one of the most important habits in classical control.
+
+## One shared setup
+
+Let the loop transfer be:
+
+<EquationHelp hint="Loop transfer combines controller, plant, and sensor path. Bode and Nyquist are both drawn from this same L(jw).">
+
+$$
+L(s)=C(s)G(s)H(s)
+$$
+
+</EquationHelp>
+
+Closed-loop transfer (reference to output):
+
+<EquationHelp hint="Step response comes from this closed-loop transfer function. Poles of T(s) shape rise, overshoot, and settling.">
+
+$$
+T(s)=\frac{Y(s)}{R(s)}=\frac{L(s)}{1+L(s)}
+$$
+
+</EquationHelp>
+
+Sensitivity (disturbance/noise robustness insight):
+
+<EquationHelp hint="When 1+L is small near some frequency, sensitivity grows and robustness drops. This is why Nyquist distance to -1 matters.">
+
+$$
+S(s)=\frac{1}{1+L(s)}
+$$
+
+</EquationHelp>
+
+## Lens 1: Step Response (time domain)
+
+Best for answering:
+
+- Is response fast enough?
+- Is overshoot acceptable?
+- Does it settle cleanly?
+
+Typical metrics:
+
+- Rise time $t_r$
+- Percent overshoot $M_p$
+- Settling time $t_s$
+- Steady-state error $e_{ss}$
+
+Use this lens when requirements are written in plain performance language.
+
+## Lens 2: Bode (frequency domain)
+
+Best for answering:
+
+- How robust is loop near instability?
+- Is bandwidth high enough for speed?
+- Is high-frequency noise amplification a risk?
+
+Typical quantities:
+
+- Crossover frequency $\omega_{gc}$
+- Phase margin (PM)
+- Gain margin (GM)
+- High-frequency slope
+
+Use this lens for tuning controller shape (gain, lead, lag, PID effects).
+
+## Lens 3: Nyquist (complex-plane geometry)
+
+Best for answering:
+
+- Is closed loop stable given open-loop RHP poles?
+- How close is loop to the critical point $-1+j0$?
+- Are delays/model uncertainties creating hidden risk?
+
+Core rule:
+
+<EquationHelp hint="Nyquist links open-loop geometry to closed-loop unstable poles. It is the most general classical frequency-domain stability test.">
+
+$$
+N = Z - P
+$$
+
+</EquationHelp>
+
+- $N$: clockwise encirclements of $-1+j0$
+- $P$: open-loop RHP poles
+- $Z$: closed-loop RHP poles
+
+For closed-loop stability, require $Z=0$.
+
+## Side-by-side comparison
+
+| View | Primary input | Primary output | Main strength | Main limitation |
+| --- | --- | --- | --- | --- |
+| Step | Time signal step | $y(t)$ trajectory | Directly shows speed/overshoot/settling | Harder to infer robustness margins directly |
+| Bode | Sinusoidal sweep | Mag/phase vs frequency | Great for tuning and margin targets | Indirect link to time metrics |
+| Nyquist | Frequency sweep in complex plane | Encirclement + distance to $-1$ | Most explicit stability geometry | Less intuitive for beginners at first |
+
+## How to translate between the three views
+
+Use these practical trend rules (not exact laws for every plant):
+
+1. Higher crossover often means faster rise time.
+2. Larger phase margin often means less overshoot.
+3. Nyquist curve passing close to $-1$ often means poor damping/robustness.
+4. Stable Nyquist does not guarantee "good" transient shape; step must still be checked.
+
+A common beginner-safe target zone:
+
+- PM around 45 to 60 deg
+- reasonable crossover for desired speed
+- Nyquist with clear separation from $-1$
+
+Then verify with step response and disturbance tests.
+
+## Worked Example (conceptual tuning loop)
+
+Suppose your step response is:
+
+- too oscillatory,
+- overshoot about 30%,
+- settling slower than required.
+
+You inspect Bode and find:
+
+- low phase margin (around 25 to 30 deg),
+- crossover slightly lower than desired.
+
+Nyquist shows:
+
+- no forbidden encirclement (stable),
+- but curve passes very near $-1+j0$ (fragile relative stability).
+
+Interpretation:
+
+- System is stable but weakly damped and not robust.
+
+Action:
+
+1. Add phase lead near crossover (or retune PID derivative effect).
+2. Increase PM toward safer range.
+3. Re-check Nyquist separation from $-1$.
+4. Re-simulate step response to confirm overshoot/settling improvement.
+
+This is the practical three-lens design loop.
+
+## Interactive intuition tools
+
+Step-response intuition:
+
+<StepResponseDemo />
+
+Bode intuition:
+
+<BodePlotDemo />
+
+Then connect these with:
+
+- [Module 3.3 Bode and Relative Stability](/syllabus/3-3-bode-relative-stability)
+- [Module 3.5 Routh and Nyquist](/syllabus/3-5-routh-nyquist)
+
+## Common Mistakes
+
+- Treating a stable Nyquist plot as "done" without checking step quality.
+- Tuning only for fast rise time and ignoring PM/GM.
+- Reading Bode magnitude only and forgetting phase.
+- Assuming PM-to-overshoot relation is exact for all higher-order plants.
+- Ignoring disturbance rejection while focusing only on command tracking.
+
+## Detailed Review
+
+Before moving on, make sure you can answer:
+
+1. What does Step tell you that Bode does not directly show?
+2. Why can a system be stable in Nyquist but still poorly damped?
+3. Which Bode quantities most influence transient quality?
+4. Why should you check all three views before final tuning?
+
+## Assignments
+
+1. Pick one transfer function from your notes and compute/estimate:
+   step response metrics, Bode PM/GM, and Nyquist stability condition.
+2. Change gain and describe how all three views shift.
+3. Propose one compensator change and predict effects in all three views before simulating.
+
+## Continue
+
+- [Frequency Response and Bode Plots](/fundamentals/frequency-response-bode)
+- [Stability and Performance](/stability)
+- [Interactive Step and Pole Sliders](/interactive/step-and-poles)
+- [Interactive Bode Lab](/interactive/bode-plot-lab)
+
+## Citations
+
+- [R1](/syllabus/references#r1)
+- [R2](/syllabus/references#r2)
+- [R3](/syllabus/references#r3)
+- [R8](/syllabus/references#r8)

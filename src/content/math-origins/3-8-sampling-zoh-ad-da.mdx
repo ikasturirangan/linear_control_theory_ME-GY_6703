@@ -1,0 +1,80 @@
+---
+title: 3.8 Math Origin - Sampling, ZOH, A/D, and D/A
+description: How sampler and hold devices produce the discrete-time plant model used in digital control.
+---
+
+# 3.8 Math Origin - Sampling, ZOH, A/D, and D/A
+
+## What question creates this math?
+
+How does continuous physics become a sampled model that can be controlled by software?
+
+## Sampling origin
+
+A/D conversion samples continuous signal at $t=kT_s$:
+
+$$
+x[k]=x(kT_s)
+$$
+
+This is not just notation; it changes what frequencies can be represented.
+
+## Why Nyquist-Shannon condition appears
+
+To avoid aliasing, sample frequency must exceed twice highest signal frequency content:
+
+$$
+f_s > 2 f_{max}
+$$
+
+This comes from spectrum replication in sampled signals.
+
+## ZOH origin
+
+D/A with zero-order hold keeps each command constant for one sample interval:
+
+$$
+u(t)=u[k], \quad kT_s \le t < (k+1)T_s
+$$
+
+So plant sees staircase input, not ideal continuous command.
+
+Equivalent hold transfer in continuous domain:
+
+$$
+H_{zoh}(s)=\frac{1-e^{-sT_s}}{s}
+$$
+
+This factor contributes phase lag and can reduce margin.
+
+## Why sampled plant model differs from continuous model
+
+Discrete plant model already includes sample-and-hold effect.
+It is not just "replace $s$ by something" blindly; exact conversion integrates dynamics over each hold interval.
+
+## Quantization origin
+
+A/D maps real-valued signal to finite levels:
+
+$$
+q[k]=x[k]+e_q[k]
+$$
+
+where $e_q$ is quantization error, often modeled as bounded or noise-like for analysis.
+
+## Assumptions
+
+- anti-alias filtering before A/D,
+- synchronized sampling/actuation clocks,
+- sufficiently small sample period relative to loop bandwidth.
+
+## Common mistakes
+
+- Ignoring ZOH phase lag in fast loops.
+- Choosing $T_s$ too large from computational convenience only.
+- Forgetting anti-aliasing and then trusting noisy sampled data.
+
+## Link back
+
+- [Syllabus 3.8](/syllabus/3-8-sampling-zoh-ad-da)
+- [Syllabus 3.10](/syllabus/3-10-continuous-to-discrete-dtss)

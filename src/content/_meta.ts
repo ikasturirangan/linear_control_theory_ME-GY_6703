@@ -8,6 +8,7 @@ const meta = {
   basics: "Absolute Basics",
   "block-diagrams": "Block Diagrams Chapter",
   fundamentals: "Fundamentals",
+  "math-origins": "Math Origins",
   interactive: "Interactive Plots",
   stability: "Stability and Performance",
   "state-space": "State-Space Methods",

@@ -1,0 +1,69 @@
+---
+title: 3.7 Math Origin - Jury, Sampled-Data, and Z-Transform
+description: Why Z-transform and Jury criterion are the discrete-time counterparts of Laplace and Routh tests.
+---
+
+# 3.7 Math Origin - Jury, Sampled-Data, and Z-Transform
+
+## What question creates this math?
+
+After sampling, what replaces Laplace-domain tools for solving dynamics and testing stability?
+
+## Why Z-transform exists
+
+Discrete sequences need a transform where time shifts become algebraic multiplication.
+For sequence $x[k]$:
+
+$$
+X(z)=\sum_{k=0}^{\infty} x[k] z^{-k}
+$$
+
+Then one-step shift maps to multiplication by $z^{-1}$, making recursions solvable as algebraic equations.
+
+## Stability geometry change
+
+Continuous-time stability: poles in left half-plane.
+Discrete-time stability: poles inside unit circle.
+
+Reason: sampled response contains terms $\lambda^k$.
+Decay requires $|\lambda|<1$.
+
+## Why Jury test appears
+
+Jury test is a coefficient-table method for checking whether all roots of a polynomial lie inside unit circle, without solving roots explicitly.
+It plays the same role in discrete time that Routh plays in continuous time.
+
+## Sampled-data origin
+
+A sampled-data loop contains:
+
+- sampler (continuous to sequence),
+- digital controller,
+- hold (sequence to piecewise-constant input),
+- continuous plant.
+
+Math appears hybrid because both $s$ and $z$ descriptions are needed.
+
+## Key bridge intuition
+
+- Laplace + Routh for continuous models,
+- Z-transform + Jury for discrete models.
+
+Same stability idea, different coordinate system.
+
+## Assumptions
+
+- linear sampled model,
+- fixed sample period,
+- no severe quantization/saturation effects in first analysis.
+
+## Common mistakes
+
+- Mixing $s$ and $z$ formulas in one step.
+- Misinterpreting unit-circle condition as "real part < 0".
+- Omitting hold dynamics when connecting digital controller to plant.
+
+## Link back
+
+- [Syllabus 3.7](/syllabus/3-7-jury-sampled-data-z-transform)
+- [Syllabus 3.5](/syllabus/3-5-routh-nyquist)

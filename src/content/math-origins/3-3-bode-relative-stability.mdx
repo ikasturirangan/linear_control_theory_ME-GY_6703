@@ -1,0 +1,86 @@
+---
+title: 3.3 Math Origin - Bode and Relative Stability
+description: Why Bode magnitude/phase equations are used and how margins are mathematically defined.
+---
+
+# 3.3 Math Origin - Bode and Relative Stability
+
+## What question creates this math?
+
+Instead of only asking stable/unstable, how much uncertainty can the loop tolerate before instability?
+
+## Why evaluate at $s=j\omega$
+
+For sinusoidal input $u(t)=A\sin(\omega t)$, LTI systems respond at same frequency with scaled amplitude and phase shift.
+That response is encoded by evaluating transfer function on imaginary axis:
+
+$$
+G(j\omega)
+$$
+
+## Why Bode magnitude uses decibels
+
+Multiplication of gains becomes addition in log scale:
+
+$$
+20\log_{10}|G_1G_2| = 20\log_{10}|G_1| + 20\log_{10}|G_2|
+$$
+
+This makes hand sketching and loop-shaping practical.
+
+## Why phase matters near crossover
+
+Closed-loop denominator is $1+L(j\omega)$ where $L=GC$.
+If $L(j\omega)$ is near $-1+j0$, denominator is near zero and response can become very large/unstable.
+
+So at frequency where $|L|=1$ (0 dB), phase proximity to $-180^\circ$ is critical.
+
+## Margin definitions from geometry
+
+Gain crossover frequency:
+
+$$
+|L(j\omega_{gc})|=1
+$$
+
+Phase margin:
+
+$$
+PM = 180^\circ + \angle L(j\omega_{gc})
+$$
+
+Phase crossover frequency:
+
+$$
+\angle L(j\omega_{pc})=-180^\circ
+$$
+
+Gain margin:
+
+$$
+GM = \frac{1}{|L(j\omega_{pc})|}
+$$
+
+All are distances from critical instability condition.
+
+## Why this links to damping and overshoot
+
+For many minimum-phase loops, larger PM usually means better damping, hence lower overshoot.
+This is an empirical/approximate bridge from frequency domain to time domain.
+
+## Assumptions and limits
+
+- LTI model around operating point,
+- margin-to-overshoot mapping is approximate,
+- non-minimum-phase zeros or delays can distort simple rules.
+
+## Common mistakes
+
+- Reading margins from closed-loop Bode instead of open-loop loop transfer.
+- Ignoring phase unwrap/sign convention.
+- Treating PM thresholds as universal for all systems.
+
+## Link back
+
+- [Syllabus 3.3](/syllabus/3-3-bode-relative-stability)
+- [Frequency Response and Bode Plots](/fundamentals/frequency-response-bode)

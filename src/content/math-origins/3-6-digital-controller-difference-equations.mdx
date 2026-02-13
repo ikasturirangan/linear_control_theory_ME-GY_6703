@@ -1,0 +1,74 @@
+---
+title: 3.6 Math Origin - Digital Controllers and Difference Equations
+description: How discrete-time controller equations come from sampling and shift-operator algebra.
+---
+
+# 3.6 Math Origin - Digital Controllers and Difference Equations
+
+## What question creates this math?
+
+How do we rewrite continuous control laws so a processor can compute control at sampled times?
+
+## Why difference equations appear
+
+A computer evaluates signals at $kT_s$ instead of all real time $t$.
+So dynamics become relations between samples:
+
+$$
+y[k], y[k-1], y[k-2], \ldots
+$$
+
+instead of derivatives.
+
+## Generic digital controller form
+
+Transfer function in $z$-domain:
+
+$$
+C(z)=\frac{U(z)}{E(z)}=\frac{b_0+b_1 z^{-1}+\cdots+b_m z^{-m}}{1+a_1 z^{-1}+\cdots+a_n z^{-n}}
+$$
+
+Rearranging gives time-domain recursion:
+
+$$
+u[k] = -\sum_{i=1}^n a_i u[k-i] + \sum_{j=0}^m b_j e[k-j]
+$$
+
+This is the implementable code form.
+
+## Where the shift terms come from
+
+$z^{-1}$ corresponds to one sample delay.
+So multiplication by $z^{-1}$ in algebra means "use previous sample" in code.
+
+## Why realizability constraints matter
+
+Controller must be causal:
+
+- current output $u[k]$ can depend on current and past errors,
+- not on future errors.
+
+This imposes numerator/denominator order constraints in implementation.
+
+## Difference-equation solution origin
+
+Homogeneous part gives natural mode behavior (discrete poles).
+Particular part gives forced response to input sequence.
+Total response is sum of both, exactly like ODE solution structure.
+
+## Assumptions
+
+- fixed sampling period,
+- quantization/noise effects initially neglected,
+- timing jitter negligible in first-pass model.
+
+## Common mistakes
+
+- Wrong sign when moving denominator terms to recursion form.
+- Ignoring one-sample computation/actuation delay.
+- Using continuous gains directly without discrete conversion.
+
+## Link back
+
+- [Syllabus 3.6](/syllabus/3-6-digital-controller-difference-equations)
+- [Syllabus 3.10](/syllabus/3-10-continuous-to-discrete-dtss)

@@ -1,0 +1,82 @@
+---
+title: 3.1 Math Origin - Modeling, ODE, and Transfer Functions
+description: How physical laws become ODEs and then transfer functions for command and disturbance analysis.
+---
+
+# 3.1 Math Origin - Modeling, ODE, and Transfer Functions
+
+## What question creates this math?
+
+Given a real system, how do we write equations that predict output from input?
+
+## Where the equation starts
+
+All modeling starts from conservation laws:
+
+- Newton/Euler for mechanics,
+- Kirchhoff laws for circuits,
+- mass/energy balance for fluids and thermal systems.
+
+These laws naturally produce differential equations because stored energy changes over time.
+
+## Derivation path
+
+1. Define state variable(s) and measured output.
+2. Apply balance law to write time-domain ODE.
+3. Choose input $u(t)$ and output $y(t)$ explicitly.
+4. Apply Laplace transform with zero initial conditions.
+5. Rearrange to get $G(s)=Y(s)/U(s)$.
+
+## Generic ODE form
+
+$$
+a_n y^{(n)} + a_{n-1} y^{(n-1)} + \cdots + a_0 y = b_m u^{(m)} + \cdots + b_0 u
+$$
+
+Laplace (zero initial conditions):
+
+$$
+(a_n s^n + \cdots + a_0)Y(s) = (b_m s^m + \cdots + b_0)U(s)
+$$
+
+So:
+
+$$
+G(s)=\frac{Y(s)}{U(s)} = \frac{b_m s^m + \cdots + b_0}{a_n s^n + \cdots + a_0}
+$$
+
+## Why command and disturbance become separate transfer functions
+
+If both reference command and disturbance affect output, linearity lets us separate paths:
+
+$$
+Y(s)=T_r(s)R(s)+T_d(s)D(s)
+$$
+
+This is superposition: each input has its own transfer path to output.
+
+## Assumptions behind this math
+
+- model is linear in operating region,
+- parameters are time-invariant,
+- initial conditions are set to zero for TF definition,
+- system is causal and physically realizable.
+
+## How to sanity-check your derivation
+
+- Degree of denominator should match dynamic order.
+- Units should match on both sides of ODE.
+- Poles should match expected physical speed/damping trend.
+- $G(0)$ should match steady gain intuition.
+
+## Common mistakes
+
+- Forgetting to define output as sensor-measured quantity.
+- Mixing disturbance and command into one unlabeled input.
+- Dropping initial-condition terms without stating assumption.
+- Algebra sign errors when moving terms before taking ratio.
+
+## Link back
+
+- [Syllabus 3.1](/syllabus/3-1-modeling-ode-transfer-functions)
+- [Transfer Functions for Absolute Beginners](/fundamentals/transfer-functions-beginner)
